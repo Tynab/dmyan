@@ -14,7 +14,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 
-func _process(delta: float):
+func _process(_delta: float):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
 		
