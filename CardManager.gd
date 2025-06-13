@@ -8,13 +8,15 @@ const COLLISION_MASK_CARD_SLOT = 2
 var screen_size
 var card_being_dragged
 var is_hovering_on_card
+var player_hand_reference
 
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	player_hand_reference = $"../PlayerHand"
 
 
-func _process(delta: float):
+func _process(_delta: float):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
 		
@@ -44,9 +46,12 @@ func finish_drag():
 	var card_slot_found = raycast_check_for_card_slot()
 	
 	if card_slot_found and not card_slot_found.card_in_slot:
+		player_hand_reference.remove_card_from_hand(card_being_dragged)
 		card_being_dragged.position = card_slot_found.position
 		card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 		card_slot_found.card_in_slot = true
+	else:
+		player_hand_reference.add_card_to_hand(card_being_dragged)
 	
 	card_being_dragged = null
 
@@ -95,7 +100,7 @@ func raycast_check_for_card_slot():
 	var result = space_state.intersect_point(parameters)
 	
 	if result.size() > 0:
-		return result[0].collision.get_parent()
+		return result[0].collider.get_parent()
 	
 	return null
 
