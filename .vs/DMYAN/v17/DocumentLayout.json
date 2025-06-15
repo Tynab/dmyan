@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\dmyan\\",
+  "WorkspaceRootPath": "D:\\Game Master\\dmyan\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C56996ED-B50C-41AA-BA62-DF5813560EC2}|DMYAN.csproj|d:\\dmyan\\scripts\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C56996ED-B50C-41AA-BA62-DF5813560EC2}|DMYAN.csproj|d:\\game master\\dmyan\\scripts\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C56996ED-B50C-41AA-BA62-DF5813560EC2}|DMYAN.csproj|solutionrelative:scripts\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C56996ED-B50C-41AA-BA62-DF5813560EC2}|DMYAN.csproj|d:\\dmyan\\scripts\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C56996ED-B50C-41AA-BA62-DF5813560EC2}|DMYAN.csproj|d:\\game master\\dmyan\\scripts\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C56996ED-B50C-41AA-BA62-DF5813560EC2}|DMYAN.csproj|solutionrelative:scripts\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -24,24 +24,23 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Card.cs",
-              "DocumentMoniker": "D:\\dmyan\\Scripts\\Card.cs",
+              "DocumentMoniker": "D:\\Game Master\\dmyan\\Scripts\\Card.cs",
               "RelativeDocumentMoniker": "Scripts\\Card.cs",
-              "ToolTip": "D:\\dmyan\\Scripts\\Card.cs",
+              "ToolTip": "D:\\Game Master\\dmyan\\Scripts\\Card.cs",
               "RelativeToolTip": "Scripts\\Card.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-15T16:07:46.623Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-15T16:07:46.623Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "CardManager.cs",
-              "DocumentMoniker": "D:\\dmyan\\Scripts\\CardManager.cs",
+              "DocumentMoniker": "D:\\Game Master\\dmyan\\Scripts\\CardManager.cs",
               "RelativeDocumentMoniker": "Scripts\\CardManager.cs",
-              "ToolTip": "D:\\dmyan\\Scripts\\CardManager.cs",
+              "ToolTip": "D:\\Game Master\\dmyan\\Scripts\\CardManager.cs",
               "RelativeToolTip": "Scripts\\CardManager.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAQwI8AAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAADcAAAAAAAAAAAAcwFAAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-15T15:52:23.654Z",
               "EditorCaption": ""
