@@ -11,15 +11,14 @@ config_version=5
 [application]
 
 config/name="DMYAN"
-run/main_scene="uid://dgsvba6377yar"
-config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://Assets/icon.svg"
+run/main_scene="uid://csnqqsbyxsnpl"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
-window/vsync/vsync_mode=0
+window/size/viewport_width=800
+window/size/viewport_height=800
 
 [dotnet]
 
