@@ -1,22 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnougwylhdvwa"]
+[gd_scene load_steps=3 format=3 uid="uid://cgjg147kx600m"]
 
-[ext_resource type="Texture2D" uid="uid://bxq4lxl7htx03" path="res://Assets/CardSlot.png" id="1_5tl20"]
-[ext_resource type="Script" uid="uid://c16ne7xfj2nur" path="res://Script/CardSlot.gd" id="1_mt86f"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mt86f"]
-size = Vector2(200, 290)
+[ext_resource type="PackedScene" uid="uid://c33dj1v8clak5" path="res://Scenes/CardSlotH.tscn" id="1_r3qn0"]
+[ext_resource type="PackedScene" uid="uid://dbmgj4ehfak6r" path="res://Scenes/CardSlotV.tscn" id="2_tnxl1"]
 
 [node name="CardSlot" type="Node2D"]
-script = ExtResource("1_mt86f")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_5tl20")
+[node name="CardSlotH" parent="." instance=ExtResource("1_r3qn0")]
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1.90735e-06, 6.67572e-06)
-shape = SubResource("RectangleShape2D_mt86f")
+[node name="CardSlotV" parent="." instance=ExtResource("2_tnxl1")]

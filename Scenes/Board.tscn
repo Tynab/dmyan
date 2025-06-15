@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dirn6dli4cupb"]
+
+[ext_resource type="Texture2D" uid="uid://wfiaqqsntoh3" path="res://Assets/board.jpg" id="1_ml4tp"]
+[ext_resource type="PackedScene" uid="uid://cxkj1fnr64poy" path="res://Scenes/Player.tscn" id="2_igt3p"]
+
+[node name="Board" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_ml4tp")
+
+[node name="Player" parent="." instance=ExtResource("2_igt3p")]
+
+[node name="Opponent" parent="." instance=ExtResource("2_igt3p")]
+rotation = 3.14159
