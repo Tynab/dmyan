@@ -20,26 +20,8 @@ public partial class CardManager : Node2D
 	{
 		_screenSize = GetViewportRect().Size;
 		_playerHandReference = GetNode<PlayerHand>("../PlayerHand");
-	}
+		GetNode<InputManager>("../InputManager").LeftMouseButtonReleased += OnLeftMouseButtonReleased;
 
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventMouseButton mouseEvent && mouseEvent.ButtonIndex is Left)
-		{
-			if (mouseEvent.Pressed)
-			{
-				var card = GetCardAtCursor();
-
-				if (card is not null)
-				{
-					StartCardDrag(card);
-				}
-			}
-			else if (_selectedCard is not null)
-			{
-				StopCardDrag();
-			}
-		}
 	}
 
 	public override void _Process(double delta)
@@ -50,6 +32,33 @@ public partial class CardManager : Node2D
 
 			_selectedCard.Position = new Vector2(Clamp(mousePosition.X, 0, _screenSize.X), Clamp(mousePosition.Y, 0, _screenSize.Y));
 		}
+	}
+
+	public void StartCardDrag(Card card)
+	{
+		_selectedCard = card;
+		card.Scale = Vector2.One;
+	}
+
+	public void StopCardDrag()
+	{
+		_selectedCard.Scale = new Vector2(1.05f, 1.05f);
+
+		var cardSlotV = GetCardSlotVAtCursor();
+
+		if (cardSlotV is not null && !cardSlotV.CardInSlot)
+		{
+			_playerHandReference.RemoveCard(_selectedCard);
+			_selectedCard.Position = cardSlotV.GlobalPosition;
+			_selectedCard.GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
+			cardSlotV.CardInSlot = true;
+		}
+		else
+		{
+			_playerHandReference.AddCard(_selectedCard);
+		}
+
+		_selectedCard = null;
 	}
 
 	public void ConnectCardSignals(Card card)
@@ -83,6 +92,29 @@ public partial class CardManager : Node2D
 			{
 				_isHoveringCard = false;
 			}
+		}
+	}
+
+	private void OnLeftMouseButtonPressed(InputManager inputManager)
+	{
+		var card = GetCardAtCursor();
+		if (card is not null && card != _selectedCard)
+		{
+			if (_selectedCard is not null)
+			{
+				StopCardDrag();
+			}
+			StartCardDrag(card);
+			ConnectCardSignals(card);
+			HighlightCard(card, true);
+		}
+	}
+
+	private void OnLeftMouseButtonReleased(InputManager inputManager)
+	{
+		if(_selectedCard is not null)
+		{
+			StopCardDrag();
 		}
 	}
 
@@ -125,31 +157,4 @@ public partial class CardManager : Node2D
 	}
 
 	private static Card GetTopmostCard(Array<Dictionary> cards) => cards.Select(static c => c["collider"].As<Area2D>().GetParent<Card>()).OrderByDescending(static c => c.ZIndex).FirstOrDefault();
-
-	private void StartCardDrag(Card card)
-	{
-		_selectedCard = card;
-		card.Scale = Vector2.One;
-	}
-
-	private void StopCardDrag()
-	{
-		_selectedCard.Scale = new Vector2(1.05f, 1.05f);
-
-		var cardSlotV = GetCardSlotVAtCursor();
-
-		if (cardSlotV is not null && !cardSlotV.CardInSlot)
-		{
-			_playerHandReference.RemoveCard(_selectedCard);
-			_selectedCard.Position = cardSlotV.GlobalPosition;
-			_selectedCard.GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
-			cardSlotV.CardInSlot = true;
-		}
-		else
-		{
-			_playerHandReference.AddCard(_selectedCard);
-		}
-
-		_selectedCard = null;
-	}
 }
