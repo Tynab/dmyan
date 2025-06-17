@@ -1,16 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=7 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="PackedScene" uid="uid://dirn6dli4cupb" path="res://Scenes/Board.tscn" id="1_uu6xs"]
 [ext_resource type="Script" uid="uid://cfm8rjca8w0hc" path="res://Scripts/PlayerHand.cs" id="3_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://chxh50ak8jy4g" path="res://Scenes/Deck.tscn" id="3_fos0i"]
 [ext_resource type="Script" uid="uid://cnjfsuiupqnbv" path="res://Scripts/CardManager.cs" id="3_r0du0"]
+[ext_resource type="Script" uid="uid://cyms72v2d0lxy" path="res://Scripts/Deck.cs" id="4_3dxm6"]
+[ext_resource type="Script" uid="uid://brdj1t2tfd046" path="res://Scripts/InputManager.cs" id="6_lgr22"]
 
 [node name="Main" type="Node2D"]
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("6_lgr22")
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("3_r0du0")
 
 [node name="Board" parent="." instance=ExtResource("1_uu6xs")]
 position = Vector2(380, 380)
 
-[node name="CardManager" type="Node2D" parent="."]
-script = ExtResource("3_r0du0")
+[node name="Deck" parent="." instance=ExtResource("3_fos0i")]
+position = Vector2(57, 666)
+script = ExtResource("4_3dxm6")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("3_cm0pq")

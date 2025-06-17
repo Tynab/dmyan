@@ -8,26 +8,11 @@ public partial class PlayerHand : Node2D
 	private const int HAND_SIZE = 5;
 	private const int CARD_W = 80;
 	private const int HAND_Y = 820;
-	private const string CARD_SCENE_PATH = "res://Scenes/Card.tscn";
 
 	private readonly List<Card> _cardsInHand = new(HAND_SIZE);
 	private float _screenCenterX;
 
-	public override void _Ready()
-	{
-		_screenCenterX = GetViewportRect().Size.X / 2;
-
-		var cardScene = GD.Load<PackedScene>(CARD_SCENE_PATH);
-
-		for (var i = 0; i < HAND_SIZE; i++)
-		{
-			var card = cardScene.Instantiate<Card>();
-
-			GetNode<CardManager>("../CardManager").AddChild(card);
-			card.Name = "Card";
-			AddCard(card);
-		}
-	}
+	public override void _Ready() => _screenCenterX = GetViewportRect().Size.X / 2;
 
 	public void AddCard(Card card)
 	{
