@@ -1,7 +1,6 @@
 using Godot;
 using Godot.Collections;
 using System.Linq;
-using static Godot.MouseButton;
 using static System.Math;
 
 namespace DMYAN.Scripts;
@@ -10,6 +9,7 @@ public partial class CardManager : Node2D
 {
 	private const int CARD_COLLISION_MASK = 1;
 	private const int CARD_SLOT_V_COLLISION_MASK = 2;
+	private const double DEFAULT_CARD_ANIMATION_SPEED = 0.2;
 
 	private Vector2 _screenSize;
 	private Card _selectedCard;
@@ -34,14 +34,32 @@ public partial class CardManager : Node2D
 		}
 	}
 
+	public Card GetCardAtCursor()
+	{
+		var results = GetWorld2D().DirectSpaceState.IntersectPoint(new PhysicsPointQueryParameters2D
+		{
+			Position = GetGlobalMousePosition(),
+			CollideWithAreas = true,
+			CollisionMask = CARD_COLLISION_MASK
+		});
+
+		return results.Count > 0 ? GetTopmostCard(results) : null;
+	}
+
 	public void StartCardDrag(Card card)
 	{
 		_selectedCard = card;
 		card.Scale = Vector2.One;
+		card.ZIndex = 100;
 	}
 
 	public void StopCardDrag()
 	{
+		if (_selectedCard is null)
+		{
+			return;
+		}
+
 		_selectedCard.Scale = new Vector2(1.05f, 1.05f);
 
 		var cardSlotV = GetCardSlotVAtCursor();
@@ -52,10 +70,11 @@ public partial class CardManager : Node2D
 			_selectedCard.Position = cardSlotV.GlobalPosition;
 			_selectedCard.GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
 			cardSlotV.CardInSlot = true;
+			_selectedCard.ZIndex = 0;
 		}
 		else
 		{
-			_playerHandReference.AddCard(_selectedCard);
+			_playerHandReference.AddCard(_selectedCard, DEFAULT_CARD_ANIMATION_SPEED);
 		}
 
 		_selectedCard = null;
@@ -95,24 +114,9 @@ public partial class CardManager : Node2D
 		}
 	}
 
-	private void OnLeftMouseButtonPressed(InputManager inputManager)
-	{
-		var card = GetCardAtCursor();
-		if (card is not null && card != _selectedCard)
-		{
-			if (_selectedCard is not null)
-			{
-				StopCardDrag();
-			}
-			StartCardDrag(card);
-			ConnectCardSignals(card);
-			HighlightCard(card, true);
-		}
-	}
-
 	private void OnLeftMouseButtonReleased(InputManager inputManager)
 	{
-		if(_selectedCard is not null)
+		if (_selectedCard is not null)
 		{
 			StopCardDrag();
 		}
@@ -134,26 +138,14 @@ public partial class CardManager : Node2D
 
 	private CardSlotV GetCardSlotVAtCursor()
 	{
-		var results = GetWorld2D().DirectSpaceState.IntersectPoint(new PhysicsPointQueryParameters2D
+		var result = GetWorld2D().DirectSpaceState.IntersectPoint(new PhysicsPointQueryParameters2D
 		{
 			Position = GetGlobalMousePosition(),
 			CollideWithAreas = true,
 			CollisionMask = CARD_SLOT_V_COLLISION_MASK
 		});
 
-		return results.Count > 0 ? results.Select(static c => c["collider"].As<Area2D>().GetParent<CardSlotV>()).FirstOrDefault() : null;
-	}
-
-	private Card GetCardAtCursor()
-	{
-		var results = GetWorld2D().DirectSpaceState.IntersectPoint(new PhysicsPointQueryParameters2D
-		{
-			Position = GetGlobalMousePosition(),
-			CollideWithAreas = true,
-			CollisionMask = CARD_COLLISION_MASK
-		});
-
-		return results.Count > 0 ? GetTopmostCard(results) : null;
+		return result.Count > 0 ? result[0]["collider"].As<Area2D>().GetParent<CardSlotV>() : null;
 	}
 
 	private static Card GetTopmostCard(Array<Dictionary> cards) => cards.Select(static c => c["collider"].As<Area2D>().GetParent<Card>()).OrderByDescending(static c => c.ZIndex).FirstOrDefault();
