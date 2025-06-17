@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using static Godot.MouseButton;
 
 namespace DMYAN.Scripts;
@@ -46,23 +45,23 @@ public partial class InputManager : Node2D
 		{
 			Position = GetGlobalMousePosition(),
 			CollideWithAreas = true,
-			CollisionMask = CARD_COLLISION_MASK
+			CollisionMask = CARD_COLLISION_MASK | DECK_COLLISION_MASK
 		});
 
 		if (results.Count > 0)
 		{
-			var resultCollisionMask = results[0]["collider"].As<Area2D>().CollisionMask;
+			var collider = results[0]["collider"].As<Area2D>();
 
-			if (resultCollisionMask is CARD_COLLISION_MASK)
+			if ((collider.CollisionLayer & CARD_COLLISION_MASK) is not 0)
 			{
-				var card = results[0]["collider"].As<Area2D>().GetParent<Card>();
+				var card = _cardManagerReference.GetCardAtCursor();
 
 				if (card is not null)
 				{
 					_cardManagerReference.StartCardDrag(card);
 				}
 			}
-			else if(resultCollisionMask is DECK_COLLISION_MASK)
+			else if ((collider.CollisionLayer & DECK_COLLISION_MASK) is not 0)
 			{
 				_deckReference.DrawCard();
 			}
