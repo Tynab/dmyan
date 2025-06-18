@@ -5,7 +5,13 @@ namespace DMYAN.Scripts;
 
 public static class Extension
 {
+    #region Definitions
+
     private static readonly Random _random = new();
+
+    #endregion
+
+    #region Methods
 
     public static void Shuffle<T>(this IList<T> list)
     {
@@ -20,4 +26,6 @@ public static class Extension
             (list[n], list[k]) = (list[k], list[n]);
         }
     }
+
+    #endregion
 }

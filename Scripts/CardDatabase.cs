@@ -4,7 +4,7 @@ namespace DMYAN.Scripts;
 
 public partial class CardDatabase
 {
-    public Dictionary<string, (int ATK, int DEF)> cards = new()
+    public readonly Dictionary<string, (int Atk, int Def)> CARDS = new()
     {
         { "02118022", (1500, 900) },
         { "05901497", (350, 300) },
