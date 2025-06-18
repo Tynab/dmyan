@@ -10,6 +10,7 @@ public partial class Deck : Node2D
 
     private readonly List<string> _cardsInDeck = ["02118022", "05901497", "07805359", "08471389"];
     private CardDatabase _cardDatabaseReference;
+    private RichTextLabel _deckCountLabel;
 
     #endregion
 
@@ -17,8 +18,9 @@ public partial class Deck : Node2D
 
     public override void _Ready()
     {
+        _deckCountLabel = GetNode<RichTextLabel>("RichTextLabel");
         _cardsInDeck.Shuffle();
-        GetNode<RichTextLabel>("RichTextLabel").Text = _cardsInDeck.Count.ToString();
+        _deckCountLabel.Text = _cardsInDeck.Count.ToString();
         _cardDatabaseReference = new CardDatabase();
     }
 
@@ -36,13 +38,13 @@ public partial class Deck : Node2D
         var cardId = _cardsInDeck[0];
 
         _ = _cardsInDeck.Remove(cardId);
-        GetNode<RichTextLabel>("RichTextLabel").Text = _cardsInDeck.Count.ToString();
+        _deckCountLabel.Text = _cardsInDeck.Count.ToString();
 
         if (_cardsInDeck.Count is 0)
         {
-            GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
             GetNode<Sprite2D>("Sprite2D").Visible = false;
-            GetNode<RichTextLabel>("RichTextLabel").Visible = false;
+            GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
+            _deckCountLabel.Visible = false;
         }
 
         var card = GD.Load<PackedScene>(CARD_SCENE_PATH).Instantiate<Card>();
