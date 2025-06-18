@@ -4,5 +4,9 @@ namespace DMYAN.Scripts;
 
 public partial class CardSlotV : Node2D
 {
-	public bool CardInSlot { get; set; } = false;
+    #region Properties
+
+    public bool CardInSlot { get; set; } = false;
+
+    #endregion
 }

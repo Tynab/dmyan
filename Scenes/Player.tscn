@@ -7,10 +7,10 @@
 [node name="Player" type="Node2D"]
 
 [node name="MainZone" parent="." instance=ExtResource("1_gntrk")]
-position = Vector2(0, 188)
+position = Vector2(0, 186)
 
 [node name="STPZone" parent="." instance=ExtResource("1_gntrk")]
-position = Vector2(0, 302)
+position = Vector2(0, 305)
 
 [node name="DeckZone" parent="." instance=ExtResource("2_dewec")]
 position = Vector2(-323, 286)

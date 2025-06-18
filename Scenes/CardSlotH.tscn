@@ -1,18 +1,19 @@
 [gd_scene load_steps=2 format=3 uid="uid://c33dj1v8clak5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
-size = Vector2(76, 110)
+size = Vector2(72.0004, 104)
 
 [node name="CardSlotH" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.5708
-scale = Vector2(0.19, 0.19)
+scale = Vector2(0.18, 0.18)
 
 [node name="Area2D" type="Area2D" parent="."]
 rotation = -1.5708
-collision_layer = 4
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.07884e-13, -2.98023e-08)
 shape = SubResource("RectangleShape2D_r0du0")
