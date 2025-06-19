@@ -2,7 +2,7 @@ using Godot;
 
 namespace DMYAN.Scripts;
 
-public partial class CardSlotV : Node2D
+public partial class CardSlotH : Node2D
 {
     #region Properties
 
