@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using static DMYAN.Scripts.Constant;
+using static Godot.Colors;
 
 namespace DMYAN.Scripts;
 
@@ -10,6 +11,7 @@ public partial class Card : Node2D
 
 	private RichTextLabel _atkLabel;
 	private RichTextLabel _defLabel;
+	private RichTextLabel _slashLabel;
 
 	#endregion
 
@@ -50,47 +52,64 @@ public partial class Card : Node2D
 		_ = GetParent().Call("ConnectCardSignals", this);
 		_atkLabel = GetNode<RichTextLabel>("Atk");
 		_defLabel = GetNode<RichTextLabel>("Def");
+		_slashLabel = GetNode<RichTextLabel>("_");
 		SetStatsVisibility(false);
 	}
 
-    #endregion
+	#endregion
 
-    #region Public Methods
+	#region Public Methods
 
-    public void InitializeData(string cardId, int atk, int def)
-    {
-        CardId = cardId;
-        Atk = atk;
-        Def = def;
+	public void InitializeData(string cardId, int atk, int def)
+	{
+		CardId = cardId;
+		Atk = atk;
+		Def = def;
 
-        if (_atkLabel is not null)
-        {
-            _atkLabel.Text = atk.ToString();
-        }
+		if (_atkLabel is not null)
+		{
+			_atkLabel.Text = atk.ToString();
+		}
 
-        if (_defLabel is not null)
-        {
-            _defLabel.Text = def.ToString();
-        }
+		if (_defLabel is not null)
+		{
+			_defLabel.Text = def.ToString();
+		}
 
-        var sprite = GetNode<Sprite2D>("CardImage");
+		var sprite = GetNode<Sprite2D>("CardImage");
 
-        try
-        {
-            sprite.Texture = GD.Load<Texture2D>($"res://Assets/{cardId}.jpg");
-        }
-        catch (Exception)
-        {
-            sprite.Texture = GD.Load<Texture2D>(CARD_BACK_ASSET_PATH);
-        }
-    }
+		try
+		{
+			sprite.Texture = GD.Load<Texture2D>($"res://Assets/{cardId}.jpg");
+		}
+		catch (Exception)
+		{
+			sprite.Texture = GD.Load<Texture2D>(CARD_BACK_ASSET_PATH);
+		}
+	}
 
-    public void SetStatsVisibility(bool visible)
+	public void SetStatsVisibility(bool visible)
 	{
 		_atkLabel.Visible = visible;
 		_defLabel.Visible = visible;
-        GetNode<RichTextLabel>("_").Visible = visible;
-    }
+		_slashLabel.Visible = visible;
+	}
+
+	public void SetStatsColorForPosition(bool isAttackPosition)
+	{
+		_slashLabel.Modulate = Gray;
+
+		if (isAttackPosition)
+		{
+			_atkLabel.Modulate = White;
+			_defLabel.Modulate = Gray;
+		}
+		else
+		{
+			_atkLabel.Modulate = Gray;
+			_defLabel.Modulate = White;
+		}
+	}
 
 	#endregion
 }

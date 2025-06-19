@@ -12,9 +12,6 @@ position = Vector2(0, 186)
 [node name="STPZone" parent="." instance=ExtResource("1_gntrk")]
 position = Vector2(0, 305)
 
-[node name="DeckZone" parent="." instance=ExtResource("2_dewec")]
-position = Vector2(-323, 286)
-
 [node name="Graveyard" parent="." instance=ExtResource("2_dewec")]
 position = Vector2(-323, 163)
 

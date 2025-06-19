@@ -116,15 +116,24 @@ public partial class CardManager : Node2D
         _selectedCard.Scale = new Vector2(1.05f, 1.05f);
 
         var cardSlotV = GetCardSlotVAtCursor();
+        var cardSlotH = GetCardSlotHAtCursor();
 
+        //if (cardSlotV is not null && !cardSlotV.CardInSlot)
+        //{
+        //    _playerHandReference.RemoveCard(_selectedCard);
+        //    _selectedCard.Position = cardSlotV.GlobalPosition;
+        //    _selectedCard.GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
+        //    cardSlotV.CardInSlot = true;
+        //    _selectedCard.ZIndex = 0;
+        //    _selectedCard.SetStatsVisibility(true);
+        //}
         if (cardSlotV is not null && !cardSlotV.CardInSlot)
         {
-            _playerHandReference.RemoveCard(_selectedCard);
-            _selectedCard.Position = cardSlotV.GlobalPosition;
-            _selectedCard.GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
-            cardSlotV.CardInSlot = true;
-            _selectedCard.ZIndex = 0;
-            _selectedCard.SetStatsVisibility(true);
+            PlaceCardInSlot(_selectedCard, cardSlotV, cardSlotV.GlobalPosition, true);
+        }
+        else if (cardSlotH is not null && !cardSlotH.CardInSlot)
+        {
+            PlaceCardInSlot(_selectedCard, cardSlotH, cardSlotH.GlobalPosition, false);
         }
         else
         {
@@ -137,6 +146,26 @@ public partial class CardManager : Node2D
     #endregion
 
     #region Private Methods
+
+    private void PlaceCardInSlot(Card card, Node2D slot, Vector2 position, bool isAttackPosition)
+    {
+        _playerHandReference.RemoveCard(card);
+        card.Position = position;
+        card.GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
+        card.ZIndex = 0;
+
+        if (slot is CardSlotV slotV)
+        {
+            slotV.CardInSlot = true;
+        }
+        else if (slot is CardSlotH slotH)
+        {
+            slotH.CardInSlot = true;
+        }
+
+        card.SetStatsVisibility(true);
+        card.SetStatsColorForPosition(isAttackPosition);
+    }
 
     private static void HighlightCard(Card card, bool hovered)
     {
@@ -162,6 +191,17 @@ public partial class CardManager : Node2D
         });
 
         return result.Count > 0 ? result[0]["collider"].As<Area2D>().GetParent<CardSlotV>() : null;
+    }
+
+    private CardSlotH GetCardSlotHAtCursor()
+    {
+        var result = GetWorld2D().DirectSpaceState.IntersectPoint(new PhysicsPointQueryParameters2D
+        {
+            Position = GetGlobalMousePosition(),
+            CollideWithAreas = true,
+            CollisionMask = CARD_SLOT_H_COLLISION_MASK
+        });
+        return result.Count > 0 ? result[0]["collider"].As<Area2D>().GetParent<CardSlotH>() : null;
     }
 
     private static Card GetTopmostCard(Array<Dictionary> cards) => cards.Select(static c => c["collider"].As<Area2D>().GetParent<Card>()).OrderByDescending(static c => c.ZIndex).FirstOrDefault();

@@ -4,18 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://cyj4b0vfvhhuh" path="res://Assets/card_back.jpg" id="2_0g7pp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
-size = Vector2(76, 110)
+size = Vector2(72, 104)
 
 [node name="Deck" type="Node2D"]
 script = ExtResource("1_0g7pp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.19, 0.19)
+scale = Vector2(0.18, 0.18)
 texture = ExtResource("2_0g7pp")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_r0du0")
