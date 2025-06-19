@@ -1,15 +1,91 @@
-[gd_scene load_steps=3 format=3 uid="uid://dirn6dli4cupb"]
+[gd_scene load_steps=5 format=3 uid="uid://dirn6dli4cupb"]
 
 [ext_resource type="Texture2D" uid="uid://wfiaqqsntoh3" path="res://Assets/board.jpg" id="1_ml4tp"]
 [ext_resource type="PackedScene" uid="uid://cxkj1fnr64poy" path="res://Scenes/Player.tscn" id="2_igt3p"]
+[ext_resource type="PackedScene" uid="uid://dbmgj4ehfak6r" path="res://Scenes/CardSlotV.tscn" id="2_pc0oo"]
+[ext_resource type="Script" uid="uid://gr8a0jncxain" path="res://Scripts/STPCardSlotV.cs" id="3_ekcd8"]
 
 [node name="Board" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [134.0, 253.0, -134.0, -253.0]
+metadata/_edit_vertical_guides_ = [-257.0, -147.0, -36.0, 75.0, 185.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_ml4tp")
 
+[node name="CardSlotV1" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(-221, 186)
+
+[node name="CardSlotV2" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(-111, 186)
+
+[node name="CardSlotV3" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(0, 186)
+
+[node name="CardSlotV4" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(111, 186)
+
+[node name="CardSlotV5" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(221, 186)
+
+[node name="CardSlotV6" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(-221, 305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV7" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(-111, 305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV8" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(0, 305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV9" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(111, 305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV10" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(221, 305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV11" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(-221, -305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV12" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(-111, -305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV13" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(0, -305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV14" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(111, -305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV15" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(221, -305)
+script = ExtResource("3_ekcd8")
+
+[node name="CardSlotV16" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(-221, -186)
+
+[node name="CardSlotV17" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(-111, -186)
+
+[node name="CardSlotV18" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(0, -186)
+
+[node name="CardSlotV19" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(111, -186)
+
+[node name="CardSlotV20" parent="." instance=ExtResource("2_pc0oo")]
+position = Vector2(221, -186)
+
 [node name="Player" parent="." instance=ExtResource("2_igt3p")]
+visible = false
 
 [node name="Opponent" parent="." instance=ExtResource("2_igt3p")]
+visible = false
 rotation = 3.14159

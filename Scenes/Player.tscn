@@ -14,12 +14,16 @@ position = Vector2(0, 305)
 
 [node name="Graveyard" parent="." instance=ExtResource("2_dewec")]
 position = Vector2(-323, 163)
+script = null
 
 [node name="ExtraZone" parent="." instance=ExtResource("2_dewec")]
 position = Vector2(323, 286)
+script = null
 
 [node name="FieldZone" parent="." instance=ExtResource("2_dewec")]
 position = Vector2(323, 163)
+script = null
 
 [node name="BanishedZone" parent="." instance=ExtResource("3_5ixxa")]
 position = Vector2(-306, 60)
+script = null

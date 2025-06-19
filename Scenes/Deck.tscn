@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://chxh50ak8jy4g"]
 
-[ext_resource type="Script" uid="uid://eodva8bap8k8" path="res://Scripts/Card.cs" id="1_0g7pp"]
+[ext_resource type="Script" uid="uid://cyms72v2d0lxy" path="res://Scripts/Deck.cs" id="1_0g7pp"]
 [ext_resource type="Texture2D" uid="uid://cyj4b0vfvhhuh" path="res://Assets/card_back.jpg" id="2_0g7pp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
@@ -21,10 +21,10 @@ collision_mask = 8
 shape = SubResource("RectangleShape2D_r0du0")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -38.0
-offset_top = -55.0
-offset_right = 38.0
-offset_bottom = 55.0
+offset_left = -36.0
+offset_top = -52.0
+offset_right = 36.0
+offset_bottom = 52.0
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1

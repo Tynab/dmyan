@@ -15,6 +15,9 @@ public static class Constant
 
     public const int CARD_W = 80;
     public const int HAND_Y = 820;
+    public const int STARTING_HAND_SIZE = 5;
+    public const float CARD_DEFAULT_SCALE = 1;
+    public const float CARD_HOVERED_SCALE = 1.05f;
 
     #endregion
 

@@ -14,6 +14,7 @@ public partial class CardManager : Node2D
     private Card _selectedCard;
     private bool _isHoveringCard;
     private PlayerHand _playerHandReference;
+    private bool _playedMonsterCardThisTurn = false;
 
     #endregion
 
@@ -36,7 +37,7 @@ public partial class CardManager : Node2D
 
     private void OnCardUnhovered(Card card)
     {
-        if (_selectedCard is null)
+        if (card.CardSlotCardIsIn is null && _selectedCard is null)
         {
             HighlightCard(card, false);
 
@@ -113,33 +114,31 @@ public partial class CardManager : Node2D
             return;
         }
 
-        _selectedCard.Scale = new Vector2(1.05f, 1.05f);
+        _selectedCard.Scale = new Vector2(CARD_HOVERED_SCALE, CARD_HOVERED_SCALE);
 
         var cardSlotV = GetCardSlotVAtCursor();
-        var cardSlotH = GetCardSlotHAtCursor();
+        //var cardSlotH = GetCardSlotHAtCursor();
 
-        //if (cardSlotV is not null && !cardSlotV.CardInSlot)
-        //{
-        //    _playerHandReference.RemoveCard(_selectedCard);
-        //    _selectedCard.Position = cardSlotV.GlobalPosition;
-        //    _selectedCard.GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
-        //    cardSlotV.CardInSlot = true;
-        //    _selectedCard.ZIndex = 0;
-        //    _selectedCard.SetStatsVisibility(true);
-        //}
         if (cardSlotV is not null && !cardSlotV.CardInSlot)
         {
-            PlaceCardInSlot(_selectedCard, cardSlotV, cardSlotV.GlobalPosition, true);
-        }
-        else if (cardSlotH is not null && !cardSlotH.CardInSlot)
-        {
-            PlaceCardInSlot(_selectedCard, cardSlotH, cardSlotH.GlobalPosition, false);
-        }
-        else
-        {
-            _playerHandReference.AddCard(_selectedCard, CARD_DEFAULT_ANIMATION_SPEED);
-        }
+            if (_selectedCard.Type == cardSlotV.Type)
+            {
+                _selectedCard.CardSlotCardIsIn = cardSlotV;
+                PlaceCardInSlot(_selectedCard, cardSlotV, cardSlotV.GlobalPosition, true);
+                _selectedCard = null;
 
+                return;
+            }
+            else
+            {
+                _playerHandReference.AddCard(_selectedCard, CARD_DEFAULT_ANIMATION_SPEED);
+            }
+        }
+        //else if (cardSlotH is not null && !cardSlotH.CardInSlot)
+        //{
+        //    PlaceCardInSlot(_selectedCard, cardSlotH, cardSlotH.GlobalPosition, false);
+        //}
+        _playerHandReference.AddCard(_selectedCard, CARD_DEFAULT_ANIMATION_SPEED);
         _selectedCard = null;
     }
 
@@ -154,7 +153,7 @@ public partial class CardManager : Node2D
         card.GetNode<CollisionShape2D>("Area2D/CollisionShape2D").Disabled = true;
         card.ZIndex = 0;
 
-        if (slot is CardSlotV slotV)
+        if (slot is MainCardSlotV slotV)
         {
             slotV.CardInSlot = true;
         }
@@ -171,7 +170,7 @@ public partial class CardManager : Node2D
     {
         if (hovered)
         {
-            card.Scale = new Vector2(1.05f, 1.05f);
+            card.Scale = new Vector2(CARD_HOVERED_SCALE, CARD_HOVERED_SCALE);
             card.ZIndex = 2;
         }
         else
@@ -181,7 +180,7 @@ public partial class CardManager : Node2D
         }
     }
 
-    private CardSlotV GetCardSlotVAtCursor()
+    private MainCardSlotV GetCardSlotVAtCursor()
     {
         var result = GetWorld2D().DirectSpaceState.IntersectPoint(new PhysicsPointQueryParameters2D
         {
@@ -190,7 +189,7 @@ public partial class CardManager : Node2D
             CollisionMask = CARD_SLOT_V_COLLISION_MASK
         });
 
-        return result.Count > 0 ? result[0]["collider"].As<Area2D>().GetParent<CardSlotV>() : null;
+        return result.Count > 0 ? result[0]["collider"].As<Area2D>().GetParent<MainCardSlotV>() : null;
     }
 
     private CardSlotH GetCardSlotHAtCursor()

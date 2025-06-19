@@ -8,59 +8,59 @@ namespace DMYAN.Scripts;
 
 public partial class PlayerHand : Node2D
 {
-	#region Definitions
+    #region Definitions
 
-	private readonly List<Card> _cardsInHand = [];
-	private float _screenCenterX;
+    private readonly List<Card> _cardsInHand = [];
+    private float _screenCenterX;
 
-	#endregion
+    #endregion
 
-	#region Overrides
+    #region Overrides
 
-	public override void _Ready() => _screenCenterX = GetViewportRect().Size.X / 2;
+    public override void _Ready() => _screenCenterX = GetViewportRect().Size.X / 2;
 
-	#endregion
+    #endregion
 
-	#region Public Methods
+    #region Public Methods
 
-	public void AddCard(Card card, double speed)
-	{
-		if (!_cardsInHand.Contains(card))
-		{
-			_cardsInHand.Insert(0, card);
-		}
+    public void AddCard(Card card, double speed)
+    {
+        if (!_cardsInHand.Contains(card))
+        {
+            _cardsInHand.Insert(0, card);
+        }
 
-		card.SetStatsVisibility(false);
-		UpdateCardPositions(speed);
-	}
+        card.SetStatsVisibility(false);
+        UpdateCardPositions(speed);
+    }
 
-	public void RemoveCard(Card card)
-	{
-		if (_cardsInHand.Remove(card))
-		{
-			UpdateCardPositions(CARD_DEFAULT_ANIMATION_SPEED);
-		}
-	}
+    public void RemoveCard(Card card)
+    {
+        if (_cardsInHand.Remove(card))
+        {
+            UpdateCardPositions(CARD_DEFAULT_ANIMATION_SPEED);
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region Private Methods
+    #region Private Methods
 
-	private void UpdateCardPositions(double speed)
-	{
-		for (var i = 0; i < _cardsInHand.Count; i++)
-		{
-			var card = _cardsInHand[i];
-			var position = new Vector2(CalculateCardPosition(i), HAND_Y);
+    private void UpdateCardPositions(double speed)
+    {
+        for (var i = 0; i < _cardsInHand.Count; i++)
+        {
+            var card = _cardsInHand[i];
+            var position = new Vector2(CalculateCardPosition(i), HAND_Y);
 
-			card.StartingPosition = position;
-			AnimateCardPositions(card, position, speed);
-		}
-	}
+            card.StartingPosition = position;
+            AnimateCardPositions(card, position, speed);
+        }
+    }
 
-	private float CalculateCardPosition(int index) => _screenCenterX + index * CARD_W - (_cardsInHand.Count - 1) * CARD_W / 2;
+    private float CalculateCardPosition(int index) => _screenCenterX + index * CARD_W - (_cardsInHand.Count - 1) * CARD_W / 2;
 
-	private void AnimateCardPositions(Card card, Vector2 position, double speed) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(card, "position", position, speed);
+    private void AnimateCardPositions(Card card, Vector2 position, double speed) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(card, "position", position, speed);
 
-	#endregion
+    #endregion
 }
