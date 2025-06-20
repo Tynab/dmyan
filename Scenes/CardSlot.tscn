@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgjg147kx600m"]
+[gd_scene load_steps=2 format=3 uid="uid://bppgbgvu4jxx7"]
 
-[ext_resource type="PackedScene" uid="uid://c33dj1v8clak5" path="res://Scenes/CardSlotH.tscn" id="1_r3qn0"]
-[ext_resource type="PackedScene" uid="uid://dbmgj4ehfak6r" path="res://Scenes/CardSlotV.tscn" id="2_tnxl1"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
+size = Vector2(120, 174)
 
 [node name="CardSlot" type="Node2D"]
 
-[node name="CardSlotH" parent="." instance=ExtResource("1_r3qn0")]
+[node name="Area2D" type="Area2D" parent="."]
+z_index = 1
 
-[node name="CardSlotV" parent="." instance=ExtResource("2_tnxl1")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_r0du0")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="OnArea2DMouseEntered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="OnArea2DMouseExited"]
