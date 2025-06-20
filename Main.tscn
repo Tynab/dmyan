@@ -1,31 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=4 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="PackedScene" uid="uid://dirn6dli4cupb" path="res://Scenes/Board.tscn" id="1_uu6xs"]
-[ext_resource type="Script" uid="uid://cfm8rjca8w0hc" path="res://Scripts/PlayerHand.cs" id="3_cm0pq"]
-[ext_resource type="PackedScene" uid="uid://chxh50ak8jy4g" path="res://Scenes/Deck.tscn" id="3_fos0i"]
-[ext_resource type="Script" uid="uid://cnjfsuiupqnbv" path="res://Scripts/CardManager.cs" id="3_r0du0"]
-[ext_resource type="Script" uid="uid://brdj1t2tfd046" path="res://Scripts/InputManager.cs" id="6_lgr22"]
+[ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="2_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://k8oyg61diovu" path="res://Scenes/Field.tscn" id="3_r0du0"]
 
 [node name="Main" type="Node2D"]
-
-[node name="InputManager" type="Node2D" parent="."]
-script = ExtResource("6_lgr22")
-
-[node name="CardManager" type="Node2D" parent="."]
-script = ExtResource("3_r0du0")
+metadata/_edit_vertical_guides_ = [314.0, 185.0, 443.0, 701.0, 572.0, 24.0, 66.0, 819.0]
+metadata/_edit_horizontal_guides_ = [664.0, 795.0, 91.0, 223.0, 634.0, 777.0]
 
 [node name="Board" parent="." instance=ExtResource("1_uu6xs")]
-position = Vector2(380, 380)
+position = Vector2(443, 443)
 
-[node name="PlayerHand" type="Node2D" parent="."]
-script = ExtResource("3_cm0pq")
+[node name="PlayerField" parent="." instance=ExtResource("3_r0du0")]
 
-[node name="Deck" parent="." instance=ExtResource("3_fos0i")]
-position = Vector2(57, 666)
+[node name="OpponentField" parent="." instance=ExtResource("3_r0du0")]
+position = Vector2(886, 886)
+rotation = 3.14159
 
-[node name="EPButton" type="Button" parent="."]
-offset_left = 340.0
-offset_top = 364.0
-offset_right = 420.0
-offset_bottom = 396.0
-text = "EP"
+[node name="Card" parent="." instance=ExtResource("2_uu6xs")]
+position = Vector2(-122, 434)

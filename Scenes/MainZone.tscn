@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://dejbclxbchuwy"]
+
+[ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="1_5kih1"]
+
+[node name="MainZone" type="Node2D"]
+
+[node name="CardSlot1" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(-258, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot2" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(-129, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot3" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(9.53674e-07, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot4" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(129, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot5" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(258, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot6" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(-258, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot7" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(-129, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot8" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(9.53674e-07, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot9" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(129, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot10" parent="." instance=ExtResource("1_5kih1")]
+position = Vector2(258, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)

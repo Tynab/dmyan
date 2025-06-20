@@ -7,114 +7,114 @@ namespace DMYAN.Scripts;
 
 public partial class Card : Node2D
 {
-    #region Definitions
+	#region Definitions
 
-    private RichTextLabel _atkLabel;
-    private RichTextLabel _defLabel;
-    private RichTextLabel _slashLabel;
+	private RichTextLabel _atkLabel;
+	private RichTextLabel _defLabel;
+	private RichTextLabel _slashLabel;
 
-    #endregion
+	#endregion
 
-    #region Event Handlers
+	#region Event Handlers
 
-    [Signal]
-    public delegate void HoveredEventHandler(Card card);
+	[Signal]
+	public delegate void HoveredEventHandler(Card card);
 
-    [Signal]
-    public delegate void UnhoveredEventHandler(Card card);
+	[Signal]
+	public delegate void UnhoveredEventHandler(Card card);
 
-    #endregion
+	#endregion
 
-    #region Signal Handlers
+	#region Signal Handlers
 
-    private void OnArea2DMouseEntered() => EmitSignal(SignalName.Hovered, this);
+	private void OnArea2DMouseEntered() => EmitSignal(SignalName.Hovered, this);
 
-    private void OnArea2DMouseExited() => EmitSignal(SignalName.Unhovered, this);
+	private void OnArea2DMouseExited() => EmitSignal(SignalName.Unhovered, this);
 
-    #endregion
+	#endregion
 
-    #region Properties
+	#region Properties
 
-    public string CardId { get; private set; }
+	public string CardId { get; private set; }
 
-    public int Atk { get; private set; }
+	public int Atk { get; private set; }
 
-    public int Def { get; private set; }
+	public int Def { get; private set; }
 
-    public string Type { get; private set; }
+	public string Type { get; private set; }
 
-    public Vector2 StartingPosition { get; set; }
+	public Vector2 StartingPosition { get; set; }
 
-    public MainCardSlotV CardSlotCardIsIn { get; set; }
+	public MainCardSlotV CardSlotCardIsIn { get; set; }
 
-    #endregion
+	#endregion
 
-    #region Overrides
+	#region Overrides
 
-    public override void _Ready()
-    {
-        _ = GetParent().Call("ConnectCardSignals", this);
-        _atkLabel = GetNode<RichTextLabel>("Atk");
-        _defLabel = GetNode<RichTextLabel>("Def");
-        _slashLabel = GetNode<RichTextLabel>("_");
-        SetStatsVisibility(false);
-    }
+	public override void _Ready()
+	{
+		_ = GetParent().Call("ConnectCardSignals", this);
+		_atkLabel = GetNode<RichTextLabel>("Atk");
+		_defLabel = GetNode<RichTextLabel>("Def");
+		_slashLabel = GetNode<RichTextLabel>("_");
+		SetStatsVisibility(false);
+	}
 
-    #endregion
+	#endregion
 
-    #region Public Methods
+	#region Public Methods
 
-    public void InitializeData(string cardId, int atk, int def, string type)
-    {
-        CardId = cardId;
-        Atk = atk;
-        Def = def;
-        Type = type;
+	public void InitializeData(string cardId, int atk, int def, string type)
+	{
+		CardId = cardId;
+		Atk = atk;
+		Def = def;
+		Type = type;
 
-        if (_atkLabel is not null)
-        {
-            _atkLabel.Text = atk.ToString();
-        }
+		if (_atkLabel is not null)
+		{
+			_atkLabel.Text = atk.ToString();
+		}
 
-        if (_defLabel is not null)
-        {
-            _defLabel.Text = def.ToString();
-        }
+		if (_defLabel is not null)
+		{
+			_defLabel.Text = def.ToString();
+		}
 
-        var sprite = GetNode<Sprite2D>("CardImage");
+		var sprite = GetNode<Sprite2D>("CardImage");
 
-        try
-        {
-            sprite.Texture = GD.Load<Texture2D>($"res://Assets/{cardId}.jpg");
-        }
-        catch (Exception)
-        {
-            sprite.Texture = GD.Load<Texture2D>(CARD_BACK_ASSET_PATH);
-        }
-    }
+		try
+		{
+			sprite.Texture = GD.Load<Texture2D>($"res://Assets/{cardId}.jpg");
+		}
+		catch (Exception)
+		{
+			sprite.Texture = GD.Load<Texture2D>(CARD_BACK_ASSET_PATH);
+		}
+	}
 
-    public void SetStatsVisibility(bool visible)
-    {
-        _atkLabel.Visible = visible;
-        _defLabel.Visible = visible;
-        _slashLabel.Visible = visible;
-    }
+	public void SetStatsVisibility(bool visible)
+	{
+		_atkLabel.Visible = visible;
+		_defLabel.Visible = visible;
+		_slashLabel.Visible = visible;
+	}
 
-    public void SetStatsColorForPosition(bool isAttackPosition)
-    {
-        _slashLabel.Modulate = Gray;
+	public void SetStatsColorForPosition(bool isAttackPosition)
+	{
+		_slashLabel.Modulate = Gray;
 
-        if (isAttackPosition)
-        {
-            _atkLabel.Modulate = White;
-            _defLabel.Modulate = Gray;
-        }
-        else
-        {
-            _atkLabel.Modulate = Gray;
-            _defLabel.Modulate = White;
-        }
-    }
+		if (isAttackPosition)
+		{
+			_atkLabel.Modulate = White;
+			_defLabel.Modulate = Gray;
+		}
+		else
+		{
+			_atkLabel.Modulate = Gray;
+			_defLabel.Modulate = White;
+		}
+	}
 
-    #endregion
+	#endregion
 }
