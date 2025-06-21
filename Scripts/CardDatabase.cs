@@ -1,14 +1,98 @@
 using System.Collections.Generic;
+using static DMYAN.Scripts.Constant;
+using static Godot.FileAccess;
+using static Godot.FileAccess.ModeFlags;
+using static System.Enum;
 
 namespace DMYAN.Scripts;
 
-public partial class CardDatabase
+public static class CardDatabase
 {
-    public readonly Dictionary<string, (int Atk, int Def, string Type)> CARDS = new()
+    private static readonly Dictionary<string, CardInfo> _cardData = [];
+    private static bool _isLoaded = false;
+
+    public static void LoadCards()
     {
-        { "02118022", (1500, 900, "Monster") },
-        { "05901497", (350, 300, "Monster") },
-        { "07805359",  (900, 800, "Monster") },
-        { "08471389",  (1200, 1400, "Monster") }
-    };
+        if (_isLoaded)
+        {
+            return;
+        }
+
+        using var file = Open(CARDS_CSV_PATH, Read);
+
+        if (file is null)
+        {
+            return;
+        }
+
+        if (!file.EofReached())
+        {
+            _ = file.GetLine();
+        }
+
+        while (!file.EofReached())
+        {
+            var line = file.GetLine();
+
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                continue;
+            }
+
+            var parts = line.Split(',');
+
+            var cardInfo = new CardInfo
+            {
+                Id = int.TryParse(parts[0], out var idVal) ? idVal : 0,
+                Code = parts[1].Trim('"'),
+                Name = parts[2].Trim('"'),
+                Description = parts[3].Trim('"'),
+                Type = TryParse(parts[4], true, out CardType typeVal) ? typeVal : CardType.None,
+                Property = TryParse(parts[5], true, out CardProperty propVal) ? propVal : CardProperty.None,
+                Attribute = TryParse(parts[6], true, out MonsterAttribute attrVal) ? attrVal : MonsterAttribute.None,
+                Race = TryParse(parts[7], true, out MonsterRace raceVal) ? raceVal : MonsterRace.None,
+                SummonType = TryParse(parts[8], true, out MonsterSummonType summonVal) ? summonVal : MonsterSummonType.None,
+                Level = int.TryParse(parts[9], out var levelVal) ? levelVal : 0,
+                ATK = int.TryParse(parts[10], out var atkVal) ? atkVal : -1,
+                DEF = int.TryParse(parts[11], out var defVal) ? defVal : -1,
+                BanlistStatus = TryParse(parts[12], true, out CardBanlistStatus banVal) ? banVal : CardBanlistStatus.None,
+                EffectType = TryParse(parts[13], true, out CardEffectType effectVal) ? effectVal : CardEffectType.None
+            };
+
+            if (!string.IsNullOrWhiteSpace(cardInfo.Code) && !_cardData.TryAdd(cardInfo.Code, cardInfo))
+            {
+                _cardData[cardInfo.Code] = cardInfo;
+            }
+        }
+
+        _isLoaded = true;
+    }
+
+    public static CardInfo GetCardInfo(string cardCode)
+    {
+        if (!_isLoaded)
+        {
+            LoadCards();
+        }
+
+        return _cardData.TryGetValue(cardCode, out var cardInfo) ? cardInfo : default;
+    }
+}
+
+public struct CardInfo
+{
+    public int Id;
+    public string Code;
+    public string Name;
+    public string Description;
+    public CardType Type;
+    public CardProperty Property;
+    public MonsterAttribute Attribute;
+    public MonsterRace Race;
+    public MonsterSummonType SummonType;
+    public int Level;
+    public int ATK;
+    public int DEF;
+    public CardBanlistStatus BanlistStatus;
+    public CardEffectType EffectType;
 }

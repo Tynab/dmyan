@@ -1,21 +1,337 @@
-[gd_scene load_steps=4 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=9 format=3 uid="uid://csnqqsbyxsnpl"]
 
-[ext_resource type="PackedScene" uid="uid://dirn6dli4cupb" path="res://Scenes/Board.tscn" id="1_uu6xs"]
-[ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="2_uu6xs"]
-[ext_resource type="PackedScene" uid="uid://k8oyg61diovu" path="res://Scenes/Field.tscn" id="3_r0du0"]
+[ext_resource type="Texture2D" uid="uid://wfiaqqsntoh3" path="res://Assets/board.jpg" id="1_lgr22"]
+[ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
+[ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
+[ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
+[ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandManager.cs" id="7_03owx"]
+[ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeck.cs" id="7_5vvyt"]
+[ext_resource type="PackedScene" uid="uid://bbngw4ss27y8e" path="res://Scenes/PowerSlot.tscn" id="7_trn2v"]
+[ext_resource type="Script" uid="uid://dxs6f6esfhe0o" path="res://Scripts/GameManager.cs" id="8_wkp8b"]
 
 [node name="Main" type="Node2D"]
-metadata/_edit_vertical_guides_ = [314.0, 185.0, 443.0, 701.0, 572.0, 24.0, 66.0, 819.0]
-metadata/_edit_horizontal_guides_ = [664.0, 795.0, 91.0, 223.0, 634.0, 777.0]
 
-[node name="Board" parent="." instance=ExtResource("1_uu6xs")]
+[node name="Board" type="Node2D" parent="."]
+position = Vector2(443, 540)
+
+[node name="Sprite2D" type="Sprite2D" parent="Board"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_lgr22")
+
+[node name="OpponentField" type="Node2D" parent="Board"]
 position = Vector2(443, 443)
-
-[node name="PlayerField" parent="." instance=ExtResource("3_r0du0")]
-
-[node name="OpponentField" parent="." instance=ExtResource("3_r0du0")]
-position = Vector2(886, 886)
 rotation = 3.14159
 
-[node name="Card" parent="." instance=ExtResource("2_uu6xs")]
-position = Vector2(-122, 434)
+[node name="MainDeck" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
+position = Vector2(66, 777)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("7_5vvyt")
+CardScene = ExtResource("6_3dxm6")
+DuelSide = 2
+
+[node name="Graveyard" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
+position = Vector2(66, 634)
+scale = Vector2(0.7, 0.7)
+
+[node name="FieldCard" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
+position = Vector2(819, 634)
+scale = Vector2(0.7, 0.7)
+
+[node name="ExtraDeck" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
+position = Vector2(819, 777)
+scale = Vector2(0.7, 0.7)
+
+[node name="Banished" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
+position = Vector2(86, 513)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="PowerZone" type="Node2D" parent="Board/OpponentField"]
+position = Vector2(443, 586)
+
+[node name="PowerSlot1" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(-258, 0)
+DuelSide = 2
+
+[node name="PowerSlot2" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(-129, 0)
+Index = 1
+DuelSide = 2
+
+[node name="PowerSlot3" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+Index = 2
+DuelSide = 2
+
+[node name="PowerSlot4" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(129, 0)
+Index = 3
+DuelSide = 2
+
+[node name="PowerSlot5" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(258, 0)
+Index = 4
+DuelSide = 2
+
+[node name="MainZone" type="Node2D" parent="Board/OpponentField"]
+position = Vector2(443, 664)
+
+[node name="CardSlot1" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-258, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot2" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-129, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot3" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(9.53674e-07, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot4" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(129, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot5" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(258, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot6" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-258, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot7" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-129, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot8" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(9.53674e-07, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot9" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(129, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot10" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(258, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="STPZone" type="Node2D" parent="Board/OpponentField"]
+position = Vector2(443, 795)
+
+[node name="CardSlot1" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-258, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+DuelSide = 2
+
+[node name="CardSlot2" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-129, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+Index = 1
+DuelSide = 2
+
+[node name="CardSlot3" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-9.53674e-07, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+Index = 2
+DuelSide = 2
+
+[node name="CardSlot4" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(129, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+Index = 3
+DuelSide = 2
+
+[node name="CardSlot5" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(258, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+Index = 4
+DuelSide = 2
+
+[node name="HandZone" type="Node2D" parent="Board/OpponentField"]
+script = ExtResource("7_03owx")
+DuelSide = 2
+
+[node name="PlayerField" type="Node2D" parent="Board"]
+position = Vector2(-443, -443)
+
+[node name="MainDeck" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+position = Vector2(66, 777)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("7_5vvyt")
+CardScene = ExtResource("6_3dxm6")
+DuelSide = 1
+
+[node name="Count" type="RichTextLabel" parent="Board/PlayerField/MainDeck"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Graveyard" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+position = Vector2(66, 634)
+scale = Vector2(0.7, 0.7)
+
+[node name="FieldCard" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+position = Vector2(819, 634)
+scale = Vector2(0.7, 0.7)
+
+[node name="ExtraDeck" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+position = Vector2(819, 777)
+scale = Vector2(0.7, 0.7)
+
+[node name="Banished" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+position = Vector2(86, 513)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="PowerZone" type="Node2D" parent="Board/PlayerField"]
+position = Vector2(443, 586)
+
+[node name="PowerSlot1" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(-258, 0)
+DuelSide = 1
+
+[node name="PowerSlot2" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(-129, 0)
+Index = 1
+DuelSide = 1
+
+[node name="PowerSlot3" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+Index = 2
+DuelSide = 1
+
+[node name="PowerSlot4" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(129, 0)
+Index = 3
+DuelSide = 1
+
+[node name="PowerSlot5" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(258, 0)
+Index = 4
+DuelSide = 1
+
+[node name="MainZone" type="Node2D" parent="Board/PlayerField"]
+position = Vector2(443, 664)
+
+[node name="CardSlot1" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-258, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot2" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-129, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot3" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(9.53674e-07, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot4" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(129, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot5" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(258, 1.90735e-06)
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot6" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-258, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot7" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-129, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot8" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(9.53674e-07, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot9" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(129, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="CardSlot10" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
+position = Vector2(258, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+
+[node name="STPZone" type="Node2D" parent="Board/PlayerField"]
+position = Vector2(443, 795)
+
+[node name="CardSlot1" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-258, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+DuelSide = 1
+
+[node name="CardSlot2" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-129, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+Index = 1
+DuelSide = 1
+
+[node name="CardSlot3" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-9.53674e-07, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+Index = 2
+DuelSide = 1
+
+[node name="CardSlot4" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(129, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+Index = 3
+DuelSide = 1
+
+[node name="CardSlot5" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(258, 7.62939e-06)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+Index = 4
+DuelSide = 1
+
+[node name="HandZone" type="Node2D" parent="Board/PlayerField"]
+script = ExtResource("7_03owx")
+DuelSide = 1
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("PlayerDeck", "OpponentDeck", "PlayerHand", "OpponentHand")]
+script = ExtResource("8_wkp8b")
+PlayerDeck = NodePath("../Board/PlayerField/MainDeck")
+OpponentDeck = NodePath("../Board/OpponentField/MainDeck")
+PlayerHand = NodePath("../Board/PlayerField/HandZone")
+OpponentHand = NodePath("../Board/OpponentField/HandZone")

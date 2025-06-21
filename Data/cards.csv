@@ -1,0 +1,8 @@
+id,code,name,description,type,property,attribute,race,summon_type,level,atk,def,banlist_status,effect_type
+1,"41218256","Lợi Trảo Sát Thủ",,1,1,1,11,1,3,1000,800,0,0
+2,"15401633","Tử Viêm Đích Ảnh Vũ Giả",,1,1,3,24,1,2,800,400,0,0
+3,"02118022","Binh Chủ Bộ",,1,1,6,1,1,4,1500,900,0,0
+4,"05901497","Nữ Vương Đích Ảnh Vũ Giả","Quái thú này có thể tấn công trực tiếp Điểm Sinh Mệnh của đối thủ.",1,8,3,24,1,1,350,300,0,1
+5,"80600490","Âm Ảnh Đấu Sĩ",,1,1,1,24,1,2,800,600,0,0
+6,"07805359","Kê Minh",,1,1,3,25,1,3,900,800,0,0
+7,"08471389","Thiên Triệu Cao Khoa Kỹ Lang",,1,1,4,15,1,4,1200,1400,0,0
