@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://g3mf7llo82lt"
+
+[deps]
+
+files=["res://Data/decks.card.translation"]
+
+source_file="res://Data/decks.csv"
+dest_files=["res://Data/decks.card.translation"]
+
+[params]
+
+compress=true
+delimiter=0

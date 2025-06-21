@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq0kvbk5aqmq6"]
+
+[ext_resource type="Texture2D" uid="uid://0qf62igfr60" path="res://Assets/active_action.png" id="1_637tg"]
+
+[node name="CardAction" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_637tg")

@@ -1,120 +1,63 @@
 using Godot;
-using System;
+using System.Threading.Tasks;
 using static DMYAN.Scripts.Constant;
-using static Godot.Colors;
+using static Godot.AnimationMixer.SignalName;
 
 namespace DMYAN.Scripts;
 
 public partial class Card : Node2D
 {
-	#region Definitions
+    public DuelSide DuelSide { get; set; } = DuelSide.None;
 
-	private RichTextLabel _atkLabel;
-	private RichTextLabel _defLabel;
-	private RichTextLabel _slashLabel;
+    public CardStatus Status { get; set; } = CardStatus.None;
 
-	#endregion
+    public CardZone Zone { get; set; } = CardZone.None;
 
-	#region Event Handlers
+    public CardFace CardFace { get; set; } = CardFace.None;
 
-	[Signal]
-	public delegate void HoveredEventHandler(Card card);
+    public string Code { get; set; }
 
-	[Signal]
-	public delegate void UnhoveredEventHandler(Card card);
+    public string Description { get; set; } = string.Empty;
 
-	#endregion
+    public CardType Type { get; set; } = CardType.None;
 
-	#region Signal Handlers
+    public CardProperty Property { get; set; } = CardProperty.None;
 
-	private void OnArea2DMouseEntered() => EmitSignal(SignalName.Hovered, this);
+    public MonsterAttribute Attribute { get; set; } = MonsterAttribute.None;
 
-	private void OnArea2DMouseExited() => EmitSignal(SignalName.Unhovered, this);
+    public MonsterRace Race { get; set; } = MonsterRace.None;
 
-	#endregion
+    public MonsterSummonType SummonType { get; set; } = MonsterSummonType.None;
 
-	#region Properties
+    public int Level { get; set; } = 0;
 
-	public string CardId { get; private set; }
+    public int ATK { get; set; } = 0;
 
-	public int Atk { get; private set; }
+    public int DEF { get; set; } = 0;
 
-	public int Def { get; private set; }
+    public CardBanlistStatus BanlistStatus { get; set; } = CardBanlistStatus.None;
 
-	public string Type { get; private set; }
+    public CardEffectType EffectType { get; set; } = CardEffectType.None;
 
-	public Vector2 StartingPosition { get; set; }
+    private AnimationPlayer _animationPlayer;
+    private Sprite2D _cardFront;
+    private Sprite2D _cardBack;
 
-	public MainCardSlotV CardSlotCardIsIn { get; set; }
+    public override void _Ready()
+    {
+        _animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+        _cardFront = GetNodeOrNull<Sprite2D>(CARD_FRONT_NODE);
+        _cardBack = GetNodeOrNull<Sprite2D>(CARD_BACK_NODE);
+    }
 
-	#endregion
+    public async Task PlayFlipAnimationAsync()
+    {
+        if (_animationPlayer is null)
+        {
+            return;
+        }
 
-	#region Overrides
-
-	public override void _Ready()
-	{
-		_ = GetParent().Call("ConnectCardSignals", this);
-		_atkLabel = GetNode<RichTextLabel>("Atk");
-		_defLabel = GetNode<RichTextLabel>("Def");
-		_slashLabel = GetNode<RichTextLabel>("_");
-		SetStatsVisibility(false);
-	}
-
-	#endregion
-
-	#region Public Methods
-
-	public void InitializeData(string cardId, int atk, int def, string type)
-	{
-		CardId = cardId;
-		Atk = atk;
-		Def = def;
-		Type = type;
-
-		if (_atkLabel is not null)
-		{
-			_atkLabel.Text = atk.ToString();
-		}
-
-		if (_defLabel is not null)
-		{
-			_defLabel.Text = def.ToString();
-		}
-
-		var sprite = GetNode<Sprite2D>("CardImage");
-
-		try
-		{
-			sprite.Texture = GD.Load<Texture2D>($"res://Assets/{cardId}.jpg");
-		}
-		catch (Exception)
-		{
-			sprite.Texture = GD.Load<Texture2D>(CARD_BACK_ASSET_PATH);
-		}
-	}
-
-	public void SetStatsVisibility(bool visible)
-	{
-		_atkLabel.Visible = visible;
-		_defLabel.Visible = visible;
-		_slashLabel.Visible = visible;
-	}
-
-	public void SetStatsColorForPosition(bool isAttackPosition)
-	{
-		_slashLabel.Modulate = Gray;
-
-		if (isAttackPosition)
-		{
-			_atkLabel.Modulate = White;
-			_defLabel.Modulate = Gray;
-		}
-		else
-		{
-			_atkLabel.Modulate = Gray;
-			_defLabel.Modulate = White;
-		}
-	}
-
-	#endregion
+        _animationPlayer.Play(CARD_DRAW_FLIP_ANIMATION);
+        _ = await ToSignal(_animationPlayer, AnimationFinished);
+    }
 }

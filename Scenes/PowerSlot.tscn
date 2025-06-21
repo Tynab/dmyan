@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://bbngw4ss27y8e"]
+[gd_scene load_steps=2 format=3 uid="uid://bbngw4ss27y8e"]
+
+[ext_resource type="Script" uid="uid://c8hf3x5oq0vxd" path="res://Scripts/PowerSlot.cs" id="1_kqnjr"]
 
 [node name="PowerSlot" type="Node2D"]
+script = ExtResource("1_kqnjr")
 
 [node name="Atk" type="RichTextLabel" parent="."]
 anchors_preset = 8
