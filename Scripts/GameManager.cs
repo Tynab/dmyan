@@ -1,7 +1,7 @@
 using Godot;
 using System.Threading.Tasks;
-using static DMYAN.Scripts.Constant;
 using static DMYAN.Scripts.CardDatabase;
+using static DMYAN.Scripts.Constant;
 using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts;
@@ -19,8 +19,6 @@ public partial class GameManager : Node
 
     [Export]
     public HandManager OpponentHand { get; set; }
-
-    private const int INITIAL_HAND_SIZE = 5;
 
     public override async void _Ready()
     {

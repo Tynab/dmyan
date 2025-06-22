@@ -12,7 +12,7 @@ public partial class HandManager : Node2D
     [Export]
     public DuelSide DuelSide { get; set; } = DuelSide.None;
 
-    public List<Card> CardsInHand { get; set; } = [];
+    private readonly List<Card> _cardsInHand = [];
 
     public async Task AddCardToHand(Card card)
     {
@@ -20,7 +20,7 @@ public partial class HandManager : Node2D
         card.Status = CardStatus.InHand;
         card.Zone = CardZone.None;
         card.Scale = new Vector2(CARD_HAND_SCALE, CARD_HAND_SCALE);
-        CardsInHand.Add(card);
+        _cardsInHand.Add(card);
         ArrangeCardsInHand();
 
         if (DuelSide is DuelSide.Player)
@@ -31,14 +31,18 @@ public partial class HandManager : Node2D
 
     private void ArrangeCardsInHand()
     {
-        for (var i = 0; i < CardsInHand.Count; i++)
-        {
-            var card = CardsInHand[i];
+        var space = _cardsInHand.Count * CARD_HAND_W + (_cardsInHand.Count - 1) * CARD_HAND_GAP_W <= HAND_AREA_MAX_W ? CARD_HAND_W + CARD_HAND_GAP_W : (HAND_AREA_MAX_W - CARD_HAND_W) / (_cardsInHand.Count - 1);
 
-            AnimateCardPositions(card, new Vector2(HAND_POSITION_X + (i - (CardsInHand.Count - 1) / 2f) * (CARD_HAND_W + CARD_HAND_GAP), HAND_POSITION_Y), 0.2);
+        for (var i = 0; i < _cardsInHand.Count; i++)
+        {
+            var card = _cardsInHand[i];
+            var targetPosition = new Vector2((i - (_cardsInHand.Count - 1) / 2f) * space, HAND_POSITION_Y);
+
+            card.BasePosition = targetPosition;
+            AnimateCardPositions(card, targetPosition);
             card.ZIndex = i;
         }
     }
 
-    private void AnimateCardPositions(Card card, Vector2 position, double speed) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(card, "position", position, speed);
+    private void AnimateCardPositions(Card card, Vector2 position) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(card, "position", position, .1);
 }
