@@ -8,7 +8,7 @@ namespace DMYAN.Scripts;
 
 public static class CardDatabase
 {
-    private static readonly Dictionary<string, CardInfo> _cardData = [];
+    private static readonly Dictionary<string, CardData> _cardData = [];
     private static bool _isLoaded = false;
 
     public static void LoadCards()
@@ -41,7 +41,7 @@ public static class CardDatabase
 
             var parts = line.Split(',');
 
-            var cardInfo = new CardInfo
+            var cardData = new CardData
             {
                 Id = int.TryParse(parts[0], out var idVal) ? idVal : 0,
                 Code = parts[1].Trim('"'),
@@ -59,27 +59,27 @@ public static class CardDatabase
                 EffectType = TryParse(parts[13], true, out CardEffectType effectVal) ? effectVal : CardEffectType.None
             };
 
-            if (!string.IsNullOrWhiteSpace(cardInfo.Code) && !_cardData.TryAdd(cardInfo.Code, cardInfo))
+            if (!string.IsNullOrWhiteSpace(cardData.Code) && !_cardData.TryAdd(cardData.Code, cardData))
             {
-                _cardData[cardInfo.Code] = cardInfo;
+                _cardData[cardData.Code] = cardData;
             }
         }
 
         _isLoaded = true;
     }
 
-    public static CardInfo GetCardInfo(string cardCode)
+    public static CardData GetCardData(string cardCode)
     {
         if (!_isLoaded)
         {
             LoadCards();
         }
 
-        return _cardData.TryGetValue(cardCode, out var cardInfo) ? cardInfo : default;
+        return _cardData.TryGetValue(cardCode, out var cardData) ? cardData : default;
     }
 }
 
-public struct CardInfo
+public struct CardData
 {
     public int Id;
     public string Code;

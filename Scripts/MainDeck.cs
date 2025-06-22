@@ -74,9 +74,9 @@ public partial class MainDeck : CardSlot
             }
 
             var parts = line.Split(',');
-            var cardInfo = GetCardInfo(parts[1].Trim('"'));
+            var cardData = GetCardData(parts[1].Trim('"'));
 
-            if (string.IsNullOrWhiteSpace(cardInfo.Code))
+            if (string.IsNullOrWhiteSpace(cardData.Code))
             {
                 continue;
             }
@@ -92,25 +92,25 @@ public partial class MainDeck : CardSlot
             card.Status = CardStatus.InDeck;
             card.Zone = CardZone.MainDeck;
             card.CardFace = CardFace.FaceDown;
-            card.Name = cardInfo.Name;
-            card.Code = cardInfo.Code;
-            card.Description = cardInfo.Description;
-            card.Type = cardInfo.Type;
-            card.Property = cardInfo.Property;
-            card.Attribute = cardInfo.Attribute;
-            card.Race = cardInfo.Race;
-            card.SummonType = cardInfo.SummonType;
-            card.Level = cardInfo.Level;
-            card.ATK = cardInfo.ATK;
-            card.DEF = cardInfo.DEF;
-            card.BanlistStatus = cardInfo.BanlistStatus;
-            card.EffectType = cardInfo.EffectType;
+            card.CardName = cardData.Name;
+            card.Code = cardData.Code;
+            card.Description = cardData.Description;
+            card.Type = cardData.Type;
+            card.Property = cardData.Property;
+            card.Attribute = cardData.Attribute;
+            card.Race = cardData.Race;
+            card.SummonType = cardData.SummonType;
+            card.Level = cardData.Level;
+            card.ATK = cardData.ATK;
+            card.DEF = cardData.DEF;
+            card.BanlistStatus = cardData.BanlistStatus;
+            card.EffectType = cardData.EffectType;
 
             var cardFront = card.GetNodeOrNull<Sprite2D>(CARD_FRONT_NODE);
 
             if (cardFront is not null)
             {
-                var cardTexture = ResourceLoader.Load<Texture2D>($"res://Assets/{cardInfo.Code}.jpg");
+                var cardTexture = ResourceLoader.Load<Texture2D>($"res://Assets/{cardData.Code}.jpg");
 
                 if (cardTexture is not null)
                 {

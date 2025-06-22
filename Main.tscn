@@ -1,14 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=20 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
 [ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Scroll.gdshader" id="1_wkp8b"]
 [ext_resource type="Texture2D" uid="uid://dplradda0ipqm" path="res://Assets/scroll.png" id="2_wkp8b"]
 [ext_resource type="Texture2D" uid="uid://dw85pyqr2i5mu" path="res://Assets/board.png" id="3_wkp8b"]
+[ext_resource type="PackedScene" uid="uid://crqe8ju0cbbn1" path="res://Scenes/CardInfo.tscn" id="5_c2ibq"]
 [ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
-[ext_resource type="Texture2D" uid="uid://cyj4b0vfvhhuh" path="res://Assets/card_back.jpg" id="5_j4qnp"]
 [ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
-[ext_resource type="Texture2D" uid="uid://dvkraho7dlkf2" path="res://Assets/02118022.jpg" id="6_fpfj3"]
 [ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandManager.cs" id="7_03owx"]
 [ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeck.cs" id="7_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://bbngw4ss27y8e" path="res://Scenes/PowerSlot.tscn" id="7_trn2v"]
@@ -54,15 +53,6 @@ Button/styles/hover = SubResource("StyleBoxFlat_20pc6")
 Button/styles/normal = SubResource("StyleBoxFlat_5vvyt")
 Button/styles/pressed = SubResource("StyleBoxFlat_c6i3y")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trn2v"]
-bg_color = Color(0, 0, 0, 0.784314)
-
-[sub_resource type="Theme" id="Theme_03owx"]
-RichTextLabel/styles/normal = SubResource("StyleBoxFlat_trn2v")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sc1dx"]
-size = Vector2(400, 580)
-
 [node name="Main" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [965.0, 540.0, 115.0]
 
@@ -77,6 +67,7 @@ layout_mode = 0
 offset_top = -100.0
 offset_right = 1920.0
 offset_bottom = 1180.0
+mouse_filter = 2
 texture = ExtResource("1_20pc6")
 metadata/_edit_lock_ = true
 
@@ -86,7 +77,9 @@ material = SubResource("ShaderMaterial_5vvyt")
 layout_mode = 0
 offset_right = 2787.0
 offset_bottom = 1080.0
+mouse_filter = 2
 texture = ExtResource("2_wkp8b")
+metadata/_edit_lock_ = true
 
 [node name="Button" type="Button" parent="Control"]
 layout_mode = 0
@@ -166,38 +159,8 @@ text = "E
 P"
 metadata/_edit_lock_ = true
 
-[node name="CardInfo" type="Node2D" parent="."]
+[node name="CardInfo" parent="." instance=ExtResource("5_c2ibq")]
 position = Vector2(220, 376)
-
-[node name="CardSwap1" type="Sprite2D" parent="CardInfo"]
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("5_j4qnp")
-metadata/_edit_lock_ = true
-
-[node name="CardSwap2" type="Sprite2D" parent="CardInfo"]
-visible = false
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("6_fpfj3")
-metadata/_edit_lock_ = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CardInfo"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -180.0
-offset_top = 261.0
-offset_right = 180.0
-offset_bottom = 589.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_03owx")
-text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
-horizontal_alignment = 3
-vertical_alignment = 3
-metadata/_edit_lock_ = true
 
 [node name="Board" type="Node2D" parent="."]
 position = Vector2(960, 540)
@@ -374,6 +337,7 @@ DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="HandZone" type="Node2D" parent="Board/OpponentField"]
+z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 2
 
@@ -559,6 +523,7 @@ DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="HandZone" type="Node2D" parent="Board/PlayerField"]
+z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 1
 
@@ -574,15 +539,3 @@ position = Vector2(1653, 226)
 
 [node name="PlayInfo" parent="." instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 854)
-
-[node name="cc" type="Node2D" parent="."]
-position = Vector2(1600, 500)
-scale = Vector2(0.5, 0.5)
-
-[node name="Sprite2D" type="Sprite2D" parent="cc"]
-texture = ExtResource("6_fpfj3")
-
-[node name="Area2D" type="Area2D" parent="cc"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="cc/Area2D"]
-shape = SubResource("RectangleShape2D_sc1dx")

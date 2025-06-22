@@ -2,6 +2,8 @@ using Godot;
 using System.Threading.Tasks;
 using static DMYAN.Scripts.Constant;
 using static Godot.AnimationMixer.SignalName;
+using static Godot.Tween.TransitionType;
+using static Godot.Tween.EaseType;
 
 namespace DMYAN.Scripts;
 
@@ -16,6 +18,8 @@ public partial class Card : Node2D
     public CardFace CardFace { get; set; } = CardFace.None;
 
     public string Code { get; set; }
+
+    public string CardName { get; set; }
 
     public string Description { get; set; } = string.Empty;
 
@@ -70,11 +74,24 @@ public partial class Card : Node2D
         {
             _isHovered = true;
 
-            GD.Print($"Mouse entered card: {Code}");
-
             var hoverPosition = BasePosition;
-            hoverPosition.Y -= 10;
-            _ = GetTree().CreateTween().TweenProperty(this, "position", hoverPosition, 0.1).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.InOut);
+
+            hoverPosition.Y -= 20;
+            _ = GetTree().CreateTween().TweenProperty(this, "position", hoverPosition, 0.1).SetTrans(Linear).SetEase(InOut);
+
+            var cardInfo = GetNodeOrNull<CardInfo>("../../../../CardInfo");
+
+            if (cardInfo.CurrentSwap is 1)
+            {
+                cardInfo.TexturePath2 = $"res://Assets/{Code}.jpg";
+            }
+            else
+            {
+                cardInfo.TexturePath1 = $"res://Assets/{Code}.jpg";
+            }
+
+            cardInfo.UpdateTexture();
+            cardInfo.UpdateDescription(CardName, Type, Property, Attribute, Race, Level, ATK, DEF, Description);
         }
     }
 
@@ -84,9 +101,7 @@ public partial class Card : Node2D
         {
             _isHovered = false;
 
-            GD.Print($"Mouse exited card: {Code}");
-
-            _ = GetTree().CreateTween().TweenProperty(this, "position", BasePosition, 0.1).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.InOut);
+            _ = GetTree().CreateTween().TweenProperty(this, "position", BasePosition, 0.1).SetTrans(Linear).SetEase(InOut);
         }
     }
 }

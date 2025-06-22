@@ -7,13 +7,13 @@ public static class Constant
 
     public const int INITIAL_HAND_SIZE = 5;
 
-    public const float CARD_HAND_SCALE = .8f;
+    public const float CARD_HAND_SCALE = 1;
 
     public const float CARD_HAND_W = 120 * CARD_HAND_SCALE;
-    public const float CARD_HAND_GAP_W = 5;
+    public const float CARD_HAND_GAP_W = 15;
     public const float HAND_AREA_MAX_W = 1920;
 
-    public const float HAND_POSITION_Y = 475;
+    public const float HAND_POSITION_Y = 480;
 
     public const string MAIN_DECK_NODE = "MainDeck";
     public const string COUNT_LABEL_NODE = "Count";
