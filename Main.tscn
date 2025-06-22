@@ -1,180 +1,391 @@
-[gd_scene load_steps=9 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=24 format=3 uid="uid://csnqqsbyxsnpl"]
 
-[ext_resource type="Texture2D" uid="uid://wfiaqqsntoh3" path="res://Assets/board.jpg" id="1_lgr22"]
+[ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
+[ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Scroll.gdshader" id="1_wkp8b"]
+[ext_resource type="Texture2D" uid="uid://dplradda0ipqm" path="res://Assets/scroll.png" id="2_wkp8b"]
+[ext_resource type="Texture2D" uid="uid://dw85pyqr2i5mu" path="res://Assets/board.png" id="3_wkp8b"]
 [ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
+[ext_resource type="Texture2D" uid="uid://cyj4b0vfvhhuh" path="res://Assets/card_back.jpg" id="5_j4qnp"]
 [ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
+[ext_resource type="Texture2D" uid="uid://dvkraho7dlkf2" path="res://Assets/02118022.jpg" id="6_fpfj3"]
 [ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandManager.cs" id="7_03owx"]
 [ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeck.cs" id="7_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://bbngw4ss27y8e" path="res://Scenes/PowerSlot.tscn" id="7_trn2v"]
 [ext_resource type="Script" uid="uid://dxs6f6esfhe0o" path="res://Scripts/GameManager.cs" id="8_wkp8b"]
+[ext_resource type="FontFile" uid="uid://cwyl68a5jsi7j" path="res://Font/Khamenet-8OLn0.ttf" id="12_5vvyt"]
+[ext_resource type="PackedScene" uid="uid://b3pth5pvbjjft" path="res://Scenes/Infomation.tscn" id="13_c6i3y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
+shader = ExtResource("1_wkp8b")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20pc6"]
+bg_color = Color(0.466667, 0.835294, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.627451, 0.882353, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vvyt"]
+bg_color = Color(0.00392157, 0.592157, 0.996078, 1)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.4, 0.709804, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6i3y"]
+bg_color = Color(0.0156863, 0.2, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.321569, 0.435294, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_c2ibq"]
+Button/styles/hover = SubResource("StyleBoxFlat_20pc6")
+Button/styles/normal = SubResource("StyleBoxFlat_5vvyt")
+Button/styles/pressed = SubResource("StyleBoxFlat_c6i3y")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trn2v"]
+bg_color = Color(0, 0, 0, 0.784314)
+
+[sub_resource type="Theme" id="Theme_03owx"]
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_trn2v")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sc1dx"]
+size = Vector2(400, 580)
 
 [node name="Main" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [965.0, 540.0, 115.0]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_top = -100.0
+offset_right = 1920.0
+offset_bottom = 1180.0
+texture = ExtResource("1_20pc6")
+metadata/_edit_lock_ = true
+
+[node name="Scoll" type="TextureRect" parent="Control"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_5vvyt")
+layout_mode = 0
+offset_right = 2787.0
+offset_bottom = 1080.0
+texture = ExtResource("2_wkp8b")
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 155.0
+offset_right = 495.0
+offset_bottom = 251.0
+theme = SubResource("Theme_c2ibq")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "D
+P"
+metadata/_edit_lock_ = true
+
+[node name="Button2" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 291.0
+offset_right = 495.0
+offset_bottom = 387.0
+theme = SubResource("Theme_c2ibq")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "S
+P"
+metadata/_edit_lock_ = true
+
+[node name="Button3" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 427.0
+offset_right = 495.0
+offset_bottom = 523.0
+theme = SubResource("Theme_c2ibq")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "M
+I"
+metadata/_edit_lock_ = true
+
+[node name="Button4" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 563.0
+offset_right = 495.0
+offset_bottom = 659.0
+theme = SubResource("Theme_c2ibq")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "B
+P"
+metadata/_edit_lock_ = true
+
+[node name="Button5" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 699.0
+offset_right = 495.0
+offset_bottom = 795.0
+theme = SubResource("Theme_c2ibq")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "M
+II"
+metadata/_edit_lock_ = true
+
+[node name="Button6" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 835.0
+offset_right = 495.0
+offset_bottom = 931.0
+theme = SubResource("Theme_c2ibq")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "E
+P"
+metadata/_edit_lock_ = true
+
+[node name="CardInfo" type="Node2D" parent="."]
+position = Vector2(220, 376)
+
+[node name="CardSwap1" type="Sprite2D" parent="CardInfo"]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_j4qnp")
+metadata/_edit_lock_ = true
+
+[node name="CardSwap2" type="Sprite2D" parent="CardInfo"]
+visible = false
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("6_fpfj3")
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CardInfo"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 261.0
+offset_right = 180.0
+offset_bottom = 589.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_03owx")
+text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+horizontal_alignment = 3
+vertical_alignment = 3
+metadata/_edit_lock_ = true
 
 [node name="Board" type="Node2D" parent="."]
-position = Vector2(443, 540)
+position = Vector2(960, 540)
 
 [node name="Sprite2D" type="Sprite2D" parent="Board"]
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("1_lgr22")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_wkp8b")
+metadata/_edit_lock_ = true
 
 [node name="OpponentField" type="Node2D" parent="Board"]
-position = Vector2(443, 443)
 rotation = 3.14159
 
 [node name="MainDeck" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(66, 777)
+position = Vector2(-362.001, 320.999)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("7_5vvyt")
 CardScene = ExtResource("6_3dxm6")
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="Graveyard" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(66, 634)
+position = Vector2(-362, 183.999)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="FieldCard" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(819, 634)
+position = Vector2(361.999, 184.001)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="ExtraDeck" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(819, 777)
+position = Vector2(361.999, 321.001)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="Banished" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(86, 513)
+position = Vector2(-343, 67.9985)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="PowerZone" type="Node2D" parent="Board/OpponentField"]
-position = Vector2(443, 586)
 
 [node name="PowerSlot1" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
-position = Vector2(-258, 0)
+position = Vector2(-248, 139.999)
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="PowerSlot2" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
-position = Vector2(-129, 0)
+position = Vector2(-124, 140)
 Index = 1
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="PowerSlot3" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
+position = Vector2(0.000183105, 140)
 Index = 2
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="PowerSlot4" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
-position = Vector2(129, 0)
+position = Vector2(124, 140)
 Index = 3
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="PowerSlot5" parent="Board/OpponentField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
-position = Vector2(258, 0)
+position = Vector2(248, 140.001)
 Index = 4
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="MainZone" type="Node2D" parent="Board/OpponentField"]
-position = Vector2(443, 664)
 
 [node name="CardSlot1" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-258, 1.90735e-06)
+position = Vector2(-248.001, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-129, 1.90735e-06)
+position = Vector2(-124.001, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(9.53674e-07, 1.90735e-06)
+position = Vector2(-0.000793457, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(129, 1.90735e-06)
+position = Vector2(123.999, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(258, 1.90735e-06)
+position = Vector2(247.999, 212.001)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot6" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-258, 1.90735e-06)
+position = Vector2(-248.001, 211.999)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot7" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-129, 1.90735e-06)
+position = Vector2(-124.001, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot8" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(9.53674e-07, 1.90735e-06)
+position = Vector2(-0.000793457, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot9" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(129, 1.90735e-06)
+position = Vector2(123.999, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot10" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(258, 1.90735e-06)
+position = Vector2(247.999, 212.001)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="STPZone" type="Node2D" parent="Board/OpponentField"]
-position = Vector2(443, 795)
 
 [node name="CardSlot1" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-258, 7.62939e-06)
+position = Vector2(-248.001, 337.999)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-129, 7.62939e-06)
+position = Vector2(-124.001, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 Index = 1
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-9.53674e-07, 7.62939e-06)
+position = Vector2(-0.000793457, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 Index = 2
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(129, 7.62939e-06)
+position = Vector2(123.999, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 Index = 3
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(258, 7.62939e-06)
+position = Vector2(247.999, 338.001)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 Index = 4
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="HandZone" type="Node2D" parent="Board/OpponentField"]
 script = ExtResource("7_03owx")
 DuelSide = 2
 
 [node name="PlayerField" type="Node2D" parent="Board"]
-position = Vector2(-443, -443)
 
 [node name="MainDeck" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
-position = Vector2(66, 777)
+position = Vector2(-362, 321)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("7_5vvyt")
 CardScene = ExtResource("6_3dxm6")
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="Count" type="RichTextLabel" parent="Board/PlayerField/MainDeck"]
 visible = false
@@ -193,137 +404,159 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Graveyard" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
-position = Vector2(66, 634)
+position = Vector2(-362, 184)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="FieldCard" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
-position = Vector2(819, 634)
+position = Vector2(362, 184)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="ExtraDeck" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
-position = Vector2(819, 777)
+position = Vector2(362, 321)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="Banished" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
-position = Vector2(86, 513)
+position = Vector2(-343, 68.0001)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="PowerZone" type="Node2D" parent="Board/PlayerField"]
-position = Vector2(443, 586)
 
 [node name="PowerSlot1" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
-position = Vector2(-258, 0)
+position = Vector2(-248, 140)
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="PowerSlot2" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
-position = Vector2(-129, 0)
+position = Vector2(-124, 140)
 Index = 1
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="PowerSlot3" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
+position = Vector2(0, 140)
 Index = 2
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="PowerSlot4" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
-position = Vector2(129, 0)
+position = Vector2(124, 140)
 Index = 3
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="PowerSlot5" parent="Board/PlayerField/PowerZone" instance=ExtResource("7_trn2v")]
 visible = false
-position = Vector2(258, 0)
+position = Vector2(248, 140)
 Index = 4
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="MainZone" type="Node2D" parent="Board/PlayerField"]
-position = Vector2(443, 664)
 
 [node name="CardSlot1" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-258, 1.90735e-06)
+position = Vector2(-248, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-129, 1.90735e-06)
+position = Vector2(-124, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(9.53674e-07, 1.90735e-06)
+position = Vector2(0, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(129, 1.90735e-06)
+position = Vector2(124, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(258, 1.90735e-06)
+position = Vector2(248, 212)
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot6" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-258, 1.90735e-06)
+position = Vector2(-248, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot7" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-129, 1.90735e-06)
+position = Vector2(-124, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot8" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(9.53674e-07, 1.90735e-06)
-rotation = -1.5708
+position = Vector2(0, 212)
+rotation = -1.57079
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot9" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(129, 1.90735e-06)
+position = Vector2(124, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="CardSlot10" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
-position = Vector2(258, 1.90735e-06)
+position = Vector2(248, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
 
 [node name="STPZone" type="Node2D" parent="Board/PlayerField"]
-position = Vector2(443, 795)
 
 [node name="CardSlot1" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-258, 7.62939e-06)
+position = Vector2(-248, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-129, 7.62939e-06)
+position = Vector2(-124, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 Index = 1
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-9.53674e-07, 7.62939e-06)
+position = Vector2(0, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 Index = 2
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(129, 7.62939e-06)
+position = Vector2(124, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 Index = 3
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(258, 7.62939e-06)
+position = Vector2(248, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 Index = 4
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="HandZone" type="Node2D" parent="Board/PlayerField"]
 script = ExtResource("7_03owx")
@@ -335,3 +568,21 @@ PlayerDeck = NodePath("../Board/PlayerField/MainDeck")
 OpponentDeck = NodePath("../Board/OpponentField/MainDeck")
 PlayerHand = NodePath("../Board/PlayerField/HandZone")
 OpponentHand = NodePath("../Board/OpponentField/HandZone")
+
+[node name="OpponentInfo" parent="." instance=ExtResource("13_c6i3y")]
+position = Vector2(1653, 226)
+
+[node name="PlayInfo" parent="." instance=ExtResource("13_c6i3y")]
+position = Vector2(1653, 854)
+
+[node name="cc" type="Node2D" parent="."]
+position = Vector2(1600, 500)
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="cc"]
+texture = ExtResource("6_fpfj3")
+
+[node name="Area2D" type="Area2D" parent="cc"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cc/Area2D"]
+shape = SubResource("RectangleShape2D_sc1dx")

@@ -39,9 +39,12 @@ public partial class Card : Node2D
 
     public CardEffectType EffectType { get; set; } = CardEffectType.None;
 
+    public Vector2 BasePosition { get; set; }
+
     private AnimationPlayer _animationPlayer;
     private Sprite2D _cardFront;
     private Sprite2D _cardBack;
+    private bool _isHovered = false;
 
     public override void _Ready()
     {
@@ -59,5 +62,31 @@ public partial class Card : Node2D
 
         _animationPlayer.Play(CARD_DRAW_FLIP_ANIMATION);
         _ = await ToSignal(_animationPlayer, AnimationFinished);
+    }
+
+    private void OnMouseEntered()
+    {
+        if (DuelSide is DuelSide.Player && Status is CardStatus.InHand)
+        {
+            _isHovered = true;
+
+            GD.Print($"Mouse entered card: {Code}");
+
+            var hoverPosition = BasePosition;
+            hoverPosition.Y -= 10;
+            _ = GetTree().CreateTween().TweenProperty(this, "position", hoverPosition, 0.1).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.InOut);
+        }
+    }
+
+    private void OnMouseExited()
+    {
+        if (DuelSide is DuelSide.Player && Status is CardStatus.InHand && _isHovered)
+        {
+            _isHovered = false;
+
+            GD.Print($"Mouse exited card: {Code}");
+
+            _ = GetTree().CreateTween().TweenProperty(this, "position", BasePosition, 0.1).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.InOut);
+        }
     }
 }

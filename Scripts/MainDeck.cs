@@ -1,8 +1,10 @@
 using Godot;
 using System.Collections.Generic;
+using static DMYAN.Scripts.CardDatabase;
 using static DMYAN.Scripts.Constant;
 using static Godot.FileAccess;
 using static Godot.FileAccess.ModeFlags;
+using static Godot.Vector2;
 
 namespace DMYAN.Scripts;
 
@@ -31,6 +33,21 @@ public partial class MainDeck : CardSlot
         }
     }
 
+    public Card DrawCard()
+    {
+        if (_cardsInDeck.Count is 0)
+        {
+            return default;
+        }
+
+        var drawnCard = _cardsInDeck[0];
+
+        _cardsInDeck.RemoveAt(0);
+        UpdateDeckCountDisplay();
+
+        return drawnCard;
+    }
+
     private void LoadDeckFromCsv()
     {
         _cardsInDeck.Clear();
@@ -57,7 +74,7 @@ public partial class MainDeck : CardSlot
             }
 
             var parts = line.Split(',');
-            var cardInfo = CardDatabase.GetCardInfo(parts[1].Trim('"'));
+            var cardInfo = GetCardInfo(parts[1].Trim('"'));
 
             if (string.IsNullOrWhiteSpace(cardInfo.Code))
             {
@@ -128,7 +145,7 @@ public partial class MainDeck : CardSlot
         {
             var card = _cardsInDeck[i];
 
-            card.Position = Vector2.Zero;
+            card.Position = Zero;
             card.ZIndex = i;
         }
     }
@@ -141,27 +158,12 @@ public partial class MainDeck : CardSlot
             {
                 _count.Text = _cardsInDeck.Count.ToString();
                 _count.Visible = true;
-                _count.ZIndex = _cardsInDeck.Count * 2;
+                _count.ZIndex = 1000;
             }
             else
             {
                 _count.Visible = false;
             }
         }
-    }
-
-    public Card DrawCard()
-    {
-        if (_cardsInDeck.Count is 0)
-        {
-            return default;
-        }
-
-        var drawnCard = _cardsInDeck[0];
-
-        _cardsInDeck.RemoveAt(0);
-        UpdateDeckCountDisplay();
-
-        return drawnCard;
     }
 }

@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=3 uid="uid://b3pth5pvbjjft"]
+
+[ext_resource type="Texture2D" uid="uid://c4fyi83nec1yv" path="res://Assets/timef.png" id="1_ej2h8"]
+[ext_resource type="Texture2D" uid="uid://bql7tae5rcv6r" path="res://Assets/time.png" id="2_c6n2m"]
+[ext_resource type="Texture2D" uid="uid://c65ryvhmlleu8" path="res://Assets/lpf.png" id="3_qtkth"]
+[ext_resource type="Texture2D" uid="uid://dhn3suvlqflmk" path="res://Assets/lp.png" id="4_tqx1a"]
+[ext_resource type="Shader" uid="uid://brymt4jw6gih1" path="res://Avatar.gdshader" id="5_navm1"]
+[ext_resource type="Texture2D" uid="uid://bcsx3b51wt6ty" path="res://Assets/tem.jpg" id="6_ej2h8"]
+[ext_resource type="Texture2D" uid="uid://dj2mahwsj5mv2" path="res://Assets/bar.png" id="7_6wlno"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5tuhn"]
+shader = ExtResource("5_navm1")
+
+[node name="Infomation" type="Node2D"]
+
+[node name="TimeBar" type="TextureProgressBar" parent="."]
+offset_left = -119.0
+offset_top = -31.0
+offset_right = 202.0
+offset_bottom = -1.0
+max_value = 60.0
+value = 60.0
+texture_over = ExtResource("1_ej2h8")
+texture_progress = ExtResource("2_c6n2m")
+metadata/_edit_lock_ = true
+
+[node name="LPBar" type="TextureProgressBar" parent="."]
+offset_left = -119.0
+offset_top = 1.0
+offset_right = 202.0
+offset_bottom = 31.0
+max_value = 10000.0
+step = 10.0
+value = 10000.0
+texture_over = ExtResource("3_qtkth")
+texture_progress = ExtResource("4_tqx1a")
+metadata/_edit_lock_ = true
+
+[node name="Name" type="RichTextLabel" parent="."]
+offset_left = -104.0
+offset_top = -30.0
+offset_right = 173.0
+offset_bottom = -3.0
+text = "Atem"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="LP" type="RichTextLabel" parent="."]
+offset_left = -104.0
+offset_top = 2.0
+offset_right = 173.0
+offset_bottom = 29.0
+text = "10000"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_5tuhn")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -42.0
+offset_right = -114.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_ej2h8")
+expand_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_6wlno")
+metadata/_edit_lock_ = true
