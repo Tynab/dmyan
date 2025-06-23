@@ -1,29 +1,30 @@
 using Godot;
-using System;
-using System.Dynamic;
+using System.Threading.Tasks;
+using static DMYAN.Scripts.Constant;
+using static Godot.AnimationMixer.SignalName;
+using static Godot.Tween.EaseType;
+using static Godot.Tween.TransitionType;
+using static Godot.ResourceLoader;
 
 namespace DMYAN.Scripts;
 
 public partial class CardInfo : Node2D
 {
-    public int CurrentSwap { get; set; } = 1;
+    public int CurrentSwap { get; set; } = DEFAULT_CARD_INFO_SWAP;
 
-    public string TexturePath1 { get; set; } = "res://Assets/card_back.jpg";
+    public string TexturePath1 { get; set; } = CARD_BACK_ASSET_PATH;
 
-    public string TexturePath2 { get; set; } = "res://Assets/card_back.jpg";
+    public string TexturePath2 { get; set; } = CARD_BACK_ASSET_PATH;
 
     private AnimationPlayer _animationPlayer;
 
-    public override void _Ready() => _animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+    public override void _Ready() => _animationPlayer = GetNodeOrNull<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
 
     public void UpdateTexture()
     {
-        var cardSwap1 = GetNodeOrNull<Sprite2D>("CardSwap1");
-        var cardSwap2 = GetNodeOrNull<Sprite2D>("CardSwap2");
-
-        cardSwap1.Texture = ResourceLoader.Load<Texture2D>(TexturePath1);
-        cardSwap2.Texture = ResourceLoader.Load<Texture2D>(TexturePath2);
-        _animationPlayer.Play(CurrentSwap is 1 ? "card_swap_1" : "card_swap_2");
+        GetNodeOrNull<Sprite2D>(CARD_INFO_SWAP_1_NODE).Texture = Load<Texture2D>(TexturePath1);
+        GetNodeOrNull<Sprite2D>(CARD_INFO_SWAP_2_NODE).Texture = Load<Texture2D>(TexturePath2);
+        AnimationDrawFlipAsync();
         CurrentSwap = CurrentSwap is 1 ? 2 : 1;
     }
 
@@ -33,38 +34,44 @@ public partial class CardInfo : Node2D
 
         if (type is CardType.Monster)
         {
-            description += $"{attribute.ToString().ToUpper()}\n{race}";
+            description += $"Thuộc tính: {attribute.VietTranslation().ToUpper()}\nChủng loài: {race.VietTranslation()}";
 
-            if (property is not CardProperty.None and not CardProperty.Normal)
+            var strProperty = property.VietTranslation();
+
+            if (!string.IsNullOrWhiteSpace(strProperty))
             {
-                description += $"/{property}";
+                description += $"/{strProperty}";
             }
 
-            description += "\n";
+            description += "\nCấp: ";
 
             for (var i = 0; i < level; i++)
             {
                 description += "★";
             }
 
-            description += $"\nATK {atk} / DEF {def}";
+            description += $"\nCông: {atk.ViewPower()} / Thủ: {def.ViewPower()}";
 
             if (!string.IsNullOrWhiteSpace(effect))
             {
-                description += $"\n{effect}";
+                description += $"\nHiệu ứng:\n{effect}";
             }
         }
         else
         {
-            if (property is not CardProperty.None and not CardProperty.Normal)
+            var strProperty = property.VietTranslation();
+
+            if (!string.IsNullOrWhiteSpace(strProperty))
             {
-                description += $"{property}\n";
+                description += $"Đặc tính: {strProperty}\n";
             }
 
-            description += $"{effect}";
+            description += $"Hiệu ứng:\n{effect}";
         }
 
-        GetNodeOrNull<RichTextLabel>("Header").Text = $"{name.ToUpper()}\n[{type}]";
-        GetNodeOrNull<RichTextLabel>("Detail").Text = description;
+        GetNodeOrNull<RichTextLabel>(CARD_INFO_HEADER_NODE).Text = $"{name.ToUpper()}\n[{type.VietTranslation()}]";
+        GetNodeOrNull<RichTextLabel>(CARD_INFO_DETAIL_NODE).Text = description;
     }
+
+    private void AnimationDrawFlipAsync() => _animationPlayer.Play(CurrentSwap is 1 ? CARD_SWAP_1_ANIMATION : CARD_SWAP_2_ANIMATION);
 }

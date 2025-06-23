@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mcsb0j8n6nht"
-path="res://.godot/imported/08471389.jpg-d49c8950e7df4f6865e77409672434ec.ctex"
+uid="uid://c4fyi83nec1yv"
+path="res://.godot/imported/timerf.png-c3208f1483f5a4e2367dbfbb9a114410.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/08471389.jpg"
-dest_files=["res://.godot/imported/08471389.jpg-d49c8950e7df4f6865e77409672434ec.ctex"]
+source_file="res://Assets/Texture/timerf.png"
+dest_files=["res://.godot/imported/timerf.png-c3208f1483f5a4e2367dbfbb9a114410.ctex"]
 
 [params]
 

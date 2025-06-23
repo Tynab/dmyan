@@ -18,12 +18,7 @@ public static class CardDatabase
             return;
         }
 
-        using var file = Open(CARDS_CSV_PATH, Read);
-
-        if (file is null)
-        {
-            return;
-        }
+        using var file = Open(CARDS_DATA_PATH, Read);
 
         if (!file.EofReached())
         {

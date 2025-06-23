@@ -21,8 +21,8 @@ public partial class PowerSlot : Node2D
 
     public override void _Ready()
     {
-        _atk = GetNodeOrNull<RichTextLabel>(ATK_NODE);
-        _def = GetNodeOrNull<RichTextLabel>(DEF_NODE);
-        _slash = GetNodeOrNull<RichTextLabel>(SLASH_NODE);
+        _atk = GetNodeOrNull<RichTextLabel>(POWER_ATK_NODE);
+        _def = GetNodeOrNull<RichTextLabel>(POWER_DEF_NODE);
+        _slash = GetNodeOrNull<RichTextLabel>(POWER_SLASH_NODE);
     }
 }

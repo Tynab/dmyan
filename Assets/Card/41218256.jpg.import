@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4fyi83nec1yv"
-path="res://.godot/imported/timef.png-36f6f8ec5a758d210036cfc75f0a1415.ctex"
+uid="uid://cbkmnr8rs2orw"
+path="res://.godot/imported/41218256.jpg-e15d20dfb7c28869792ace1e2e5d5cc1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/timef.png"
-dest_files=["res://.godot/imported/timef.png-36f6f8ec5a758d210036cfc75f0a1415.ctex"]
+source_file="res://Assets/Card/41218256.jpg"
+dest_files=["res://.godot/imported/41218256.jpg-e15d20dfb7c28869792ace1e2e5d5cc1.ctex"]
 
 [params]
 

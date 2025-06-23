@@ -4,6 +4,7 @@ using static DMYAN.Scripts.CardDatabase;
 using static DMYAN.Scripts.Constant;
 using static Godot.FileAccess;
 using static Godot.FileAccess.ModeFlags;
+using static Godot.ResourceLoader;
 using static Godot.Vector2;
 
 namespace DMYAN.Scripts;
@@ -18,17 +19,12 @@ public partial class MainDeck : CardSlot
 
     public override void _Ready()
     {
-        if (CardScene is null)
-        {
-            return;
-        }
-
         LoadDeckFromCsv();
         ShuffleAndArrangeDeck();
 
         if (DuelSide is DuelSide.Player)
         {
-            _count = GetNodeOrNull<RichTextLabel>(COUNT_LABEL_NODE);
+            _count = GetNodeOrNull<RichTextLabel>(SLOT_COUNT_NODE);
             UpdateDeckCountDisplay();
         }
     }
@@ -52,12 +48,7 @@ public partial class MainDeck : CardSlot
     {
         _cardsInDeck.Clear();
 
-        using var file = Open(DECKS_CSV_PATH, Read);
-
-        if (file is null)
-        {
-            return;
-        }
+        using var file = Open(DECKS_DATA_PATH, Read);
 
         if (!file.EofReached())
         {
@@ -75,18 +66,7 @@ public partial class MainDeck : CardSlot
 
             var parts = line.Split(',');
             var cardData = GetCardData(parts[1].Trim('"'));
-
-            if (string.IsNullOrWhiteSpace(cardData.Code))
-            {
-                continue;
-            }
-
             var card = CardScene.Instantiate<Card>();
-
-            if (card is null)
-            {
-                continue;
-            }
 
             card.DuelSide = DuelSide;
             card.Status = CardStatus.InDeck;
@@ -107,26 +87,11 @@ public partial class MainDeck : CardSlot
             card.EffectType = cardData.EffectType;
 
             var cardFront = card.GetNodeOrNull<Sprite2D>(CARD_FRONT_NODE);
-
-            if (cardFront is not null)
-            {
-                var cardTexture = ResourceLoader.Load<Texture2D>($"res://Assets/{cardData.Code}.jpg");
-
-                if (cardTexture is not null)
-                {
-                    cardFront.Texture = cardTexture;
-                }
-
-                cardFront.Visible = false;
-            }
-
             var cardBack = card.GetNodeOrNull<Sprite2D>(CARD_BACK_NODE);
 
-            if (cardBack is not null)
-            {
-                cardBack.Visible = true;
-            }
-
+            cardFront.Texture = Load<Texture2D>(cardData.Code.GetCardAssetPathByCode());
+            cardFront.Visible = false;
+            cardBack.Visible = true;
             _cardsInDeck.Add(card);
             AddChild(card);
         }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=23 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
 [ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Scroll.gdshader" id="1_wkp8b"]
@@ -14,9 +14,21 @@
 [ext_resource type="Script" uid="uid://dxs6f6esfhe0o" path="res://Scripts/GameManager.cs" id="8_wkp8b"]
 [ext_resource type="FontFile" uid="uid://cwyl68a5jsi7j" path="res://Font/Khamenet-8OLn0.ttf" id="12_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://b3pth5pvbjjft" path="res://Scenes/Infomation.tscn" id="13_c6i3y"]
+[ext_resource type="Script" uid="uid://mqv6i7ckx7d2" path="res://Scripts/MainZone.cs" id="14_sc1dx"]
+[ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlot.cs" id="15_sc1dx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
 shader = ExtResource("1_wkp8b")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpfj3"]
+bg_color = Color(0.580392, 0.215686, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.709804, 0.45098, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20pc6"]
 bg_color = Color(0.466667, 0.835294, 1, 1)
@@ -49,6 +61,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="Theme" id="Theme_c2ibq"]
+Button/styles/disabled = SubResource("StyleBoxFlat_fpfj3")
 Button/styles/hover = SubResource("StyleBoxFlat_20pc6")
 Button/styles/normal = SubResource("StyleBoxFlat_5vvyt")
 Button/styles/pressed = SubResource("StyleBoxFlat_c6i3y")
@@ -81,25 +94,28 @@ mouse_filter = 2
 texture = ExtResource("2_wkp8b")
 metadata/_edit_lock_ = true
 
-[node name="Button" type="Button" parent="Control"]
+[node name="DP" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 155.0
 offset_right = 495.0
 offset_bottom = 251.0
+tooltip_text = "Pha rút bài"
 theme = SubResource("Theme_c2ibq")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
+disabled = true
 text = "D
 P"
 metadata/_edit_lock_ = true
 
-[node name="Button2" type="Button" parent="Control"]
+[node name="SP" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 291.0
 offset_right = 495.0
 offset_bottom = 387.0
+tooltip_text = "Pha chuẩn bị"
 theme = SubResource("Theme_c2ibq")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
@@ -107,12 +123,13 @@ text = "S
 P"
 metadata/_edit_lock_ = true
 
-[node name="Button3" type="Button" parent="Control"]
+[node name="M1" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 427.0
 offset_right = 495.0
 offset_bottom = 523.0
+tooltip_text = "Pha chính 1"
 theme = SubResource("Theme_c2ibq")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
@@ -120,12 +137,13 @@ text = "M
 I"
 metadata/_edit_lock_ = true
 
-[node name="Button4" type="Button" parent="Control"]
+[node name="BP" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 563.0
 offset_right = 495.0
 offset_bottom = 659.0
+tooltip_text = "Pha giao tranh"
 theme = SubResource("Theme_c2ibq")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
@@ -133,12 +151,13 @@ text = "B
 P"
 metadata/_edit_lock_ = true
 
-[node name="Button5" type="Button" parent="Control"]
+[node name="M2" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 699.0
 offset_right = 495.0
 offset_bottom = 795.0
+tooltip_text = "Pha chính 2"
 theme = SubResource("Theme_c2ibq")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
@@ -146,12 +165,13 @@ text = "M
 II"
 metadata/_edit_lock_ = true
 
-[node name="Button6" type="Button" parent="Control"]
+[node name="EP" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 835.0
 offset_right = 495.0
 offset_bottom = 931.0
+tooltip_text = "Pha kết thúc"
 theme = SubResource("Theme_c2ibq")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
@@ -239,60 +259,90 @@ DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="MainZone" type="Node2D" parent="Board/OpponentField"]
+script = ExtResource("14_sc1dx")
+DuelSide = 2
 
 [node name="CardSlot1" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248.001, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124.001, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 1
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-0.000793457, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 2
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(123.999, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 3
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(247.999, 212.001)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 4
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot6" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248.001, 211.999)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot7" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124.001, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 1
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot8" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-0.000793457, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 2
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot9" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(123.999, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 3
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="CardSlot10" parent="Board/OpponentField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(247.999, 212.001)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 4
+DuelSide = 2
 metadata/_edit_lock_ = true
 
 [node name="STPZone" type="Node2D" parent="Board/OpponentField"]
@@ -425,60 +475,90 @@ DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="MainZone" type="Node2D" parent="Board/PlayerField"]
+script = ExtResource("14_sc1dx")
+DuelSide = 1
 
 [node name="CardSlot1" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 1
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(0, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 2
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(124, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 3
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(248, 212)
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 4
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot6" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot7" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 1
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot8" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(0, 212)
 rotation = -1.57079
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 2
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot9" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(124, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 3
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="CardSlot10" parent="Board/PlayerField/MainZone" instance=ExtResource("6_20pc6")]
 position = Vector2(248, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+Index = 4
+DuelSide = 1
 metadata/_edit_lock_ = true
 
 [node name="STPZone" type="Node2D" parent="Board/PlayerField"]
@@ -527,15 +607,17 @@ z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 1
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("PlayerDeck", "OpponentDeck", "PlayerHand", "OpponentHand")]
-script = ExtResource("8_wkp8b")
-PlayerDeck = NodePath("../Board/PlayerField/MainDeck")
-OpponentDeck = NodePath("../Board/OpponentField/MainDeck")
-PlayerHand = NodePath("../Board/PlayerField/HandZone")
-OpponentHand = NodePath("../Board/OpponentField/HandZone")
-
 [node name="OpponentInfo" parent="." instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 226)
 
 [node name="PlayInfo" parent="." instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 854)
+
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerDeck", "OpponentDeck", "PlayerHand", "OpponentHand", "PlayerMainZone", "OpponentMainZone")]
+script = ExtResource("8_wkp8b")
+PlayerDeck = NodePath("../Board/PlayerField/MainDeck")
+OpponentDeck = NodePath("../Board/OpponentField/MainDeck")
+PlayerHand = NodePath("../Board/PlayerField/HandZone")
+OpponentHand = NodePath("../Board/OpponentField/HandZone")
+PlayerMainZone = NodePath("../Board/PlayerField/MainZone")
+OpponentMainZone = NodePath("../Board/OpponentField/MainZone")
