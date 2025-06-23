@@ -33,6 +33,8 @@ public partial class GameManager : Node2D
 
     public DuelPhase CurrentPhase { get; set; } = DuelPhase.None;
 
+    public bool HasSummoned { get; set; } = false;
+
     private Control _control;
     private Button _spButton;
     private Button _m1Button;
@@ -43,7 +45,7 @@ public partial class GameManager : Node2D
         _spButton = _control.GetNodeOrNull<Button>(SP_BUTTON_NODE);
         _m1Button = _control.GetNodeOrNull<Button>(M1_BUTTON_NODE);
         LoadCards();
-        await Delay(100);
+        await Delay(STARTUP_DELAY);
         await StartInitialDraw();
         await DrawPhase();
     }
@@ -76,14 +78,15 @@ public partial class GameManager : Node2D
 
         if (card is not null)
         {
-            await hand.AddCardToHand(card);
+            await hand.AddCard(card);
         }
     }
 
-    private static void SummonAndPlaceCard(Card card, HandManager hand, MainZone zone)
+    private void SummonAndPlaceCard(Card card, HandManager hand, MainZone zone)
     {
-        hand.RemoveCardFromHand(card);
-        zone.SummonCardToMainZone(card);
+        hand.RemoveCard(card);
+        zone.SummonCard(card);
+        HasSummoned = true;
     }
 
     private Card GetCardAtCursor()
@@ -103,6 +106,7 @@ public partial class GameManager : Node2D
     public async Task DrawPhase()
     {
         CurrentPhase = DuelPhase.Draw;
+        HasSummoned = false;
 
         if (CurrentTurnSide is DuelSide.Player)
         {
@@ -113,7 +117,7 @@ public partial class GameManager : Node2D
             await DrawAndPlaceCard(OpponentDeck, OpponentHand);
         }
 
-        await Delay(PHASE_CHANGE_DELAY_MS);
+        await Delay(PHASE_CHANGE_DELAY);
         await StandbyPhase();
     }
 
@@ -121,7 +125,7 @@ public partial class GameManager : Node2D
     {
         CurrentPhase = DuelPhase.Standby;
         _spButton.Disabled = true;
-        await Delay(PHASE_CHANGE_DELAY_MS);
+        await Delay(PHASE_CHANGE_DELAY);
         await Main1Phase();
     }
 
@@ -129,12 +133,12 @@ public partial class GameManager : Node2D
     {
         CurrentPhase = DuelPhase.Main1;
         _m1Button.Disabled = true;
-        await Delay(PHASE_CHANGE_DELAY_MS);
+        await Delay(PHASE_CHANGE_DELAY);
     }
 
     public async Task EndPhase()
     {
-        await Delay(PHASE_CHANGE_DELAY_MS);
+        await Delay(PHASE_CHANGE_DELAY);
         CurrentTurnSide = CurrentTurnSide == DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;
         await DrawPhase();
     }

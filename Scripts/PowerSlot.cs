@@ -1,5 +1,6 @@
 using Godot;
 using static DMYAN.Scripts.Constant;
+using static Godot.Colors;
 
 namespace DMYAN.Scripts;
 
@@ -24,5 +25,24 @@ public partial class PowerSlot : Node2D
         _atk = GetNodeOrNull<RichTextLabel>(POWER_ATK_NODE);
         _def = GetNodeOrNull<RichTextLabel>(POWER_DEF_NODE);
         _slash = GetNodeOrNull<RichTextLabel>(POWER_SLASH_NODE);
+        _slash.Modulate = Gray;
+    }
+
+    public void ShowAtk(Card card)
+    {
+        Show();
+        _atk.Text = card.ATK.ToString();
+        _atk.Modulate = White;
+        _def.Text = card.DEF.ToString();
+        _def.Modulate = Gray;
+    }
+
+    public void ShowDef(Card card)
+    {
+        Show();
+        _atk.Text = card.ATK.ToString();
+        _atk.Modulate = Gray;
+        _def.Text = card.DEF.ToString();
+        _def.Modulate = White;
     }
 }

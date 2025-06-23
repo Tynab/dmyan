@@ -50,6 +50,7 @@ public partial class Card : Node2D
     private AnimationPlayer _animationPlayer;
     private Sprite2D _cardFront;
     private Sprite2D _cardBack;
+    private GameManager _gameManager;
     private MainZone _mainZone;
     private CardInfo _cardInfo;
     private PopupAction _popupAction;
@@ -60,6 +61,7 @@ public partial class Card : Node2D
         _animationPlayer = GetNodeOrNull<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
         _cardFront = GetNodeOrNull<Sprite2D>(CARD_FRONT_NODE);
         _cardBack = GetNodeOrNull<Sprite2D>(CARD_BACK_NODE);
+        _gameManager = GetNodeOrNull<GameManager>($"../../../../{nameof(GameManager)}");
         _mainZone = GetNodeOrNull<MainZone>($"../../{nameof(MainZone)}");
         _cardInfo = GetNodeOrNull<CardInfo>($"../../../../{nameof(CardInfo)}");
         _popupAction = GetNodeOrNull<PopupAction>(nameof(PopupAction));
@@ -92,7 +94,7 @@ public partial class Card : Node2D
                 HighlightOn();
                 BindingDataToCardInfo();
 
-                if ((Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5)
+                if ((Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && _gameManager.CurrentPhase is DuelPhase.Main1 or DuelPhase.Main2 && !_gameManager.HasSummoned)
                 {
                     CanSummon = true;
                     _popupAction.ShowSummonPopup();
@@ -114,16 +116,16 @@ public partial class Card : Node2D
                 HighlightOff();
             }
 
-            _popupAction.HidePopup();
+            _popupAction.Hide();
         }
     }
 
     private void HighlightOn()
     {
-        var hoverPosition = BasePosition;
+        var newPosition = BasePosition;
 
-        hoverPosition.Y -= CARD_HAND_RAISE_Y;
-        _ = GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, hoverPosition, DEFAULT_ANIMATION_SPEED);
+        newPosition.Y -= CARD_HAND_RAISE_Y;
+        _ = GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, newPosition, DEFAULT_ANIMATION_SPEED);
     }
 
     private void HighlightOff() => GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, BasePosition, DEFAULT_ANIMATION_SPEED);
@@ -142,6 +144,6 @@ public partial class Card : Node2D
         }
 
         _cardInfo.UpdateTexture();
-        _cardInfo.UpdateDescription(CardName, Type, Property, Attribute, Race, Level, ATK, DEF, Description);
+        _cardInfo.UpdateDescription(this);
     }
 }

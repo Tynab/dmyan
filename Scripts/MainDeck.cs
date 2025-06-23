@@ -19,13 +19,13 @@ public partial class MainDeck : CardSlot
 
     public override void _Ready()
     {
-        LoadDeckFromCsv();
-        ShuffleAndArrangeDeck();
+        LoadData();
+        ShuffleAndArrange();
 
         if (DuelSide is DuelSide.Player)
         {
             _count = GetNodeOrNull<RichTextLabel>(SLOT_COUNT_NODE);
-            UpdateDeckCountDisplay();
+            UpdateCountDisplay();
         }
     }
 
@@ -39,12 +39,12 @@ public partial class MainDeck : CardSlot
         var drawnCard = _cardsInDeck[0];
 
         _cardsInDeck.RemoveAt(0);
-        UpdateDeckCountDisplay();
+        UpdateCountDisplay();
 
         return drawnCard;
     }
 
-    private void LoadDeckFromCsv()
+    private void LoadData()
     {
         _cardsInDeck.Clear();
 
@@ -90,14 +90,14 @@ public partial class MainDeck : CardSlot
             var cardBack = card.GetNodeOrNull<Sprite2D>(CARD_BACK_NODE);
 
             cardFront.Texture = Load<Texture2D>(cardData.Code.GetCardAssetPathByCode());
-            cardFront.Visible = false;
-            cardBack.Visible = true;
+            cardFront.Hide();
+            cardBack.Show();
             _cardsInDeck.Add(card);
             AddChild(card);
         }
     }
 
-    private void ShuffleAndArrangeDeck()
+    private void ShuffleAndArrange()
     {
         if (_cardsInDeck.Count is 0)
         {
@@ -115,19 +115,19 @@ public partial class MainDeck : CardSlot
         }
     }
 
-    private void UpdateDeckCountDisplay()
+    private void UpdateCountDisplay()
     {
         if (_count is not null)
         {
             if (_cardsInDeck.Count > 0)
             {
                 _count.Text = _cardsInDeck.Count.ToString();
-                _count.Visible = true;
                 _count.ZIndex = 1000;
+                _count.Show();
             }
             else
             {
-                _count.Visible = false;
+                _count.Hide();
             }
         }
     }

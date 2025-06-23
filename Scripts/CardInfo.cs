@@ -1,9 +1,5 @@
 using Godot;
-using System.Threading.Tasks;
 using static DMYAN.Scripts.Constant;
-using static Godot.AnimationMixer.SignalName;
-using static Godot.Tween.EaseType;
-using static Godot.Tween.TransitionType;
 using static Godot.ResourceLoader;
 
 namespace DMYAN.Scripts;
@@ -24,19 +20,19 @@ public partial class CardInfo : Node2D
     {
         GetNodeOrNull<Sprite2D>(CARD_INFO_SWAP_1_NODE).Texture = Load<Texture2D>(TexturePath1);
         GetNodeOrNull<Sprite2D>(CARD_INFO_SWAP_2_NODE).Texture = Load<Texture2D>(TexturePath2);
-        AnimationDrawFlipAsync();
+        AnimationSwap();
         CurrentSwap = CurrentSwap is 1 ? 2 : 1;
     }
 
-    public void UpdateDescription(string name, CardType type, CardProperty property, MonsterAttribute attribute, MonsterRace race, int level, int atk, int def, string effect)
+    public void UpdateDescription(Card card)
     {
         var description = string.Empty;
 
-        if (type is CardType.Monster)
+        if (card.Type is CardType.Monster)
         {
-            description += $"Thuộc tính: {attribute.VietTranslation().ToUpper()}\nChủng loài: {race.VietTranslation()}";
+            description += $"Thuộc tính: {card.Attribute.VietTranslation().ToUpper()}\nChủng loài: {card.Race.VietTranslation()}";
 
-            var strProperty = property.VietTranslation();
+            var strProperty = card.Property.VietTranslation();
 
             if (!string.IsNullOrWhiteSpace(strProperty))
             {
@@ -45,33 +41,33 @@ public partial class CardInfo : Node2D
 
             description += "\nCấp: ";
 
-            for (var i = 0; i < level; i++)
+            for (var i = 0; i < card.Level; i++)
             {
                 description += "★";
             }
 
-            description += $"\nCông: {atk.ViewPower()} / Thủ: {def.ViewPower()}";
+            description += $"\nCông: {card.ATK.ViewPower()} / Thủ: {card.DEF.ViewPower()}";
 
-            if (!string.IsNullOrWhiteSpace(effect))
+            if (!string.IsNullOrWhiteSpace(card.Description))
             {
-                description += $"\nHiệu ứng:\n{effect}";
+                description += $"\nHiệu ứng:\n{card.Description}";
             }
         }
         else
         {
-            var strProperty = property.VietTranslation();
+            var strProperty = card.Property.VietTranslation();
 
             if (!string.IsNullOrWhiteSpace(strProperty))
             {
                 description += $"Đặc tính: {strProperty}\n";
             }
 
-            description += $"Hiệu ứng:\n{effect}";
+            description += $"Hiệu ứng:\n{card.Description}";
         }
 
-        GetNodeOrNull<RichTextLabel>(CARD_INFO_HEADER_NODE).Text = $"{name.ToUpper()}\n[{type.VietTranslation()}]";
+        GetNodeOrNull<RichTextLabel>(CARD_INFO_HEADER_NODE).Text = $"{card.CardName.ToUpper()}\n[{card.Type.VietTranslation()}]";
         GetNodeOrNull<RichTextLabel>(CARD_INFO_DETAIL_NODE).Text = description;
     }
 
-    private void AnimationDrawFlipAsync() => _animationPlayer.Play(CurrentSwap is 1 ? CARD_SWAP_1_ANIMATION : CARD_SWAP_2_ANIMATION);
+    private void AnimationSwap() => _animationPlayer.Play(CurrentSwap is 1 ? CARD_SWAP_1_ANIMATION : CARD_SWAP_2_ANIMATION);
 }

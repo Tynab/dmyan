@@ -18,7 +18,8 @@ public static class Constant
 
     public const int DEFAULT_CARD_INFO_SWAP = 1;
 
-    public const int PHASE_CHANGE_DELAY_MS = 1000;
+    public const int PHASE_CHANGE_DELAY = 1000;
+    public const int STARTUP_DELAY = 100;
 
     public const int CARD_COLLISION_MASK = 1;
 

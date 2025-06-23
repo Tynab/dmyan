@@ -25,7 +25,7 @@ public static class Extension
 
     public static string ViewPower(this int value)
     {
-        var strPower = value switch
+        var power = value switch
         {
             < -1 => "?",
             -1 => "X000",
@@ -33,7 +33,7 @@ public static class Extension
             _ => value.ToString()
         };
 
-        return strPower.PadLeft(5, ' ');
+        return power.PadLeft(5, ' ');
     }
 
     public static string VietTranslation(this CardType cardType) => cardType switch

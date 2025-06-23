@@ -1,8 +1,7 @@
 using Godot;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using static DMYAN.Scripts.Constant;
 using static Godot.GD;
+using static Godot.Vector2;
 
 namespace DMYAN.Scripts;
 
@@ -13,39 +12,26 @@ public partial class MainZone : Node2D
 
     public int CardsInZone { get; set; } = 0;
 
-    public void CountCardsInMainZone()
+    private Node2D _powerZone;
+
+    public override void _Ready() => _powerZone = GetNodeOrNull<Node2D>("../PowerZone");
+
+    public void SummonCard(Card card)
     {
-        for (var i = 0; i < 9; i++)
-        {
-            CardsInZone += GetChildOrNull<MainCardSlot>(i).CardsInSlot;
-        }
-    }
-
-    public void SummonCardToMainZone(Card card)
-    {
-        var slot = GetChildOrNull<MainCardSlot>(RandRange(0, 4));
-
-        while (slot.HasCardInSlot)
-        {
-            var rng = new RandomNumberGenerator();
-
-            rng.Randomize();
-            slot = GetChildOrNull<MainCardSlot>(rng.RandiRange(0, 4));
-        }
+        var slot = FindEmptyAttackSlot();
 
         card.Reparent(slot);
-        card.BasePosition = Vector2.Zero;
+        card.BasePosition = Zero;
         card.Status = CardStatus.InBoard;
         card.Zone = CardZone.Main;
         card.CardFace = CardFace.FaceUp;
         card.CanSummon = false;
-        card.AnimationSummon(slot.GlobalPosition, Vector2.One);
+        card.AnimationSummon(slot.GlobalPosition, One);
         slot.HasCardInSlot = true;
         slot.CardFaceInSlot = card.CardFace;
         slot.CardsInSlot++;
         CardsInZone++;
-
-        //card.AnimateSummonToSlot(FindEmptyAttackSlot());
+        _powerZone.GetChildOrNull<PowerSlot>(slot.Index).ShowAtk(card);
     }
 
     private MainCardSlot FindEmptyAttackSlot()
