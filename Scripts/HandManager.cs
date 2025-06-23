@@ -17,15 +17,22 @@ public partial class HandManager : Node2D
     public async Task AddCardToHand(Card card)
     {
         card.Reparent(this);
-        card.Status = CardStatus.InHand;
-        card.Zone = CardZone.None;
         card.Scale = new Vector2(CARD_HAND_SCALE, CARD_HAND_SCALE);
+        card.Status = CardStatus.InHand;
         _cardsInHand.Add(card);
         ArrangeCardsInHand();
 
         if (DuelSide is DuelSide.Player)
         {
-            await card.PlayFlipAnimationAsync();
+            await card.AnimationDrawFlipAsync();
+        }
+    }
+
+    public void RemoveCardFromHand(Card card)
+    {
+        if (_cardsInHand.Remove(card))
+        {
+            ArrangeCardsInHand();
         }
     }
 
@@ -36,13 +43,11 @@ public partial class HandManager : Node2D
         for (var i = 0; i < _cardsInHand.Count; i++)
         {
             var card = _cardsInHand[i];
-            var targetPosition = new Vector2((i - (_cardsInHand.Count - 1) / 2f) * space, HAND_POSITION_Y);
+            var handPosition = new Vector2((i - (_cardsInHand.Count - 1) / 2f) * space, HAND_POSITION_Y);
 
-            card.BasePosition = targetPosition;
-            AnimateCardPositions(card, targetPosition);
+            card.BasePosition = handPosition;
+            card.AnimationDraw(handPosition);
             card.ZIndex = i;
         }
     }
-
-    private void AnimateCardPositions(Card card, Vector2 position) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(card, "position", position, .1);
 }

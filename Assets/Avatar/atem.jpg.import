@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhn3suvlqflmk"
-path="res://.godot/imported/lp.png-24a460c75421adcd6c88c993279d0cce.ctex"
+uid="uid://bcsx3b51wt6ty"
+path="res://.godot/imported/atem.jpg-dc74918d5009002cf3191e138f9d6ad7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/lp.png"
-dest_files=["res://.godot/imported/lp.png-24a460c75421adcd6c88c993279d0cce.ctex"]
+source_file="res://Assets/Avatar/atem.jpg"
+dest_files=["res://.godot/imported/atem.jpg-dc74918d5009002cf3191e138f9d6ad7.ctex"]
 
 [params]
 

@@ -4,6 +4,7 @@ using static DMYAN.Scripts.CardDatabase;
 using static DMYAN.Scripts.Constant;
 using static Godot.FileAccess;
 using static Godot.FileAccess.ModeFlags;
+using static Godot.ResourceLoader;
 using static Godot.Vector2;
 
 namespace DMYAN.Scripts;
@@ -18,17 +19,12 @@ public partial class MainDeck : CardSlot
 
     public override void _Ready()
     {
-        if (CardScene is null)
-        {
-            return;
-        }
-
         LoadDeckFromCsv();
         ShuffleAndArrangeDeck();
 
         if (DuelSide is DuelSide.Player)
         {
-            _count = GetNodeOrNull<RichTextLabel>(COUNT_LABEL_NODE);
+            _count = GetNodeOrNull<RichTextLabel>(SLOT_COUNT_NODE);
             UpdateDeckCountDisplay();
         }
     }
@@ -52,12 +48,7 @@ public partial class MainDeck : CardSlot
     {
         _cardsInDeck.Clear();
 
-        using var file = Open(DECKS_CSV_PATH, Read);
-
-        if (file is null)
-        {
-            return;
-        }
+        using var file = Open(DECKS_DATA_PATH, Read);
 
         if (!file.EofReached())
         {
@@ -74,59 +65,33 @@ public partial class MainDeck : CardSlot
             }
 
             var parts = line.Split(',');
-            var cardInfo = GetCardInfo(parts[1].Trim('"'));
-
-            if (string.IsNullOrWhiteSpace(cardInfo.Code))
-            {
-                continue;
-            }
-
+            var cardData = GetCardData(parts[1].Trim('"'));
             var card = CardScene.Instantiate<Card>();
-
-            if (card is null)
-            {
-                continue;
-            }
 
             card.DuelSide = DuelSide;
             card.Status = CardStatus.InDeck;
             card.Zone = CardZone.MainDeck;
             card.CardFace = CardFace.FaceDown;
-            card.Name = cardInfo.Name;
-            card.Code = cardInfo.Code;
-            card.Description = cardInfo.Description;
-            card.Type = cardInfo.Type;
-            card.Property = cardInfo.Property;
-            card.Attribute = cardInfo.Attribute;
-            card.Race = cardInfo.Race;
-            card.SummonType = cardInfo.SummonType;
-            card.Level = cardInfo.Level;
-            card.ATK = cardInfo.ATK;
-            card.DEF = cardInfo.DEF;
-            card.BanlistStatus = cardInfo.BanlistStatus;
-            card.EffectType = cardInfo.EffectType;
+            card.CardName = cardData.Name;
+            card.Code = cardData.Code;
+            card.Description = cardData.Description;
+            card.Type = cardData.Type;
+            card.Property = cardData.Property;
+            card.Attribute = cardData.Attribute;
+            card.Race = cardData.Race;
+            card.SummonType = cardData.SummonType;
+            card.Level = cardData.Level;
+            card.ATK = cardData.ATK;
+            card.DEF = cardData.DEF;
+            card.BanlistStatus = cardData.BanlistStatus;
+            card.EffectType = cardData.EffectType;
 
             var cardFront = card.GetNodeOrNull<Sprite2D>(CARD_FRONT_NODE);
-
-            if (cardFront is not null)
-            {
-                var cardTexture = ResourceLoader.Load<Texture2D>($"res://Assets/{cardInfo.Code}.jpg");
-
-                if (cardTexture is not null)
-                {
-                    cardFront.Texture = cardTexture;
-                }
-
-                cardFront.Visible = false;
-            }
-
             var cardBack = card.GetNodeOrNull<Sprite2D>(CARD_BACK_NODE);
 
-            if (cardBack is not null)
-            {
-                cardBack.Visible = true;
-            }
-
+            cardFront.Texture = Load<Texture2D>(cardData.Code.GetCardAssetPathByCode());
+            cardFront.Visible = false;
+            cardBack.Visible = true;
             _cardsInDeck.Add(card);
             AddChild(card);
         }
