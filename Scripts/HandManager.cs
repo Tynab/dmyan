@@ -14,7 +14,7 @@ public partial class HandManager : Node2D
 
     private readonly List<Card> _cardsInHand = [];
 
-    public void AddCardToHand(Card card)
+    public async Task AddCardToHand(Card card)
     {
         card.Reparent(this);
         card.Scale = new Vector2(CARD_HAND_SCALE, CARD_HAND_SCALE);
@@ -24,7 +24,7 @@ public partial class HandManager : Node2D
 
         if (DuelSide is DuelSide.Player)
         {
-            card.AnimationDrawFlipAsync();
+            await card.AnimationDrawFlipAsync();
         }
     }
 

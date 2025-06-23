@@ -65,19 +65,18 @@ public partial class GameManager : Node2D
     {
         for (var i = 0; i < INITIAL_HAND_SIZE; i++)
         {
-            DrawAndPlaceCard(PlayerDeck, PlayerHand);
-            DrawAndPlaceCard(OpponentDeck, OpponentHand);
-            await Delay(100);
+            await DrawAndPlaceCard(PlayerDeck, PlayerHand);
+            await DrawAndPlaceCard(OpponentDeck, OpponentHand);
         }
     }
 
-    private static void DrawAndPlaceCard(MainDeck deck, HandManager hand)
+    private static async Task DrawAndPlaceCard(MainDeck deck, HandManager hand)
     {
         var card = deck.DrawCard();
 
         if (card is not null)
         {
-            hand.AddCardToHand(card);
+            await hand.AddCardToHand(card);
         }
     }
 
@@ -107,11 +106,11 @@ public partial class GameManager : Node2D
 
         if (CurrentTurnSide is DuelSide.Player)
         {
-            DrawAndPlaceCard(PlayerDeck, PlayerHand);
+            await DrawAndPlaceCard(PlayerDeck, PlayerHand);
         }
         else
         {
-            DrawAndPlaceCard(OpponentDeck, OpponentHand);
+            await DrawAndPlaceCard(OpponentDeck, OpponentHand);
         }
 
         await Delay(PHASE_CHANGE_DELAY_MS);
