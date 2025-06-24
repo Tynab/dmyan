@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b3pth5pvbjjft"]
+[gd_scene load_steps=10 format=3 uid="uid://b3pth5pvbjjft"]
 
 [ext_resource type="Texture2D" uid="uid://c4fyi83nec1yv" path="res://Assets/Textures/timerf.png" id="1_ej2h8"]
+[ext_resource type="Script" uid="uid://cljfahnbjaxt8" path="res://Scripts/Infomation.cs" id="1_tm4um"]
 [ext_resource type="Texture2D" uid="uid://bql7tae5rcv6r" path="res://Assets/Textures/timer.png" id="2_c6n2m"]
 [ext_resource type="Texture2D" uid="uid://c65ryvhmlleu8" path="res://Assets/Textures/lpf.png" id="3_qtkth"]
 [ext_resource type="Texture2D" uid="uid://dhn3suvlqflmk" path="res://Assets/Textures/lp.png" id="4_tqx1a"]
@@ -12,8 +13,9 @@
 shader = ExtResource("5_navm1")
 
 [node name="Infomation" type="Node2D"]
+script = ExtResource("1_tm4um")
 
-[node name="TimeBar" type="TextureProgressBar" parent="."]
+[node name="Timer" type="TextureProgressBar" parent="."]
 offset_left = -119.0
 offset_top = -31.0
 offset_right = 202.0
@@ -24,7 +26,7 @@ texture_over = ExtResource("1_ej2h8")
 texture_progress = ExtResource("2_c6n2m")
 metadata/_edit_lock_ = true
 
-[node name="LPBar" type="TextureProgressBar" parent="."]
+[node name="LifePoint" type="TextureProgressBar" parent="."]
 offset_left = -119.0
 offset_top = 1.0
 offset_right = 202.0

@@ -1,3 +1,6 @@
+using Godot;
+using static Godot.Vector2;
+
 namespace DMYAN.Scripts;
 
 public static class Constant
@@ -7,7 +10,7 @@ public static class Constant
     public const string CARD_BACK_ASSET_PATH = "res://Assets/card_back.jpg";
     public const string SUMMON_POPUP_ASSET_PATH = "res://Assets/Popups/summon.png";
     public const string SET_POPUP_ASSET_PATH = "res://Assets/Popups/set.png";
-    public const string ACTIVE_POPUP_ASSET_PATH = "res://Assets/Popups/active.png";
+    public const string ACTIVATE_POPUP_ASSET_PATH = "res://Assets/Popups/activate.png";
     public const string ATK_POPUP_ASSET_PATH = "res://Assets/Popups/acttack.png";
     public const string DEF_POPUP_ASSET_PATH = "res://Assets/Popups/defense.png";
     public const string DP_POPUP_ASSET_PATH = "res://Assets/Popups/dp.png";
@@ -19,6 +22,9 @@ public static class Constant
     public const string POSITION_NODE_PATH = "position";
     public const string GLOBAL_POSITION_NODE_PATH = "global_position";
     public const string SCALE_NODE_PATH = "scale";
+    public const string ROTATION_NODE_PATH = "rotation";
+
+    public static readonly Vector2 CARD_IN_SLOT_POSITION = Zero;
 
     public const int INITIAL_HAND_SIZE = 1;
 
@@ -32,6 +38,8 @@ public static class Constant
     public const int BUTTON_UP_FONT_SIZE = 40;
     public const int BUTTON_DOWN_FONT_SIZE = 35;
 
+    public static readonly Vector2 CARD_IN_SLOT_SCALE = One;
+    public static readonly Vector2 CARD_IN_HAND_SCALE = One;
     public const float CARD_HAND_SCALE = 1;
     public const float START_POPUP_PHASE_SCALE = .1f;
 
@@ -61,15 +69,25 @@ public static class Constant
     public const string POWER_ATK_NODE = "Atk";
     public const string POWER_DEF_NODE = "Def";
     public const string POWER_SLASH_NODE = "Slash";
+    public const string INFO_NAME_NODE = "Name";
+    public const string INFO_LP_NODE = "LP";
+    public const string INFO_LIFE_POINT_NODE = "LifePoint";
+    public const string INFO_TIMER_NODE = "Timer";
+    public const string INFO_PLAYER_NODE = "PlayerInfo";
+    public const string INFO_OPPONENT_NODE = "OpponentInfo";
     public const string DEFAULT_ANIMATION_PLAYER_NODE = "AnimationPlayer";
 
     public const string FONT_SIZE_PROPERTY = "font_size";
 
+    public const string CARD_FLIP_DOWN_ANIMATION = "card_flip_down";
     public const string CARD_DRAW_FLIP_ANIMATION = "card_draw_flip";
     public const string CARD_SWAP_1_ANIMATION = "card_swap_1";
     public const string CARD_SWAP_2_ANIMATION = "card_swap_2";
 
     public const string FINISHED_SIGNAL = "finished";
+
+    public const string DEFAULT_PLAYER = "Atem";
+    public const string DEFAULT_OPPONENT = "Seto";
 
     public const DuelSide STARTING_DUEL_SIDE = DuelSide.Player;
 }
@@ -90,6 +108,14 @@ public enum DuelPhase
     Battle = 4,       // Giao tranh
     Main2 = 5,        // Chính 2
     End = 6           // Kết thúc
+}
+
+public enum CardActionType
+{
+    None = 0,         // Vô
+    Summon = 1,       // Triệu hồi
+    Set = 2,          // Đặt
+    Activate = 3,     // Kích hoạt
 }
 
 public enum CardStatus
@@ -226,4 +252,25 @@ public enum MonsterSummonType
     Xyz = 6,      // Chồng triệu
     Pendulum = 7, // Dao triệu
     Link = 8      // Liên triệu
+}
+
+public enum PopupActionType
+{
+    None = 0,         // Vô
+    Summon = 1,       // Triệu hồi
+    Set = 2,          // Đặt
+    Activate = 3,     // Kích hoạt
+    Attack = 4,       // Tấn công
+    Defense = 5      // Phòng thủ
+}
+
+public enum PopupPhaseType
+{
+    None = 0,         // Vô
+    DP = 1,           // Rút bài
+    SP = 2,           // Chuẩn bị
+    M1 = 3,           // Chính 1
+    BP = 4,           // Giao tranh
+    M2 = 5,           // Chính 2
+    EP = 6            // Kết thúc
 }

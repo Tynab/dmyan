@@ -1,11 +1,7 @@
-using DMYAN.Scripts.Controls;
 using Godot;
-using System;
-using System.Drawing;
 using System.Threading.Tasks;
 using static DMYAN.Scripts.Constant;
 using static Godot.ResourceLoader;
-using static Godot.Tween;
 using static Godot.Tween.EaseType;
 using static Godot.Tween.TransitionType;
 using static Godot.Vector2;
@@ -15,9 +11,25 @@ namespace DMYAN.Scripts.Popups;
 
 public partial class PopupPhase : Sprite2D
 {
-    public async Task ShowDPPopup()
+    public async Task ShowPhase(PopupPhaseType type)
     {
-        Texture = Load<Texture2D>(DP_POPUP_ASSET_PATH);
+        var path = type switch
+        {
+            PopupPhaseType.DP => DP_POPUP_ASSET_PATH,
+            PopupPhaseType.SP => SP_POPUP_ASSET_PATH,
+            PopupPhaseType.M1 => M1_POPUP_ASSET_PATH,
+            PopupPhaseType.BP => BP_POPUP_ASSET_PATH,
+            PopupPhaseType.M2 => M2_POPUP_ASSET_PATH,
+            PopupPhaseType.EP => EP_POPUP_ASSET_PATH,
+            _ => string.Empty
+        };
+
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return;
+        }
+
+        Texture = Load<Texture2D>(path);
         Show();
         _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, One, PHASE_ANIMATION_SPEED), FINISHED_SIGNAL);
         await Delay(PHASE_CHANGE_DELAY);

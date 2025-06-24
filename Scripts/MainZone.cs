@@ -1,7 +1,6 @@
 using Godot;
 using System.Collections.Generic;
 using static Godot.GD;
-using static Godot.Vector2;
 
 namespace DMYAN.Scripts;
 
@@ -14,29 +13,19 @@ public partial class MainZone : Node2D
 
     public bool HasCardCanAttack { get; set; } = false;
 
-    private Node2D _powerZone;
-
-    public override void _Ready() => _powerZone = GetNode<Node2D>("../PowerZone");
-
     public void SummonCard(Card card)
     {
-        var slot = FindEmptyAttackSlot();
-
-        card.Reparent(slot);
-        card.BasePosition = Zero;
-        card.Status = CardStatus.InBoard;
-        card.Zone = CardZone.Main;
-        card.CardFace = CardFace.FaceUp;
-        card.CanSummon = false;
-        card.AnimationSummon(slot.GlobalPosition, One);
-        slot.HasCardInSlot = true;
-        slot.CardFaceInSlot = card.CardFace;
-        slot.CardsInSlot++;
+        GetMainSlot(true).SummonCard(card);
         CardsInZone++;
-        _powerZone.GetChild<PowerSlot>(slot.Index).ShowAtk(card);
     }
 
-    private MainCardSlot FindEmptyAttackSlot()
+    public void SummonSetCard(Card card)
+    {
+        GetMainSlot(false).SummonSetCard(card);
+        CardsInZone++;
+    }
+
+    private MainCardSlot GetMainSlot(bool isAtk)
     {
         var emptySlots = new List<MainCardSlot>();
 
@@ -44,7 +33,11 @@ public partial class MainZone : Node2D
         {
             if (GetChild(i) is MainCardSlot currentSlot && !currentSlot.HasCardInSlot)
             {
-                if (i < 5 && Mathf.IsZeroApprox(currentSlot.RotationDegrees))
+                if (isAtk && i < 5)
+                {
+                    emptySlots.Add(currentSlot);
+                }
+                else if (i is > 4 and < 10)
                 {
                     emptySlots.Add(currentSlot);
                 }

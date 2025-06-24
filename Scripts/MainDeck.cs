@@ -29,7 +29,7 @@ public partial class MainDeck : CardSlot
         }
     }
 
-    public Card DrawCard()
+    public Card RemoveCard()
     {
         if (_cardsInDeck.Count is 0)
         {
