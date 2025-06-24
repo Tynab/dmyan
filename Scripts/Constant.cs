@@ -5,25 +5,35 @@ public static class Constant
     public const string CARDS_DATA_PATH = "res://Data/cards.csv";
     public const string DECKS_DATA_PATH = "res://Data/decks.csv";
     public const string CARD_BACK_ASSET_PATH = "res://Assets/card_back.jpg";
-    public const string SUMMON_POPUP_ASSET_PATH = "res://Assets/Popup/summon.png";
-    public const string SET_POPUP_ASSET_PATH = "res://Assets/Popup/set.png";
-    public const string ACTIVE_POPUP_ASSET_PATH = "res://Assets/Popup/active.png";
-    public const string ATK_POPUP_ASSET_PATH = "res://Assets/Popup/acttack.png";
-    public const string DEF_POPUP_ASSET_PATH = "res://Assets/Popup/defense.png";
+    public const string SUMMON_POPUP_ASSET_PATH = "res://Assets/Popups/summon.png";
+    public const string SET_POPUP_ASSET_PATH = "res://Assets/Popups/set.png";
+    public const string ACTIVE_POPUP_ASSET_PATH = "res://Assets/Popups/active.png";
+    public const string ATK_POPUP_ASSET_PATH = "res://Assets/Popups/acttack.png";
+    public const string DEF_POPUP_ASSET_PATH = "res://Assets/Popups/defense.png";
+    public const string DP_POPUP_ASSET_PATH = "res://Assets/Popups/dp.png";
+    public const string SP_POPUP_ASSET_PATH = "res://Assets/Popups/sp.png";
+    public const string M1_POPUP_ASSET_PATH = "res://Assets/Popups/m1.png";
+    public const string BP_POPUP_ASSET_PATH = "res://Assets/Popups/bp.png";
+    public const string M2_POPUP_ASSET_PATH = "res://Assets/Popups/m2.png";
+    public const string EP_POPUP_ASSET_PATH = "res://Assets/Popups/ep.png";
     public const string POSITION_NODE_PATH = "position";
     public const string GLOBAL_POSITION_NODE_PATH = "global_position";
     public const string SCALE_NODE_PATH = "scale";
 
-    public const int INITIAL_HAND_SIZE = 5;
+    public const int INITIAL_HAND_SIZE = 1;
 
     public const int DEFAULT_CARD_INFO_SWAP = 1;
 
-    public const int PHASE_CHANGE_DELAY = 1000;
+    public const int PHASE_CHANGE_DELAY = 500;
     public const int STARTUP_DELAY = 100;
 
     public const int CARD_COLLISION_MASK = 1;
 
+    public const int BUTTON_UP_FONT_SIZE = 40;
+    public const int BUTTON_DOWN_FONT_SIZE = 35;
+
     public const float CARD_HAND_SCALE = 1;
+    public const float START_POPUP_PHASE_SCALE = .1f;
 
     public const float CARD_HAND_W = 120 * CARD_HAND_SCALE;
     public const float CARD_HAND_GAP_W = 15;
@@ -33,6 +43,7 @@ public static class Constant
     public const float CARD_HAND_RAISE_Y = 20;
 
     public const float DEFAULT_ANIMATION_SPEED = .1f;
+    public const float PHASE_ANIMATION_SPEED = .2f;
 
     public const string DP_BUTTON_NODE = "DPButton";
     public const string SP_BUTTON_NODE = "SPButton";
@@ -52,9 +63,13 @@ public static class Constant
     public const string POWER_SLASH_NODE = "Slash";
     public const string DEFAULT_ANIMATION_PLAYER_NODE = "AnimationPlayer";
 
+    public const string FONT_SIZE_PROPERTY = "font_size";
+
     public const string CARD_DRAW_FLIP_ANIMATION = "card_draw_flip";
     public const string CARD_SWAP_1_ANIMATION = "card_swap_1";
     public const string CARD_SWAP_2_ANIMATION = "card_swap_2";
+
+    public const string FINISHED_SIGNAL = "finished";
 
     public const DuelSide STARTING_DUEL_SIDE = DuelSide.Player;
 }

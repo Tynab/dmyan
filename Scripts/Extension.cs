@@ -21,7 +21,7 @@ public static class Extension
         }
     }
 
-    public static string GetCardAssetPathByCode(this string code) => $"res://Assets/Card/{code}.jpg";
+    public static string GetCardAssetPathByCode(this string code) => $"res://Assets/Cards/{code}.jpg";
 
     public static string ViewPower(this int value)
     {

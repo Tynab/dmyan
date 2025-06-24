@@ -1,3 +1,4 @@
+using DMYAN.Scripts.Popups;
 using Godot;
 using System.Threading.Tasks;
 using static DMYAN.Scripts.Constant;
@@ -60,13 +61,13 @@ public partial class Card : Node2D
 
 	public override void _Ready()
 	{
-		_animationPlayer = GetNodeOrNull<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
-		_cardFront = GetNodeOrNull<Sprite2D>(CARD_FRONT_NODE);
-		_cardBack = GetNodeOrNull<Sprite2D>(CARD_BACK_NODE);
-		_gameManager = GetNodeOrNull<GameManager>($"../../../../{nameof(GameManager)}");
-		_mainZone = GetNodeOrNull<MainZone>($"../../{nameof(MainZone)}");
-		_cardInfo = GetNodeOrNull<CardInfo>($"../../../../{nameof(CardInfo)}");
-		_popupAction = GetNodeOrNull<PopupAction>(nameof(PopupAction));
+		_animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
+		_cardFront = GetNode<Sprite2D>(CARD_FRONT_NODE);
+		_cardBack = GetNode<Sprite2D>(CARD_BACK_NODE);
+		_gameManager = GetNode<GameManager>($"../../../../{nameof(GameManager)}");
+		_mainZone = GetNode<MainZone>($"../../{nameof(MainZone)}");
+		_cardInfo = GetNode<CardInfo>($"../../../../{nameof(CardInfo)}");
+		_popupAction = GetNode<PopupAction>(nameof(PopupAction));
 	}
 
 	public async Task AnimationDrawFlipAsync()

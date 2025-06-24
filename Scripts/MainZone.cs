@@ -16,7 +16,7 @@ public partial class MainZone : Node2D
 
     private Node2D _powerZone;
 
-    public override void _Ready() => _powerZone = GetNodeOrNull<Node2D>("../PowerZone");
+    public override void _Ready() => _powerZone = GetNode<Node2D>("../PowerZone");
 
     public void SummonCard(Card card)
     {
@@ -33,7 +33,7 @@ public partial class MainZone : Node2D
         slot.CardFaceInSlot = card.CardFace;
         slot.CardsInSlot++;
         CardsInZone++;
-        _powerZone.GetChildOrNull<PowerSlot>(slot.Index).ShowAtk(card);
+        _powerZone.GetChild<PowerSlot>(slot.Index).ShowAtk(card);
     }
 
     private MainCardSlot FindEmptyAttackSlot()

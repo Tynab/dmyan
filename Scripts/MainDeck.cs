@@ -24,7 +24,7 @@ public partial class MainDeck : CardSlot
 
         if (DuelSide is DuelSide.Player)
         {
-            _count = GetNodeOrNull<RichTextLabel>(SLOT_COUNT_NODE);
+            _count = GetNode<RichTextLabel>(SLOT_COUNT_NODE);
             UpdateCountDisplay();
         }
     }
@@ -86,8 +86,8 @@ public partial class MainDeck : CardSlot
             card.BanlistStatus = cardData.BanlistStatus;
             card.EffectType = cardData.EffectType;
 
-            var cardFront = card.GetNodeOrNull<Sprite2D>(CARD_FRONT_NODE);
-            var cardBack = card.GetNodeOrNull<Sprite2D>(CARD_BACK_NODE);
+            var cardFront = card.GetNode<Sprite2D>(CARD_FRONT_NODE);
+            var cardBack = card.GetNode<Sprite2D>(CARD_BACK_NODE);
 
             cardFront.Texture = Load<Texture2D>(cardData.Code.GetCardAssetPathByCode());
             cardFront.Hide();

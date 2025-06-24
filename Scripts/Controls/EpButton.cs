@@ -1,10 +1,11 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using static DMYAN.Scripts.Constant;
 
 namespace DMYAN.Scripts.Controls;
 
-public partial class EpButton : Button
+public partial class EpButton : PhaseButton
 {
     private GameManager _gameManager;
 
@@ -15,7 +16,7 @@ public partial class EpButton : Button
         Pressed += OnPressed;
     }
 
-    private void OnButtonDown() => AddThemeFontSizeOverride("font_size", 35);
+    private void OnButtonDown() => AddThemeFontSizeOverride(FONT_SIZE_PROPERTY, BUTTON_DOWN_FONT_SIZE);
 
     private async void OnPressed() => await _gameManager.EndPhaseAsync();
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=56 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
 [ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Scroll.gdshader" id="1_wkp8b"]
@@ -6,18 +6,24 @@
 [ext_resource type="Texture2D" uid="uid://dw85pyqr2i5mu" path="res://Assets/board.png" id="3_wkp8b"]
 [ext_resource type="PackedScene" uid="uid://crqe8ju0cbbn1" path="res://Scenes/CardInfo.tscn" id="5_c2ibq"]
 [ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DpButton.cs" id="5_hhcpw"]
 [ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BpButton.cs" id="5_sc1dx"]
 [ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
 [ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EpButton.cs" id="6_kjvhd"]
+[ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SpButton.cs" id="6_mxvw5"]
 [ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandManager.cs" id="7_03owx"]
 [ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeck.cs" id="7_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://bbngw4ss27y8e" path="res://Scenes/PowerSlot.tscn" id="7_trn2v"]
+[ext_resource type="Script" uid="uid://cqk6qfm7u7fme" path="res://Scripts/Controls/M1Button.cs" id="7_xrxkg"]
 [ext_resource type="Script" uid="uid://dxs6f6esfhe0o" path="res://Scripts/GameManager.cs" id="8_wkp8b"]
-[ext_resource type="FontFile" uid="uid://cwyl68a5jsi7j" path="res://Font/Khamenet-8OLn0.ttf" id="12_5vvyt"]
+[ext_resource type="Script" uid="uid://8ai4hfycrcfs" path="res://Scripts/Controls/M2Button.cs" id="9_sqvbp"]
+[ext_resource type="FontFile" uid="uid://cwyl68a5jsi7j" path="res://Fonts/Khamenet-8OLn0.ttf" id="12_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://b3pth5pvbjjft" path="res://Scenes/Infomation.tscn" id="13_c6i3y"]
 [ext_resource type="Script" uid="uid://mqv6i7ckx7d2" path="res://Scripts/MainZone.cs" id="14_sc1dx"]
 [ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlot.cs" id="15_sc1dx"]
+[ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/dp.png" id="19_5tuhn"]
+[ext_resource type="Script" uid="uid://cffof8cg6k2ol" path="res://Scripts/Popups/PopupPhase.cs" id="20_2gh4u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
 shader = ExtResource("1_wkp8b")
@@ -335,9 +341,9 @@ tooltip_text = "Pha rút bài"
 theme = SubResource("Theme_2gh4u")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 35
-disabled = true
 text = "D
 P"
+script = ExtResource("5_hhcpw")
 metadata/_edit_lock_ = true
 
 [node name="SPButton" type="Button" parent="Control"]
@@ -352,6 +358,7 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "S
 P"
+script = ExtResource("6_mxvw5")
 metadata/_edit_lock_ = true
 
 [node name="M1Button" type="Button" parent="Control"]
@@ -366,6 +373,7 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "M
 I"
+script = ExtResource("7_xrxkg")
 metadata/_edit_lock_ = true
 
 [node name="BPButton" type="Button" parent="Control"]
@@ -395,6 +403,7 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "M
 II"
+script = ExtResource("9_sqvbp")
 metadata/_edit_lock_ = true
 
 [node name="EPButton" type="Button" parent="Control"]
@@ -854,3 +863,10 @@ PlayerHand = NodePath("../Board/PlayerField/HandZone")
 OpponentHand = NodePath("../Board/OpponentField/HandZone")
 PlayerMainZone = NodePath("../Board/PlayerField/MainZone")
 OpponentMainZone = NodePath("../Board/OpponentField/MainZone")
+
+[node name="PopupPhase" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(960, 540)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("19_5tuhn")
+script = ExtResource("20_2gh4u")

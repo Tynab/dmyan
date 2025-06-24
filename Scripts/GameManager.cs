@@ -1,3 +1,5 @@
+using DMYAN.Scripts.Controls;
+using DMYAN.Scripts.Popups;
 using Godot;
 using Godot.Collections;
 using System.Linq;
@@ -38,22 +40,24 @@ public partial class GameManager : Node2D
     public bool IsFirstTurn { get; set; } = true;
 
     private Control _control;
-    private Button _dpButton;
-    private Button _spButton;
-    private Button _m1Button;
-    private Button _bpButton;
-    private Button _m2Button;
-    private Button _epButton;
+    private DpButton _dpButton;
+    private SpButton _spButton;
+    private M1Button _m1Button;
+    private BpButton _bpButton;
+    private M2Button _m2Button;
+    private EpButton _epButton;
+    private PopupPhase _popupPhase;
 
     public override async void _Ready()
     {
-        _control = GetNodeOrNull<Control>($"../{nameof(Control)}");
-        _dpButton = _control.GetNodeOrNull<Button>(DP_BUTTON_NODE);
-        _spButton = _control.GetNodeOrNull<Button>(SP_BUTTON_NODE);
-        _m1Button = _control.GetNodeOrNull<Button>(M1_BUTTON_NODE);
-        _bpButton = _control.GetNodeOrNull<Button>(BP_BUTTON_NODE);
-        _m2Button = _control.GetNodeOrNull<Button>(M2_BUTTON_NODE);
-        _epButton = _control.GetNodeOrNull<Button>(EP_BUTTON_NODE);
+        _control = GetNode<Control>($"../{nameof(Control)}");
+        _dpButton = _control.GetNode<DpButton>(DP_BUTTON_NODE);
+        _spButton = _control.GetNode<SpButton>(SP_BUTTON_NODE);
+        _m1Button = _control.GetNode<M1Button>(M1_BUTTON_NODE);
+        _bpButton = _control.GetNode<BpButton>(BP_BUTTON_NODE);
+        _m2Button = _control.GetNode<M2Button>(M2_BUTTON_NODE);
+        _epButton = _control.GetNode<EpButton>(EP_BUTTON_NODE);
+        _popupPhase = _control.GetNode<PopupPhase>($"../{nameof(PopupPhase)}");
         LoadCards();
         await Delay(STARTUP_DELAY);
         await StartInitialDrawAsync();
@@ -76,6 +80,8 @@ public partial class GameManager : Node2D
     public async Task DrawPhaseAsync(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Draw;
+        _dpButton.Disable();
+        await _popupPhase.ShowDPPopup();
         HasSummoned = false;
 
         if (CurrentTurnSide is DuelSide.Player)
@@ -87,7 +93,6 @@ public partial class GameManager : Node2D
             await DrawAndPlaceCardAsync(OpponentDeck, OpponentHand);
         }
 
-        ButtonDisable(_dpButton);
         await Delay(delay);
         await StandbyPhaseAsync();
     }
@@ -95,7 +100,7 @@ public partial class GameManager : Node2D
     public async Task StandbyPhaseAsync(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Standby;
-        ButtonDisable(_spButton);
+        _spButton.Disable();
         await Delay(delay);
         await Main1PhaseAsync();
     }
@@ -103,21 +108,21 @@ public partial class GameManager : Node2D
     public async Task Main1PhaseAsync(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Main1;
-        ButtonDisable(_m1Button);
+        _m1Button.Disable();
         await Delay(delay);
     }
 
     public async Task BattlePhaseAsync(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Battle;
-        ButtonDisable(_bpButton);
+        _bpButton.Disable();
         await Delay(delay);
     }
 
     public async Task Main2PhaseAsync(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Main2;
-        ButtonDisable(_m2Button);
+        _m2Button.Disable();
         await Delay(delay);
     }
 
@@ -134,7 +139,7 @@ public partial class GameManager : Node2D
         }
 
         CurrentPhase = DuelPhase.End;
-        ButtonDisable(_epButton);
+        _epButton.Disable();
         await Delay(delay);
         await ChangeTurnAsync();
         await DrawPhaseAsync();
@@ -182,31 +187,19 @@ public partial class GameManager : Node2D
 
     private async Task ChangeTurnAsync()
     {
-        ButtonEnable(_dpButton);
+        _dpButton.Disable();
         await Delay(STARTUP_DELAY);
-        ButtonEnable(_spButton);
+        _spButton.Disable();
         await Delay(STARTUP_DELAY);
-        ButtonEnable(_m1Button);
+        _m1Button.Disable();
         await Delay(STARTUP_DELAY);
-        ButtonEnable(_bpButton);
+        _bpButton.Disable();
         await Delay(STARTUP_DELAY);
-        ButtonEnable(_m2Button);
+        _m2Button.Disable();
         await Delay(STARTUP_DELAY);
-        ButtonEnable(_epButton);
+        _epButton.Disable();
         await Delay(STARTUP_DELAY);
         CurrentTurnSide = CurrentTurnSide is DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;
         IsFirstTurn = false;
-    }
-
-    private static void ButtonEnable(Button button)
-    {
-        button.Disabled = false;
-        button.AddThemeFontSizeOverride("font_size", 40);
-    }
-
-    private static void ButtonDisable(Button button)
-    {
-        button.Disabled = true;
-        button.AddThemeFontSizeOverride("font_size", 35);
     }
 }

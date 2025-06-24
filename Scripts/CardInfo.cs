@@ -14,12 +14,12 @@ public partial class CardInfo : Node2D
 
     private AnimationPlayer _animationPlayer;
 
-    public override void _Ready() => _animationPlayer = GetNodeOrNull<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
+    public override void _Ready() => _animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
 
     public void UpdateTexture()
     {
-        GetNodeOrNull<Sprite2D>(CARD_INFO_SWAP_1_NODE).Texture = Load<Texture2D>(TexturePath1);
-        GetNodeOrNull<Sprite2D>(CARD_INFO_SWAP_2_NODE).Texture = Load<Texture2D>(TexturePath2);
+        GetNode<Sprite2D>(CARD_INFO_SWAP_1_NODE).Texture = Load<Texture2D>(TexturePath1);
+        GetNode<Sprite2D>(CARD_INFO_SWAP_2_NODE).Texture = Load<Texture2D>(TexturePath2);
         AnimationSwap();
         CurrentSwap = CurrentSwap is 1 ? 2 : 1;
     }
@@ -65,8 +65,8 @@ public partial class CardInfo : Node2D
             description += $"Hiệu ứng:\n{card.Description}";
         }
 
-        GetNodeOrNull<RichTextLabel>(CARD_INFO_HEADER_NODE).Text = $"{card.CardName.ToUpper()}\n[{card.Type.VietTranslation()}]";
-        GetNodeOrNull<RichTextLabel>(CARD_INFO_DETAIL_NODE).Text = description;
+        GetNode<RichTextLabel>(CARD_INFO_HEADER_NODE).Text = $"{card.CardName.ToUpper()}\n[{card.Type.VietTranslation()}]";
+        GetNode<RichTextLabel>(CARD_INFO_DETAIL_NODE).Text = description;
     }
 
     private void AnimationSwap() => _animationPlayer.Play(CurrentSwap is 1 ? CARD_SWAP_1_ANIMATION : CARD_SWAP_2_ANIMATION);

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bq0kvbk5aqmq6"]
 
-[ext_resource type="Texture2D" uid="uid://0qf62igfr60" path="res://Assets/Popup/active.png" id="1_637tg"]
+[ext_resource type="Texture2D" uid="uid://0qf62igfr60" path="res://Assets/Popups/active.png" id="1_637tg"]
 
 [node name="CardAction" type="Node2D"]
 

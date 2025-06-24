@@ -22,9 +22,9 @@ public partial class PowerSlot : Node2D
 
     public override void _Ready()
     {
-        _atk = GetNodeOrNull<RichTextLabel>(POWER_ATK_NODE);
-        _def = GetNodeOrNull<RichTextLabel>(POWER_DEF_NODE);
-        _slash = GetNodeOrNull<RichTextLabel>(POWER_SLASH_NODE);
+        _atk = GetNode<RichTextLabel>(POWER_ATK_NODE);
+        _def = GetNode<RichTextLabel>(POWER_DEF_NODE);
+        _slash = GetNode<RichTextLabel>(POWER_SLASH_NODE);
         _slash.Modulate = Gray;
     }
 
