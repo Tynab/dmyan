@@ -1,3 +1,5 @@
+using DMYAN.Scripts.Controls;
+using DMYAN.Scripts.Popups;
 using Godot;
 using Godot.Collections;
 using System.Linq;
@@ -33,19 +35,33 @@ public partial class GameManager : Node2D
 
     public DuelPhase CurrentPhase { get; set; } = DuelPhase.None;
 
+    public bool HasSummoned { get; set; } = false;
+
+    public bool IsFirstTurn { get; set; } = true;
+
     private Control _control;
-    private Button _spButton;
-    private Button _m1Button;
+    private DpButton _dpButton;
+    private SpButton _spButton;
+    private M1Button _m1Button;
+    private BpButton _bpButton;
+    private M2Button _m2Button;
+    private EpButton _epButton;
+    private PopupPhase _popupPhase;
 
     public override async void _Ready()
     {
-        _control = GetNodeOrNull<Control>($"../{nameof(Control)}");
-        _spButton = _control.GetNodeOrNull<Button>(SP_BUTTON_NODE);
-        _m1Button = _control.GetNodeOrNull<Button>(M1_BUTTON_NODE);
+        _control = GetNode<Control>($"../{nameof(Control)}");
+        _dpButton = _control.GetNode<DpButton>(DP_BUTTON_NODE);
+        _spButton = _control.GetNode<SpButton>(SP_BUTTON_NODE);
+        _m1Button = _control.GetNode<M1Button>(M1_BUTTON_NODE);
+        _bpButton = _control.GetNode<BpButton>(BP_BUTTON_NODE);
+        _m2Button = _control.GetNode<M2Button>(M2_BUTTON_NODE);
+        _epButton = _control.GetNode<EpButton>(EP_BUTTON_NODE);
+        _popupPhase = _control.GetNode<PopupPhase>($"../{nameof(PopupPhase)}");
         LoadCards();
-        await Delay(100);
-        await StartInitialDraw();
-        await DrawPhase();
+        await Delay(STARTUP_DELAY);
+        await StartInitialDrawAsync();
+        await DrawPhaseAsync();
     }
 
     public override void _Input(InputEvent @event)
@@ -61,29 +77,98 @@ public partial class GameManager : Node2D
         }
     }
 
-    private async Task StartInitialDraw()
+    public async Task DrawPhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    {
+        CurrentPhase = DuelPhase.Draw;
+        _dpButton.Disable();
+        await _popupPhase.ShowDPPopup();
+        HasSummoned = false;
+
+        if (CurrentTurnSide is DuelSide.Player)
+        {
+            await DrawAndPlaceCardAsync(PlayerDeck, PlayerHand);
+        }
+        else
+        {
+            await DrawAndPlaceCardAsync(OpponentDeck, OpponentHand);
+        }
+
+        await Delay(delay);
+        await StandbyPhaseAsync();
+    }
+
+    public async Task StandbyPhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    {
+        CurrentPhase = DuelPhase.Standby;
+        _spButton.Disable();
+        await Delay(delay);
+        await Main1PhaseAsync();
+    }
+
+    public async Task Main1PhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    {
+        CurrentPhase = DuelPhase.Main1;
+        _m1Button.Disable();
+        await Delay(delay);
+    }
+
+    public async Task BattlePhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    {
+        CurrentPhase = DuelPhase.Battle;
+        _bpButton.Disable();
+        await Delay(delay);
+    }
+
+    public async Task Main2PhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    {
+        CurrentPhase = DuelPhase.Main2;
+        _m2Button.Disable();
+        await Delay(delay);
+    }
+
+    public async Task EndPhaseAsync(int delay = STARTUP_DELAY)
+    {
+        if (CurrentPhase is DuelPhase.Main1)
+        {
+            await BattlePhaseAsync(STARTUP_DELAY);
+        }
+
+        if (CurrentPhase is DuelPhase.Battle)
+        {
+            await Main2PhaseAsync(STARTUP_DELAY);
+        }
+
+        CurrentPhase = DuelPhase.End;
+        _epButton.Disable();
+        await Delay(delay);
+        await ChangeTurnAsync();
+        await DrawPhaseAsync();
+    }
+
+    private async Task StartInitialDrawAsync()
     {
         for (var i = 0; i < INITIAL_HAND_SIZE; i++)
         {
-            await DrawAndPlaceCard(PlayerDeck, PlayerHand);
-            await DrawAndPlaceCard(OpponentDeck, OpponentHand);
+            await DrawAndPlaceCardAsync(PlayerDeck, PlayerHand);
+            await DrawAndPlaceCardAsync(OpponentDeck, OpponentHand);
         }
     }
 
-    private static async Task DrawAndPlaceCard(MainDeck deck, HandManager hand)
+    private static async Task DrawAndPlaceCardAsync(MainDeck deck, HandManager hand)
     {
         var card = deck.DrawCard();
 
         if (card is not null)
         {
-            await hand.AddCardToHand(card);
+            await hand.AddCardAsync(card);
         }
     }
 
-    private static void SummonAndPlaceCard(Card card, HandManager hand, MainZone zone)
+    private void SummonAndPlaceCard(Card card, HandManager hand, MainZone zone)
     {
-        hand.RemoveCardFromHand(card);
-        zone.SummonCardToMainZone(card);
+        hand.RemoveCard(card);
+        zone.SummonCard(card);
+        HasSummoned = true;
     }
 
     private Card GetCardAtCursor()
@@ -100,42 +185,21 @@ public partial class GameManager : Node2D
 
     private static Card GetTopmostCard(Array<Dictionary> cards) => cards.Select(static c => c["collider"].As<Area2D>().GetParent<Card>()).OrderByDescending(static c => c.ZIndex).FirstOrDefault();
 
-    public async Task DrawPhase()
+    private async Task ChangeTurnAsync()
     {
-        CurrentPhase = DuelPhase.Draw;
-
-        if (CurrentTurnSide is DuelSide.Player)
-        {
-            await DrawAndPlaceCard(PlayerDeck, PlayerHand);
-        }
-        else
-        {
-            await DrawAndPlaceCard(OpponentDeck, OpponentHand);
-        }
-
-        await Delay(PHASE_CHANGE_DELAY_MS);
-        await StandbyPhase();
-    }
-
-    public async Task StandbyPhase()
-    {
-        CurrentPhase = DuelPhase.Standby;
-        _spButton.Disabled = true;
-        await Delay(PHASE_CHANGE_DELAY_MS);
-        await Main1Phase();
-    }
-
-    public async Task Main1Phase()
-    {
-        CurrentPhase = DuelPhase.Main1;
-        _m1Button.Disabled = true;
-        await Delay(PHASE_CHANGE_DELAY_MS);
-    }
-
-    public async Task EndPhase()
-    {
-        await Delay(PHASE_CHANGE_DELAY_MS);
-        CurrentTurnSide = CurrentTurnSide == DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;
-        await DrawPhase();
+        _dpButton.Disable();
+        await Delay(STARTUP_DELAY);
+        _spButton.Disable();
+        await Delay(STARTUP_DELAY);
+        _m1Button.Disable();
+        await Delay(STARTUP_DELAY);
+        _bpButton.Disable();
+        await Delay(STARTUP_DELAY);
+        _m2Button.Disable();
+        await Delay(STARTUP_DELAY);
+        _epButton.Disable();
+        await Delay(STARTUP_DELAY);
+        CurrentTurnSide = CurrentTurnSide is DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;
+        IsFirstTurn = false;
     }
 }

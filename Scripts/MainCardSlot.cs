@@ -10,4 +10,6 @@ public partial class MainCardSlot : CardSlot
     public CardFace CardFaceInSlot { get; set; } = CardFace.None;
 
     public int CardsInSlot { get; set; } = 0;
+
+    public bool HasCardCanAttack { get; set; } = false;
 }
