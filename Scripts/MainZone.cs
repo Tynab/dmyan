@@ -12,6 +12,8 @@ public partial class MainZone : Node2D
 
     public int CardsInZone { get; set; } = 0;
 
+    public bool HasCardCanAttack { get; set; } = false;
+
     private Node2D _powerZone;
 
     public override void _Ready() => _powerZone = GetNodeOrNull<Node2D>("../PowerZone");

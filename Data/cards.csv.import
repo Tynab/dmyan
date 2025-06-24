@@ -3,11 +3,13 @@
 importer="csv_translation"
 type="Translation"
 uid="uid://cjet5gnrsg1f5"
-valid=false
 
 [deps]
 
+files=["res://Data/cards.code.translation", "res://Data/cards.name.translation", "res://Data/cards.description.translation", "res://Data/cards.type.translation", "res://Data/cards.property.translation", "res://Data/cards.attribute.translation", "res://Data/cards.race.translation", "res://Data/cards.summon.translation", "res://Data/cards.level.translation", "res://Data/cards.atk.translation", "res://Data/cards.def.translation", "res://Data/cards.banlist.translation", "res://Data/cards.effect.translation"]
+
 source_file="res://Data/cards.csv"
+dest_files=["res://Data/cards.code.translation", "res://Data/cards.name.translation", "res://Data/cards.description.translation", "res://Data/cards.type.translation", "res://Data/cards.property.translation", "res://Data/cards.attribute.translation", "res://Data/cards.race.translation", "res://Data/cards.summon.translation", "res://Data/cards.level.translation", "res://Data/cards.atk.translation", "res://Data/cards.def.translation", "res://Data/cards.banlist.translation", "res://Data/cards.effect.translation"]
 
 [params]
 

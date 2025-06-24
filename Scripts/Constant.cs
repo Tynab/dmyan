@@ -14,7 +14,7 @@ public static class Constant
     public const string GLOBAL_POSITION_NODE_PATH = "global_position";
     public const string SCALE_NODE_PATH = "scale";
 
-    public const int INITIAL_HAND_SIZE = 1;
+    public const int INITIAL_HAND_SIZE = 5;
 
     public const int DEFAULT_CARD_INFO_SWAP = 1;
 
@@ -34,10 +34,12 @@ public static class Constant
 
     public const float DEFAULT_ANIMATION_SPEED = .1f;
 
-    public const string DP_BUTTON_NODE = "DP";
-    public const string SP_BUTTON_NODE = "SP";
-    public const string M1_BUTTON_NODE = "M1";
-    public const string EP_BUTTON_NODE = "EP";
+    public const string DP_BUTTON_NODE = "DPButton";
+    public const string SP_BUTTON_NODE = "SPButton";
+    public const string M1_BUTTON_NODE = "M1Button";
+    public const string BP_BUTTON_NODE = "BPButton";
+    public const string M2_BUTTON_NODE = "M2Button";
+    public const string EP_BUTTON_NODE = "EPButton";
     public const string SLOT_COUNT_NODE = "Count";
     public const string CARD_FRONT_NODE = "CardFront";
     public const string CARD_BACK_NODE = "CardBack";

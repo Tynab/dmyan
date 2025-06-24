@@ -12,7 +12,7 @@ public partial class HandManager : Node2D
 
     private readonly List<Card> _cardsInHand = [];
 
-    public async Task AddCard(Card card)
+    public async Task AddCardAsync(Card card)
     {
         _cardsInHand.Add(card);
         card.Reparent(this);
