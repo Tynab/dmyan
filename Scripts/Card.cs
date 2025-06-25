@@ -1,7 +1,8 @@
+using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Popups;
 using Godot;
 using System.Threading.Tasks;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.AnimationMixer.SignalName;
 using static Godot.Tween.EaseType;
 using static Godot.Tween.TransitionType;
@@ -58,23 +59,32 @@ public partial class Card : Node2D
 
     public PopupAction PopupAction { get; set; }
 
-    private AnimationPlayer _animationPlayer;
     private Sprite2D _cardFront;
     private Sprite2D _cardBack;
+    private AnimationPlayer _animationPlayer;
+
     private GameManager _gameManager;
     private MainZone _mainZone;
     private CardInfo _cardInfo;
-    private bool _canView = false;
 
+    private bool _canView = false;
+    
     public override void _Ready()
     {
-        _animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
+        PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
+
         _cardFront = GetNode<Sprite2D>(CARD_FRONT_NODE);
         _cardBack = GetNode<Sprite2D>(CARD_BACK_NODE);
-        _gameManager = GetNode<GameManager>($"../../../../{nameof(GameManager)}");
+        _animationPlayer = GetNode<AnimationPlayer>(ANIMATION_PLAYER_NODE);
+
         _mainZone = GetNode<MainZone>($"../../{nameof(MainZone)}");
         _cardInfo = GetNode<CardInfo>($"../../../../{nameof(CardInfo)}");
-        PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
+        _gameManager = GetNode<GameManager>($"../../../../{nameof(GameManager)}");
+
+        var area = GetNode<Area2D>(AREA2D_PLAYER_NODE);
+
+        area.MouseEntered += OnAreaMouseEntered;
+        area.MouseExited += OnAreaMouseExited;
     }
 
     public void Summon(MainCardSlot cardSlot)
@@ -128,7 +138,7 @@ public partial class Card : Node2D
         _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, ROTATION_NODE_PATH, RotationDegrees - 90, DEFAULT_ANIMATION_SPEED);
     }
 
-    private void OnMouseEntered()
+    private void OnAreaMouseEntered()
     {
         if (DuelSide is DuelSide.Player)
         {
@@ -164,7 +174,7 @@ public partial class Card : Node2D
         }
     }
 
-    private void OnMouseExited()
+    private void OnAreaMouseExited()
     {
         if (_canView)
         {

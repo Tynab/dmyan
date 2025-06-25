@@ -1,4 +1,4 @@
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts.Controls;
 

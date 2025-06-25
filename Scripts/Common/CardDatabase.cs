@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.FileAccess;
 using static Godot.FileAccess.ModeFlags;
 using static System.Enum;
 
-namespace DMYAN.Scripts;
+namespace DMYAN.Scripts.Common;
 
 public static class CardDatabase
 {

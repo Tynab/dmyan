@@ -1,7 +1,7 @@
 using Godot;
 using static Godot.Vector2;
 
-namespace DMYAN.Scripts;
+namespace DMYAN.Scripts.Common;
 
 public static class Constant
 {
@@ -75,7 +75,9 @@ public static class Constant
     public const string INFO_TIMER_NODE = "Timer";
     public const string INFO_PLAYER_NODE = "PlayerInfo";
     public const string INFO_OPPONENT_NODE = "OpponentInfo";
-    public const string DEFAULT_ANIMATION_PLAYER_NODE = "AnimationPlayer";
+    public const string ANIMATION_PLAYER_NODE = "AnimationPlayer";
+    public const string SPRITE2D_PLAYER_NODE = "Sprite2D";
+    public const string AREA2D_PLAYER_NODE = "Area2D";
 
     public const string FONT_SIZE_PROPERTY = "font_size";
 

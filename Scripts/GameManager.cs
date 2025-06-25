@@ -1,11 +1,12 @@
+using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Controls;
 using DMYAN.Scripts.Popups;
 using Godot;
 using Godot.Collections;
 using System.Linq;
 using System.Threading.Tasks;
-using static DMYAN.Scripts.CardDatabase;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.CardDatabase;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.MouseButton;
 using static System.Threading.Tasks.Task;
 

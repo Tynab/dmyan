@@ -1,7 +1,8 @@
+using DMYAN.Scripts.Common;
 using Godot;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts;
 

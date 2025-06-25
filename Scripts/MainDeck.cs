@@ -1,7 +1,8 @@
+using DMYAN.Scripts.Common;
 using Godot;
 using System.Collections.Generic;
-using static DMYAN.Scripts.CardDatabase;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.CardDatabase;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.FileAccess;
 using static Godot.FileAccess.ModeFlags;
 using static Godot.ResourceLoader;

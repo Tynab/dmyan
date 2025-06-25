@@ -1,5 +1,5 @@
 using Godot;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;
 
 namespace DMYAN.Scripts;

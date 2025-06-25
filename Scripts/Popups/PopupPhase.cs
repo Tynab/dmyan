@@ -1,6 +1,7 @@
+using DMYAN.Scripts.Common;
 using Godot;
 using System.Threading.Tasks;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;
 using static Godot.Tween.EaseType;
 using static Godot.Tween.TransitionType;

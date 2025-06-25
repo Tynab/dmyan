@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DMYAN.Scripts;
+namespace DMYAN.Scripts.Common;
 
 public static class Extension
 {
