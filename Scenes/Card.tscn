@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b6k0fan5c8yta"]
+[gd_scene load_steps=13 format=3 uid="uid://b6k0fan5c8yta"]
 
 [ext_resource type="Script" uid="uid://sf1gmd0nblsg" path="res://Scripts/Card.cs" id="1_h8wm0"]
 [ext_resource type="Texture2D" uid="uid://dvkraho7dlkf2" path="res://Assets/Cards/02118022.jpg" id="1_pnb5n"]
@@ -278,6 +278,9 @@ _data = {
 &"card_flip_down": SubResource("Animation_kphy1")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wejov"]
+size = Vector2(64, 131)
+
 [node name="Card" type="Node2D"]
 script = ExtResource("1_h8wm0")
 
@@ -307,9 +310,20 @@ libraries = {
 &"": SubResource("AnimationLibrary_h8wm0")
 }
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
+[node name="Sword" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Sword"]
 texture = ExtResource("6_wejov")
+
+[node name="Area2D" type="Area2D" parent="Sword"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword/Area2D"]
+z_index = 1
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_wejov")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="OnMouseEntered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="OnMouseExited"]
