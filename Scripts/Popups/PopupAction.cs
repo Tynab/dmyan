@@ -6,33 +6,24 @@ namespace DMYAN.Scripts.Popups;
 
 public partial class PopupAction : Sprite2D
 {
-    public void ShowSummonPopup()
+    public void ShowAction(PopupActionType type)
     {
-        Texture = Load<Texture2D>(SUMMON_POPUP_ASSET_PATH);
-        Show();
-    }
+        var path = type switch
+        {
+            PopupActionType.Summon => SUMMON_POPUP_ASSET_PATH,
+            PopupActionType.Set => SET_POPUP_ASSET_PATH,
+            PopupActionType.Activate => ACTIVATE_POPUP_ASSET_PATH,
+            PopupActionType.Attack => ATK_POPUP_ASSET_PATH,
+            PopupActionType.Defense => DEF_POPUP_ASSET_PATH,
+            _ => string.Empty
+        };
 
-    public void ShowSetPopup()
-    {
-        Texture = Load<Texture2D>(SET_POPUP_ASSET_PATH);
-        Show();
-    }
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return;
+        }
 
-    public void ShowActivePopup()
-    {
-        Texture = Load<Texture2D>(ACTIVE_POPUP_ASSET_PATH);
-        Show();
-    }
-
-    public void ShowAttackPopup()
-    {
-        Texture = Load<Texture2D>(ATK_POPUP_ASSET_PATH);
-        Show();
-    }
-
-    public void ShowDefensePopup()
-    {
-        Texture = Load<Texture2D>(DEF_POPUP_ASSET_PATH);
+        Texture = Load<Texture2D>(path);
         Show();
     }
 }

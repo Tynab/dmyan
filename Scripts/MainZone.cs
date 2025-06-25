@@ -1,56 +1,49 @@
 using Godot;
 using System.Collections.Generic;
 using static Godot.GD;
-using static Godot.Vector2;
 
 namespace DMYAN.Scripts;
 
 public partial class MainZone : Node2D
 {
-    [Export]
-    public DuelSide DuelSide { get; set; } = DuelSide.None;
+	[Export]
+	public DuelSide DuelSide { get; set; } = DuelSide.None;
 
-    public int CardsInZone { get; set; } = 0;
+	public int CardsInZone { get; set; } = 0;
 
-    public bool HasCardCanAttack { get; set; } = false;
+	public bool HasCardCanAttack { get; set; } = false;
 
-    private Node2D _powerZone;
+	public void SummonCard(Card card)
+	{
+		GetMainSlot(true).SummonCard(card);
+		CardsInZone++;
+	}
 
-    public override void _Ready() => _powerZone = GetNode<Node2D>("../PowerZone");
+	public void SummonSetCard(Card card)
+	{
+		GetMainSlot(false).SummonSetCard(card);
+		CardsInZone++;
+	}
 
-    public void SummonCard(Card card)
-    {
-        var slot = FindEmptyAttackSlot();
+	private MainCardSlot GetMainSlot(bool isAtk)
+	{
+		var emptySlots = new List<MainCardSlot>();
 
-        card.Reparent(slot);
-        card.BasePosition = Zero;
-        card.Status = CardStatus.InBoard;
-        card.Zone = CardZone.Main;
-        card.CardFace = CardFace.FaceUp;
-        card.CanSummon = false;
-        card.AnimationSummon(slot.GlobalPosition, One);
-        slot.HasCardInSlot = true;
-        slot.CardFaceInSlot = card.CardFace;
-        slot.CardsInSlot++;
-        CardsInZone++;
-        _powerZone.GetChild<PowerSlot>(slot.Index).ShowAtk(card);
-    }
+		for (var i = 0; i < GetChildCount(); i++)
+		{
+			if (GetChild(i) is MainCardSlot currentSlot && !currentSlot.HasCardInSlot)
+			{
+				if (isAtk && i < 5)
+				{
+					emptySlots.Add(currentSlot);
+				}
+				else if (i is > 4 and < 10)
+				{
+					emptySlots.Add(currentSlot);
+				}
+			}
+		}
 
-    private MainCardSlot FindEmptyAttackSlot()
-    {
-        var emptySlots = new List<MainCardSlot>();
-
-        for (var i = 0; i < GetChildCount(); i++)
-        {
-            if (GetChild(i) is MainCardSlot currentSlot && !currentSlot.HasCardInSlot)
-            {
-                if (i < 5 && Mathf.IsZeroApprox(currentSlot.RotationDegrees))
-                {
-                    emptySlots.Add(currentSlot);
-                }
-            }
-        }
-
-        return emptySlots.Count > 0 ? emptySlots[RandRange(0, emptySlots.Count - 1)] : default;
-    }
+		return emptySlots.Count > 0 ? emptySlots[RandRange(0, emptySlots.Count - 1)] : default;
+	}
 }

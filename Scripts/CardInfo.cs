@@ -16,15 +16,30 @@ public partial class CardInfo : Node2D
 
     public override void _Ready() => _animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
 
-    public void UpdateTexture()
+    public void BindingData(Card card)
     {
-        GetNode<Sprite2D>(CARD_INFO_SWAP_1_NODE).Texture = Load<Texture2D>(TexturePath1);
-        GetNode<Sprite2D>(CARD_INFO_SWAP_2_NODE).Texture = Load<Texture2D>(TexturePath2);
+        if (CurrentSwap is DEFAULT_CARD_INFO_SWAP)
+        {
+            TexturePath2 = card.Code.GetCardAssetPathByCode();
+        }
+        else
+        {
+            TexturePath1 = card.Code.GetCardAssetPathByCode();
+        }
+
+        UpdateTexture();
         AnimationSwap();
+        UpdateDescription(card);
         CurrentSwap = CurrentSwap is 1 ? 2 : 1;
     }
 
-    public void UpdateDescription(Card card)
+    private void UpdateTexture()
+    {
+        GetNode<Sprite2D>(CARD_INFO_SWAP_1_NODE).Texture = Load<Texture2D>(TexturePath1);
+        GetNode<Sprite2D>(CARD_INFO_SWAP_2_NODE).Texture = Load<Texture2D>(TexturePath2);
+    }
+
+    private void UpdateDescription(Card card)
     {
         var description = string.Empty;
 

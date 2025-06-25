@@ -16,7 +16,7 @@ public partial class HandManager : Node2D
     {
         _cardsInHand.Add(card);
         card.Reparent(this);
-        card.Scale = new Vector2(CARD_HAND_SCALE, CARD_HAND_SCALE);
+        card.Scale = CARD_IN_HAND_SCALE;
         card.Status = CardStatus.InHand;
         ArrangeCards();
 

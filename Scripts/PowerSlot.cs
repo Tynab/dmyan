@@ -7,9 +7,6 @@ namespace DMYAN.Scripts;
 public partial class PowerSlot : Node2D
 {
     [Export]
-    public int Index { get; set; } = 0;
-
-    [Export]
     public DuelSide DuelSide { get; set; } = DuelSide.None;
 
     public bool HasCardInMainZone { get; set; } = false;
@@ -28,21 +25,22 @@ public partial class PowerSlot : Node2D
         _slash.Modulate = Gray;
     }
 
-    public void ShowAtk(Card card)
+    public void ShowPower(Card card, bool isAtk)
     {
-        Show();
         _atk.Text = card.ATK.ToString();
-        _atk.Modulate = White;
         _def.Text = card.DEF.ToString();
-        _def.Modulate = Gray;
-    }
 
-    public void ShowDef(Card card)
-    {
+        if (isAtk)
+        {
+            _atk.Modulate = White;
+            _def.Modulate = Gray;
+        }
+        else
+        {
+            _atk.Modulate = Gray;
+            _def.Modulate = White;
+        }
+
         Show();
-        _atk.Text = card.ATK.ToString();
-        _atk.Modulate = Gray;
-        _def.Text = card.DEF.ToString();
-        _def.Modulate = White;
     }
 }
