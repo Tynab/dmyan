@@ -90,12 +90,12 @@ internal partial class GameManager : Node2D
         if (CurrentTurnSide is DuelSide.Player)
         {
             await _opponentEye.Hide(OPACITY_MIN, SCALE_MIN);
-            await _playerEye.Show(OPACITY_MAX, SCALE_MAX);
+            await _playerEye.Show(OPACITY_AVERAGE, SCALE_MAX);
         }
         else
         {
             await _playerEye.Hide(OPACITY_MIN, SCALE_MIN);
-            await _opponentEye.Show(OPACITY_MAX, SCALE_MAX);
+            await _opponentEye.Show(OPACITY_AVERAGE, SCALE_MAX);
         }
     }
 }

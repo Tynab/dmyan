@@ -41,6 +41,7 @@ internal static class Constant
 
     internal const int OPACITY_MIN = 0;
     internal const int OPACITY_MAX = 255;
+    internal const int OPACITY_AVERAGE = 127;
 
     internal static readonly Vector2 SCALE_MIN = new(.1f, .1f);
     internal static readonly Vector2 SCALE_MAX = One;
