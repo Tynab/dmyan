@@ -303,6 +303,7 @@ z_index = 1
 shape = SubResource("RectangleShape2D_r0du0")
 
 [node name="Sword" parent="." instance=ExtResource("6_wejov")]
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

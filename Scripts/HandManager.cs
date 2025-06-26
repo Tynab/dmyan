@@ -6,19 +6,22 @@ using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts;
 
-public partial class HandManager : Node2D
+internal partial class HandManager : Node2D
 {
     [Export]
-    public DuelSide DuelSide { get; set; } = DuelSide.None;
+    private DuelSide DuelSide { get; set; } = DuelSide.None;
 
     private readonly List<Card> _cardsInHand = [];
 
-    public async Task AddCardAsync(Card card)
+    internal async Task AddCardAsync(Card card)
     {
         _cardsInHand.Add(card);
+
         card.Reparent(this);
+
         card.Scale = CARD_IN_HAND_SCALE;
         card.Status = CardStatus.InHand;
+
         ArrangeCards();
 
         if (DuelSide is DuelSide.Player)
@@ -27,7 +30,7 @@ public partial class HandManager : Node2D
         }
     }
 
-    public void RemoveCard(Card card)
+    internal void RemoveCard(Card card)
     {
         if (_cardsInHand.Remove(card))
         {
@@ -41,12 +44,13 @@ public partial class HandManager : Node2D
 
         for (var i = 0; i < _cardsInHand.Count; i++)
         {
-            var card = _cardsInHand[i];
             var newPosition = new Vector2((i - (_cardsInHand.Count - 1) / 2f) * space, HAND_POSITION_Y);
+            var card = _cardsInHand[i];
 
             card.BasePosition = newPosition;
-            card.AnimationDraw(newPosition);
             card.ZIndex = i;
+
+            card.AnimationDraw(newPosition);
         }
     }
 }

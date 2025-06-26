@@ -6,12 +6,12 @@ using static System.Enum;
 
 namespace DMYAN.Scripts.Common;
 
-public static class CardDatabase
+internal static class CardDatabase
 {
     private static readonly Dictionary<string, CardData> _cardData = [];
     private static bool _isLoaded = false;
 
-    public static void LoadCards()
+    internal static void LoadCards()
     {
         if (_isLoaded)
         {
@@ -63,7 +63,7 @@ public static class CardDatabase
         _isLoaded = true;
     }
 
-    public static CardData GetCardData(string cardCode)
+    internal static CardData GetCardData(string cardCode)
     {
         if (!_isLoaded)
         {
@@ -74,20 +74,20 @@ public static class CardDatabase
     }
 }
 
-public struct CardData
+internal struct CardData
 {
-    public int Id;
-    public string Code;
-    public string Name;
-    public string Description;
-    public CardType Type;
-    public CardProperty Property;
-    public MonsterAttribute Attribute;
-    public MonsterRace Race;
-    public MonsterSummonType SummonType;
-    public int Level;
-    public int ATK;
-    public int DEF;
-    public CardBanlistStatus BanlistStatus;
-    public CardEffectType EffectType;
+    internal int Id;
+    internal string Code;
+    internal string Name;
+    internal string Description;
+    internal CardType Type;
+    internal CardProperty Property;
+    internal MonsterAttribute Attribute;
+    internal MonsterRace Race;
+    internal MonsterSummonType SummonType;
+    internal int Level;
+    internal int ATK;
+    internal int DEF;
+    internal CardBanlistStatus BanlistStatus;
+    internal CardEffectType EffectType;
 }

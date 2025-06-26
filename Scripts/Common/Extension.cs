@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace DMYAN.Scripts.Common;
 
-public static class Extension
+internal static class Extension
 {
     private static readonly Random _random = new();
 
-    public static void Shuffle<T>(this IList<T> list)
+    internal static void Shuffle<T>(this IList<T> list)
     {
         var n = list.Count;
 
@@ -21,9 +21,9 @@ public static class Extension
         }
     }
 
-    public static string GetCardAssetPathByCode(this string code) => $"res://Assets/Cards/{code}.jpg";
+    internal static string GetCardAssetPathByCode(this string code) => $"res://Assets/Cards/{code}.jpg";
 
-    public static string ViewPower(this int value)
+    internal static string ViewPower(this int value)
     {
         var power = value switch
         {
@@ -36,7 +36,7 @@ public static class Extension
         return power.PadLeft(5, ' ');
     }
 
-    public static string VietTranslation(this CardType cardType) => cardType switch
+    internal static string VietTranslation(this CardType cardType) => cardType switch
     {
         CardType.Monster => "Quái",
         CardType.Spell => "Phép",
@@ -44,7 +44,7 @@ public static class Extension
         _ => string.Empty
     };
 
-    public static string VietTranslation(this CardProperty cardProperty) => cardProperty switch
+    internal static string VietTranslation(this CardProperty cardProperty) => cardProperty switch
     {
         CardProperty.Continuous => "Liên Tục",
         CardProperty.Equip => "Trang Bị",
@@ -62,7 +62,7 @@ public static class Extension
         _ => string.Empty
     };
 
-    public static string VietTranslation(this MonsterAttribute monsterAttribute) => monsterAttribute switch
+    internal static string VietTranslation(this MonsterAttribute monsterAttribute) => monsterAttribute switch
     {
         MonsterAttribute.Dark => "Ám",
         MonsterAttribute.Divine => "Thần",
@@ -76,7 +76,7 @@ public static class Extension
         _ => string.Empty
     };
 
-    public static string VietTranslation(this MonsterRace monsterRace) => monsterRace switch
+    internal static string VietTranslation(this MonsterRace monsterRace) => monsterRace switch
     {
         MonsterRace.Aqua => "Thủy Sinh",
         MonsterRace.Beast => "Thú",

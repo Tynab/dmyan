@@ -10,12 +10,13 @@ using static Godot.Vector2;
 
 namespace DMYAN.Scripts;
 
-public partial class MainDeck : CardSlot
+internal partial class MainDeck : CardSlot
 {
     [Export]
     private PackedScene CardScene { get; set; }
 
-    private readonly List<Card> _cardsInDeck = [];
+    internal List<Card> CardsInDeck { get; set; } = [];
+
     private RichTextLabel _count;
 
     public override void _Ready()
@@ -26,20 +27,22 @@ public partial class MainDeck : CardSlot
         if (DuelSide is DuelSide.Player)
         {
             _count = GetNode<RichTextLabel>(SLOT_COUNT_NODE);
+
             UpdateCountDisplay();
         }
     }
 
-    public Card RemoveCard()
+    internal Card RemoveCard()
     {
-        if (_cardsInDeck.Count is 0)
+        if (CardsInDeck.Count is 0)
         {
             return default;
         }
 
-        var drawnCard = _cardsInDeck[0];
+        var drawnCard = CardsInDeck[0];
 
-        _cardsInDeck.RemoveAt(0);
+        CardsInDeck.RemoveAt(0);
+
         UpdateCountDisplay();
 
         return drawnCard;
@@ -47,7 +50,7 @@ public partial class MainDeck : CardSlot
 
     private void LoadData()
     {
-        _cardsInDeck.Clear();
+        CardsInDeck.Clear();
 
         using var file = Open(DECKS_DATA_PATH, Read);
 
@@ -82,34 +85,38 @@ public partial class MainDeck : CardSlot
             card.Race = cardData.Race;
             card.SummonType = cardData.SummonType;
             card.Level = cardData.Level;
-            card.ATK = cardData.ATK;
-            card.DEF = cardData.DEF;
+            card.BaseATK = cardData.ATK;
+            card.BaseDEF = cardData.DEF;
             card.BanlistStatus = cardData.BanlistStatus;
             card.EffectType = cardData.EffectType;
 
             var cardFront = card.GetNode<Sprite2D>(CARD_FRONT_NODE);
-            var cardBack = card.GetNode<Sprite2D>(CARD_BACK_NODE);
 
             cardFront.Texture = Load<Texture2D>(cardData.Code.GetCardAssetPathByCode());
             cardFront.Hide();
+
+            var cardBack = card.GetNode<Sprite2D>(CARD_BACK_NODE);
+
             cardBack.Show();
-            _cardsInDeck.Add(card);
+
+            CardsInDeck.Add(card);
+
             AddChild(card);
         }
     }
 
     private void ShuffleAndArrange()
     {
-        if (_cardsInDeck.Count is 0)
+        if (CardsInDeck.Count is 0)
         {
             return;
         }
 
-        _cardsInDeck.Shuffle();
+        CardsInDeck.Shuffle();
 
-        for (var i = 0; i < _cardsInDeck.Count; i++)
+        for (var i = 0; i < CardsInDeck.Count; i++)
         {
-            var card = _cardsInDeck[i];
+            var card = CardsInDeck[i];
 
             card.Position = Zero;
             card.ZIndex = i;
@@ -120,9 +127,9 @@ public partial class MainDeck : CardSlot
     {
         if (_count is not null)
         {
-            if (_cardsInDeck.Count > 0)
+            if (CardsInDeck.Count > 0)
             {
-                _count.Text = _cardsInDeck.Count.ToString();
+                _count.Text = CardsInDeck.Count.ToString();
                 _count.ZIndex = 1000;
                 _count.Show();
             }

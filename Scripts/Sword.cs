@@ -1,12 +1,11 @@
 using Godot;
-using System;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.Mathf;
 using static Godot.MouseButton;
-using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts;
 
-public partial class Sword : Node2D
+internal partial class Sword : Node2D
 {
     private Sprite2D _swordSprite;
     private Area2D _swordArea;
@@ -16,8 +15,8 @@ public partial class Sword : Node2D
 
     public override void _Ready()
     {
-        _swordSprite = GetNode<Sprite2D>(SPRITE2D_PLAYER_NODE);
-        _swordArea = GetNode<Area2D>(AREA2D_PLAYER_NODE);
+        _swordSprite = GetNode<Sprite2D>(DEFAULT_SPRITE2D_NODE);
+        _swordArea = GetNode<Area2D>(DEFAULT_AREA2D_NODE);
 
         _originalSwordRotation = _swordSprite.Rotation;
 

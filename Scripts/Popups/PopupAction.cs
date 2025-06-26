@@ -5,9 +5,9 @@ using static Godot.ResourceLoader;
 
 namespace DMYAN.Scripts.Popups;
 
-public partial class PopupAction : Sprite2D
+internal partial class PopupAction : Sprite2D
 {
-    public void ShowAction(PopupActionType type)
+    internal void ShowAction(PopupActionType type)
     {
         var path = type switch
         {
@@ -25,6 +25,7 @@ public partial class PopupAction : Sprite2D
         }
 
         Texture = Load<Texture2D>(path);
+
         Show();
     }
 }
