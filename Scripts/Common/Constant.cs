@@ -42,11 +42,10 @@ internal static class Constant
     internal const int OPACITY_MIN = 0;
     internal const int OPACITY_MAX = 255;
 
-    internal static readonly Vector2 CARD_IN_SLOT_SCALE = One;
-    internal static readonly Vector2 CARD_IN_HAND_SCALE = One;
+    internal static readonly Vector2 SCALE_MIN = new(.1f, .1f);
+    internal static readonly Vector2 SCALE_MAX = One;
 
     internal const float CARD_HAND_SCALE = 1;
-    internal const float START_POPUP_PHASE_SCALE = .1f;
 
     internal const float CARD_HAND_W = 120 * CARD_HAND_SCALE;
     internal const float CARD_HAND_GAP_W = 15;

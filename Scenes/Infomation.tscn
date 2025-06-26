@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bql7tae5rcv6r" path="res://Assets/Textures/timer.png" id="2_c6n2m"]
 [ext_resource type="Texture2D" uid="uid://c65ryvhmlleu8" path="res://Assets/Textures/lpf.png" id="3_qtkth"]
 [ext_resource type="Texture2D" uid="uid://dhn3suvlqflmk" path="res://Assets/Textures/lp.png" id="4_tqx1a"]
-[ext_resource type="Shader" uid="uid://brymt4jw6gih1" path="res://Avatar.gdshader" id="5_navm1"]
+[ext_resource type="Shader" uid="uid://brymt4jw6gih1" path="res://Shaders/Avatar.gdshader" id="5_navm1"]
 [ext_resource type="Texture2D" uid="uid://bcsx3b51wt6ty" path="res://Assets/Avatars/Atem.jpg" id="6_ej2h8"]
 [ext_resource type="Texture2D" uid="uid://dj2mahwsj5mv2" path="res://Assets/bar.png" id="7_6wlno"]
 

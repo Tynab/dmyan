@@ -1,3 +1,4 @@
+using DMYAN.Scripts.GameManagerStack;
 using Godot;
 using System.Threading.Tasks;
 using static DMYAN.Scripts.Common.Constant;
@@ -64,14 +65,14 @@ internal partial class Sword : Node2D
         }
     }
 
-    internal async Task FadeIn(int opacity)
+    internal async Task Show(int opacity)
     {
         Show();
 
         _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, opacity, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
     }
 
-    internal async Task FadeOut(int opacity)
+    internal async Task Hide(int opacity)
     {
         _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, opacity, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
 
