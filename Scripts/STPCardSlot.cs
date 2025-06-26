@@ -1,5 +1,5 @@
 namespace DMYAN.Scripts;
 
-public partial class STPCardSlot : CardSlot
+internal partial class STPCardSlot : CardSlot
 {
 }

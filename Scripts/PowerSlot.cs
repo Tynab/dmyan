@@ -1,17 +1,18 @@
+using DMYAN.Scripts.Common;
 using Godot;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.Colors;
 
 namespace DMYAN.Scripts;
 
-public partial class PowerSlot : Node2D
+internal partial class PowerSlot : Node2D
 {
     [Export]
-    public DuelSide DuelSide { get; set; } = DuelSide.None;
+    private DuelSide DuelSide { get; set; } = DuelSide.None;
 
-    public bool HasCardInMainZone { get; set; } = false;
+    internal bool HasCardInMainZone { get; set; } = false;
 
-    public CardFace CardFaceInMainZone { get; set; } = CardFace.None;
+    internal CardFace CardFaceInMainZone { get; set; } = CardFace.None;
 
     private RichTextLabel _atk;
     private RichTextLabel _def;
@@ -25,10 +26,10 @@ public partial class PowerSlot : Node2D
         _slash.Modulate = Gray;
     }
 
-    public void ShowPower(Card card, bool isAtk)
+    internal void ShowPower(Card card, bool isAtk)
     {
-        _atk.Text = card.ATK.ToString();
-        _def.Text = card.DEF.ToString();
+        _atk.Text = card.BaseATK.ToString();
+        _def.Text = card.BaseDEF.ToString();
 
         if (isAtk)
         {

@@ -1,10 +1,10 @@
 using Godot;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;
 
 namespace DMYAN.Scripts;
 
-public partial class Infomation : Node2D
+internal partial class Infomation : Node2D
 {
     private RichTextLabel _name;
     private RichTextLabel _lp;
@@ -21,7 +21,7 @@ public partial class Infomation : Node2D
         _avatar = GetNode<TextureRect>(nameof(TextureRect));
     }
 
-    public void Initialize(string name, float lp = 10_000)
+    internal void Initialize(string name, float lp = 10_000)
     {
         _name.Text = name;
         _lp.Text = lp.ToString();

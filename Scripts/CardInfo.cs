@@ -1,22 +1,23 @@
+using DMYAN.Scripts.Common;
 using Godot;
-using static DMYAN.Scripts.Constant;
+using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;
 
 namespace DMYAN.Scripts;
 
-public partial class CardInfo : Node2D
+internal partial class CardInfo : Node2D
 {
-    public int CurrentSwap { get; set; } = DEFAULT_CARD_INFO_SWAP;
+    internal int CurrentSwap { get; set; } = DEFAULT_CARD_INFO_SWAP;
 
-    public string TexturePath1 { get; set; } = CARD_BACK_ASSET_PATH;
+    internal string TexturePath1 { get; set; } = CARD_BACK_ASSET_PATH;
 
-    public string TexturePath2 { get; set; } = CARD_BACK_ASSET_PATH;
+    internal string TexturePath2 { get; set; } = CARD_BACK_ASSET_PATH;
 
     private AnimationPlayer _animationPlayer;
 
     public override void _Ready() => _animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
 
-    public void BindingData(Card card)
+    internal void BindingData(Card card)
     {
         if (CurrentSwap is DEFAULT_CARD_INFO_SWAP)
         {
@@ -30,6 +31,7 @@ public partial class CardInfo : Node2D
         UpdateTexture();
         AnimationSwap();
         UpdateDescription(card);
+
         CurrentSwap = CurrentSwap is 1 ? 2 : 1;
     }
 
@@ -61,7 +63,7 @@ public partial class CardInfo : Node2D
                 description += "★";
             }
 
-            description += $"\nCông: {card.ATK.ViewPower()} / Thủ: {card.DEF.ViewPower()}";
+            description += $"\nCông: {card.BaseATK.ViewPower()} / Thủ: {card.BaseDEF.ViewPower()}";
 
             if (!string.IsNullOrWhiteSpace(card.Description))
             {

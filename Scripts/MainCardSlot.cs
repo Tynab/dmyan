@@ -1,33 +1,37 @@
+using DMYAN.Scripts.Common;
 using Godot;
 
 namespace DMYAN.Scripts;
 
-public partial class MainCardSlot : CardSlot
+internal partial class MainCardSlot : CardSlot
 {
-	[Export]
-	public PowerSlot PowerSlot { get; set; }
+    [Export]
+    private PowerSlot PowerSlot { get; set; }
 
-	public int CardsInSlot { get; set; } = 0;
+    internal int CardsInSlot { get; set; } = 0;
 
-	public bool HasCardCanAttack { get; set; } = false;
+    internal bool HasCardCanAttack { get; set; } = false;
 
-	public void SummonCard(Card card)
-	{
-		card.Summon(this);
-		HasCardInSlot = true;
-		CardsInSlot++;
-		PowerSlot.ShowPower(card, true);
-	}
+    internal void SummonCard(Card card)
+    {
+        card.Summon(this);
 
-	public void SummonSetCard(Card card)
-	{
-		card.SummonSet(this);
-		HasCardInSlot = true;
-		CardsInSlot++;
+        HasCardInSlot = true;
+        CardsInSlot++;
 
-		if (DuelSide is DuelSide.Player)
-		{
-			PowerSlot.ShowPower(card, false);
-		}
-	}
+        PowerSlot.ShowPower(card, true);
+    }
+
+    internal void SummonSetCard(Card card)
+    {
+        card.SummonSet(this);
+
+        HasCardInSlot = true;
+        CardsInSlot++;
+
+        if (DuelSide is DuelSide.Player)
+        {
+            PowerSlot.ShowPower(card, false);
+        }
+    }
 }
