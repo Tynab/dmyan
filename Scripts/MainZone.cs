@@ -36,13 +36,19 @@ internal partial class MainZone : Node2D
         {
             if (GetChild(i) is MainCardSlot currentSlot && !currentSlot.HasCardInSlot)
             {
-                if (isAtk && i < 5)
+                if (isAtk)
                 {
-                    emptySlots.Add(currentSlot);
+                    if (i < 5)
+                    {
+                        emptySlots.Add(currentSlot);
+                    }
                 }
-                else if (i is > 4 and < 10)
+                else
                 {
-                    emptySlots.Add(currentSlot);
+                    if (i is > 4 and < 10)
+                    {
+                        emptySlots.Add(currentSlot);
+                    }
                 }
             }
         }

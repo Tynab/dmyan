@@ -13,7 +13,7 @@ internal partial class Card : Node2D
 {
     internal DuelSide DuelSide { get; set; } = DuelSide.None;
 
-    internal CardStatus Status { get; set; } = CardStatus.None;
+    internal CardLocation Location { get; set; } = CardLocation.None;
 
     internal CardZone Zone { get; set; } = CardZone.None;
 
@@ -88,7 +88,7 @@ internal partial class Card : Node2D
         var parent = field.GetParent().GetParent();
 
         _cardInfo = parent.GetNode<CardInfo>(nameof(CardInfo));
-        _gameManager = parent.GetNode<GameManager>(nameof(CardInfo));
+        _gameManager = parent.GetNode<GameManager>(nameof(GameManager));
 
         Sword = GetNode<Sword>(nameof(Sword));
         PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
@@ -103,14 +103,65 @@ internal partial class Card : Node2D
         area.MouseExited += OnAreaMouseExited;
     }
 
+    private void OnAreaMouseEntered()
+    {
+        if (DuelSide is DuelSide.Player)
+        {
+            if (Location is CardLocation.InBoard && Zone is CardZone.Field or CardZone.Main or CardZone.STP)
+            {
+                _canView = true;
+                _cardInfo.BindingData(this);
+            }
+            else if (Location is CardLocation.InHand)
+            {
+                _canView = true;
+                _cardInfo.BindingData(this);
+
+                HighlightOn();
+
+                if (CanActivate)
+                {
+                    PopupAction.ShowAction(PopupActionType.Activate);
+                    ActionType = CardActionType.Activate;
+                }
+                else if ((Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && _gameManager.CurrentPhase is DuelPhase.Main1 or DuelPhase.Main2 && !_gameManager.HasSummoned)
+                {
+                    CanSummon = true;
+                    CanSet = true;
+                    PopupAction.ShowAction(PopupActionType.Summon);
+                    ActionType = CardActionType.Summon;
+                }
+                else
+                {
+                    CanSummon = false;
+                    CanSet = false;
+                }
+            }
+        }
+    }
+
+    private void OnAreaMouseExited()
+    {
+        if (_canView)
+        {
+            if (Location is CardLocation.InHand)
+            {
+                HighlightOff();
+            }
+
+            PopupAction.Hide();
+        }
+    }
+
     internal void Summon(MainCardSlot cardSlot)
     {
         Reparent(cardSlot);
 
         BasePosition = CARD_IN_SLOT_POSITION;
-        Status = CardStatus.InBoard;
+        Location = CardLocation.InBoard;
         Zone = CardZone.Main;
         CardFace = CardFace.FaceUp;
+        CardPosition = CardPosition.Attack;
         CanSummon = false;
         CanSet = false;
 
@@ -122,9 +173,10 @@ internal partial class Card : Node2D
         Reparent(cardSlot);
 
         BasePosition = CARD_IN_SLOT_POSITION;
-        Status = CardStatus.InBoard;
+        Location = CardLocation.InBoard;
         Zone = CardZone.Main;
         CardFace = CardFace.FaceDown;
+        CardPosition = CardPosition.Defense;
         CanSummon = false;
         CanSet = false;
 
@@ -161,53 +213,13 @@ internal partial class Card : Node2D
         _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, ROTATION_NODE_PATH, RotationDegrees - 90, DEFAULT_ANIMATION_SPEED);
     }
 
-    private void OnAreaMouseEntered()
+    internal async Task CanAttackCheck(DuelSide currentSide)
     {
-        if (DuelSide is DuelSide.Player)
+        CanAttack = DuelSide == currentSide && Location is CardLocation.InBoard && Zone is CardZone.Main && CardFace is CardFace.FaceUp && CardPosition is CardPosition.Attack;
+
+        if (CanAttack)
         {
-            if (Status is CardStatus.InBoard && Zone is CardZone.Field or CardZone.Main or CardZone.STP)
-            {
-                _canView = true;
-                _cardInfo.BindingData(this);
-            }
-            else if (Status is CardStatus.InHand)
-            {
-                _canView = true;
-                _cardInfo.BindingData(this);
-
-                HighlightOn();
-
-                if (CanActivate)
-                {
-                    PopupAction.ShowAction(PopupActionType.Activate);
-                    ActionType = CardActionType.Activate;
-                }
-                else if ((Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && _gameManager.CurrentPhase is DuelPhase.Main1 or DuelPhase.Main2 && !_gameManager.HasSummoned)
-                {
-                    CanSummon = true;
-                    CanSet = true;
-                    PopupAction.ShowAction(PopupActionType.Summon);
-                    ActionType = CardActionType.Summon;
-                }
-                else
-                {
-                    CanSummon = false;
-                    CanSet = false;
-                }
-            }
-        }
-    }
-
-    private void OnAreaMouseExited()
-    {
-        if (_canView)
-        {
-            if (Status is CardStatus.InHand)
-            {
-                HighlightOff();
-            }
-
-            PopupAction.Hide();
+            await Sword.FadeIn(OPACITY_MAX);
         }
     }
 
@@ -221,16 +233,6 @@ internal partial class Card : Node2D
     }
 
     private void HighlightOff() => GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, BasePosition, DEFAULT_ANIMATION_SPEED);
-
-    internal void CanAttackCheck(DuelSide currentSide)
-    {
-        CanAttack = DuelSide == currentSide && Status is CardStatus.InBoard && Zone is CardZone.Main && CardFace is CardFace.FaceUp && CardPosition is CardPosition.Attack;
-
-        if (CanAttack)
-        {
-            Sword.Show();
-        }
-    }
 
     private void ResetPower()
     {

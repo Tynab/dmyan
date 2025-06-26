@@ -1,12 +1,16 @@
 using Godot;
+using System.Threading.Tasks;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.Mathf;
 using static Godot.MouseButton;
+using static Godot.Tween.EaseType;
+using static Godot.Tween.TransitionType;
 
 namespace DMYAN.Scripts;
 
 internal partial class Sword : Node2D
 {
+    private GameManager _gameManager;
     private Sprite2D _swordSprite;
     private Area2D _swordArea;
 
@@ -15,6 +19,7 @@ internal partial class Sword : Node2D
 
     public override void _Ready()
     {
+        _gameManager = GetParent().GetParent().GetParent().GetParent().GetParent().GetNode<GameManager>(nameof(GameManager));
         _swordSprite = GetNode<Sprite2D>(DEFAULT_SPRITE2D_NODE);
         _swordArea = GetNode<Area2D>(DEFAULT_AREA2D_NODE);
 
@@ -36,6 +41,7 @@ internal partial class Sword : Node2D
     {
         if (_isSwordFollowingMouse && @event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex is Right)
         {
+            _gameManager.AttackMode = false;
             _isSwordFollowingMouse = false;
             _swordSprite.Rotation = _originalSwordRotation;
         }
@@ -45,7 +51,30 @@ internal partial class Sword : Node2D
     {
         if (@event is InputEventMouseButton mouseButtonEvent && mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex is Left)
         {
+            if (_gameManager.AttackMode)
+            {
+                return;
+            }
+            else
+            {
+                _gameManager.AttackMode = true;
+            }
+
             _isSwordFollowingMouse = true;
         }
+    }
+
+    internal async Task FadeIn(int opacity)
+    {
+        Show();
+
+        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, opacity, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
+    }
+
+    internal async Task FadeOut(int opacity)
+    {
+        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, opacity, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
+
+        Hide();
     }
 }

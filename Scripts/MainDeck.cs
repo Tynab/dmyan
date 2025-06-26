@@ -73,7 +73,7 @@ internal partial class MainDeck : CardSlot
             var card = CardScene.Instantiate<Card>();
 
             card.DuelSide = DuelSide;
-            card.Status = CardStatus.InDeck;
+            card.Location = CardLocation.InDeck;
             card.Zone = CardZone.MainDeck;
             card.CardFace = CardFace.FaceDown;
             card.CardName = cardData.Name;

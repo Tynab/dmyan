@@ -43,6 +43,8 @@ internal partial class GameManager : Node2D
 
     internal bool IsFirstTurn { get; set; } = true;
 
+    internal bool AttackMode { get; set; } = false;
+
     private Infomation _playerInfo;
     private Infomation _opponentInfo;
     private PopupPhase _popupPhase;
@@ -92,6 +94,11 @@ internal partial class GameManager : Node2D
     {
         if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
         {
+            if (AttackMode)
+            {
+                return;
+            }
+
             var card = GetCardAtCursor();
 
             if (card is not null)
@@ -221,14 +228,21 @@ internal partial class GameManager : Node2D
 
         await _popupPhase.ShowPhase(PopupPhaseType.BP);
 
-        await Delay(delay);
+        if (!IsFirstTurn)
+        {
+            Cards.ForEach(async x => await x.CanAttackCheck(CurrentTurnSide));
+        }
 
-        Cards.ForEach(x => x.CanAttackCheck(CurrentTurnSide));
+        await Delay(delay);
     }
 
     internal async Task Main2PhaseAsync(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Main2;
+
+        Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InBoard && x.Zone is CardZone.Main && x.CardFace is CardFace.FaceUp && x.CardPosition is CardPosition.Attack)
+            .ToList()
+            .ForEach(async x => await x.Sword.FadeOut(OPACITY_MIN));
 
         _m2Button.ChangeStatus(false);
 

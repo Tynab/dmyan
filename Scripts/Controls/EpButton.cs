@@ -9,5 +9,13 @@ internal partial class EpButton : PhaseButton
         Pressed += OnPressed;
     }
 
-    private async void OnPressed() => await _gameManager.EndPhaseAsync();
+    private async void OnPressed()
+    {
+        if (_gameManager.AttackMode)
+        {
+            return;
+        }
+
+        await _gameManager.EndPhaseAsync();
+    }
 }

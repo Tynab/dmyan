@@ -20,7 +20,7 @@ internal partial class HandManager : Node2D
         card.Reparent(this);
 
         card.Scale = CARD_IN_HAND_SCALE;
-        card.Status = CardStatus.InHand;
+        card.Location = CardLocation.InHand;
 
         ArrangeCards();
 

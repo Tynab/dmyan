@@ -23,6 +23,7 @@ internal static class Constant
     internal const string GLOBAL_POSITION_NODE_PATH = "global_position";
     internal const string SCALE_NODE_PATH = "scale";
     internal const string ROTATION_NODE_PATH = "rotation";
+    internal const string OPACITY_NODE_PATH = "modulate:a8";
 
     internal static readonly Vector2 CARD_IN_SLOT_POSITION = Zero;
 
@@ -38,8 +39,12 @@ internal static class Constant
     internal const int BUTTON_UP_FONT_SIZE = 40;
     internal const int BUTTON_DOWN_FONT_SIZE = 35;
 
+    internal const int OPACITY_MIN = 0;
+    internal const int OPACITY_MAX = 255;
+
     internal static readonly Vector2 CARD_IN_SLOT_SCALE = One;
     internal static readonly Vector2 CARD_IN_HAND_SCALE = One;
+
     internal const float CARD_HAND_SCALE = 1;
     internal const float START_POPUP_PHASE_SCALE = .1f;
 
@@ -117,20 +122,20 @@ internal enum DuelPhase
     End = 6           // Kết thúc
 }
 
+internal enum CardLocation
+{
+    None = 0,         // Vô
+    InDeck = 1,       // Trong bộ bài
+    InHand = 2,       // Trên tay
+    InBoard = 3       // Trên sân
+}
+
 internal enum CardActionType
 {
     None = 0,         // Vô
     Summon = 1,       // Triệu hồi
     Set = 2,          // Đặt
     Activate = 3,     // Kích hoạt
-}
-
-internal enum CardStatus
-{
-    None = 0,         // Vô
-    InDeck = 1,       // Trong bộ bài
-    InHand = 2,       // Trên tay
-    InBoard = 3       // Trên sân
 }
 
 internal enum CardZone
@@ -157,6 +162,21 @@ internal enum CardPosition
     None = 0,         // Vô
     Attack = 1,       // Công
     Defense = 2       // Thủ
+}
+
+internal enum CardStatus
+{
+    None = 0,         // Vô
+    Summoning = 1,   // Đang triệu hồi
+    Summoned = 2,     // Đã triệu hồi
+    Attacking = 3,    // Đang tấn công
+    Attacked = 4,     // Đã tấn công
+    Destroying = 5,  // Đang phá hủy
+    Destroyed = 6,    // Đã phá hủy
+    SpecialSummoning = 7, // Đang đặc biệt triệu hồi
+    SpecialSummoned = 8, // Đã đặc biệt triệu hồi
+    Activating = 9,   // Đang kích hoạt
+    Activated = 10,   // Đã kích hoạt
 }
 
 internal enum CardType
