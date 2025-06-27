@@ -82,20 +82,20 @@ internal partial class GameManager : Node2D
         CurrentTurnSide = CurrentTurnSide is DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;
         IsFirstTurn = false;
 
-        await HighlightEye();
+        HighlightEye();
     }
 
-    internal async Task HighlightEye()
+    internal void HighlightEye()
     {
         if (CurrentTurnSide is DuelSide.Player)
         {
-            await _opponentEye.Hide(OPACITY_MIN, SCALE_MIN);
-            await _playerEye.Show(OPACITY_AVERAGE, SCALE_MAX);
+            _opponentEye.AnimationHide();
+            _playerEye.AnimationShow();
         }
         else
         {
-            await _playerEye.Hide(OPACITY_MIN, SCALE_MIN);
-            await _opponentEye.Show(OPACITY_AVERAGE, SCALE_MAX);
+            _playerEye.AnimationHide();
+            _opponentEye.AnimationShow();
         }
     }
 }

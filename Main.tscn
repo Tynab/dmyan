@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=57 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
 [ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Shaders/Scroll.gdshader" id="1_wkp8b"]
@@ -24,9 +24,7 @@
 [ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlot.cs" id="15_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/dp.png" id="19_5tuhn"]
 [ext_resource type="Script" uid="uid://cffof8cg6k2ol" path="res://Scripts/Popups/PopupPhase.cs" id="20_2gh4u"]
-[ext_resource type="Shader" uid="uid://bwjb66b2ccc7s" path="res://Shaders/OpponentEye.gdshader" id="21_mxvw5"]
-[ext_resource type="Script" uid="uid://bn3sp21gsoslw" path="res://Scripts/Eye.cs" id="21_sqvbp"]
-[ext_resource type="Shader" uid="uid://ch17ftrplmaqh" path="res://Shaders/PlayerEye.gdshader" id="22_xrxkg"]
+[ext_resource type="PackedScene" uid="uid://d3abeio5copg4" path="res://Scenes/Eye.tscn" id="21_hri7i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
 shader = ExtResource("1_wkp8b")
@@ -305,12 +303,6 @@ Button/styles/disabled = SubResource("StyleBoxFlat_1w2xm")
 Button/styles/hover = SubResource("StyleBoxFlat_gngx1")
 Button/styles/normal = SubResource("StyleBoxFlat_jt61w")
 Button/styles/pressed = SubResource("StyleBoxFlat_v8qla")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrxkg"]
-shader = ExtResource("21_mxvw5")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqvbp"]
-shader = ExtResource("22_xrxkg")
 
 [node name="Main" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [965.0, 540.0, 115.0]
@@ -634,25 +626,8 @@ z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 2
 
-[node name="Eye" type="Node2D" parent="Board/OpponentField"]
-visible = false
-modulate = Color(1, 1, 1, 0)
-position = Vector2(1, 67)
-script = ExtResource("21_sqvbp")
-
-[node name="ColorRect" type="ColorRect" parent="Board/OpponentField/Eye"]
-material = SubResource("ShaderMaterial_xrxkg")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.5
-offset_top = -35.5
-offset_right = 35.5
-offset_bottom = 35.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Eye" parent="Board/OpponentField" instance=ExtResource("21_hri7i")]
+position = Vector2(1, 68)
 
 [node name="PlayerField" type="Node2D" parent="Board"]
 
@@ -862,25 +837,8 @@ z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 1
 
-[node name="Eye" type="Node2D" parent="Board/PlayerField"]
-visible = false
-modulate = Color(1, 1, 1, 0)
-position = Vector2(1, 67)
-script = ExtResource("21_sqvbp")
-
-[node name="ColorRect" type="ColorRect" parent="Board/PlayerField/Eye"]
-material = SubResource("ShaderMaterial_sqvbp")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.5
-offset_top = -35.5
-offset_right = 35.5
-offset_bottom = 35.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Eye" parent="Board/PlayerField" instance=ExtResource("21_hri7i")]
+position = Vector2(1, 68)
 
 [node name="OpponentInfo" parent="." instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 226)

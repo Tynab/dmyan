@@ -12,23 +12,11 @@ namespace DMYAN.Scripts;
 
 public partial class Eye : Node2D
 {
-    internal async Task Show(int opacity, Vector2 scale)
-    {
-        Show();
+	private AnimationPlayer _animationPlayer;
 
-        //_ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, opacity, 1), FINISHED_SIGNAL);
-        //_ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, 1), FINISHED_SIGNAL);
-        GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, opacity, 1);
-        GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, 1);
-    }
+	public override void _Ready() => _animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
 
-    internal async Task Hide(int opacity, Vector2 scale)
-    {
-        //_ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, opacity, 1), FINISHED_SIGNAL);
-        //_ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, 1), FINISHED_SIGNAL);
-        GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, opacity, 1);
-        GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, 1);
+	internal void AnimationShow() => _animationPlayer.Play(EYE_SHOW_ANIMATION);
 
-        //Hide();
-    }
+	internal void AnimationHide() => _animationPlayer.Play(EYE_HIDE_ANIMATION);
 }

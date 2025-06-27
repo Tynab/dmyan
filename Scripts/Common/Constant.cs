@@ -1,3 +1,4 @@
+using DMYAN.Scripts.Common.Enum;
 using Godot;
 using static Godot.Vector2;
 
@@ -95,6 +96,8 @@ internal static class Constant
     internal const string CARD_DRAW_FLIP_ANIMATION = "card_draw_flip";
     internal const string CARD_SWAP_1_ANIMATION = "card_swap_1";
     internal const string CARD_SWAP_2_ANIMATION = "card_swap_2";
+    internal const string EYE_SHOW_ANIMATION = "show";
+    internal const string EYE_HIDE_ANIMATION = "hide";
 
     internal const string FINISHED_SIGNAL = "finished";
 
@@ -102,40 +105,6 @@ internal static class Constant
     internal const string DEFAULT_OPPONENT = "Seto";
 
     internal const DuelSide STARTING_DUEL_SIDE = DuelSide.Player;
-}
-
-internal enum DuelSide
-{
-    None = 0,         // Vô
-    Player = 1,       // Người chơi
-    Opponent = 2,     // Đối thủ
-}
-
-internal enum DuelPhase
-{
-    None = 0,         // Vô
-    Draw = 1,         // Rút bài
-    Standby = 2,      // Chuẩn bị
-    Main1 = 3,        // Chính 1
-    Battle = 4,       // Giao tranh
-    Main2 = 5,        // Chính 2
-    End = 6           // Kết thúc
-}
-
-internal enum CardLocation
-{
-    None = 0,         // Vô
-    InDeck = 1,       // Trong bộ bài
-    InHand = 2,       // Trên tay
-    InBoard = 3       // Trên sân
-}
-
-internal enum CardActionType
-{
-    None = 0,         // Vô
-    Summon = 1,       // Triệu hồi
-    Set = 2,          // Đặt
-    Activate = 3,     // Kích hoạt
 }
 
 internal enum CardZone

@@ -66,7 +66,9 @@ internal partial class GameManager : Node2D
         await Delay(STARTUP_DELAY);
 
         await StartInitialDrawAsync();
-        await HighlightEye();
+
+        HighlightEye();
+
         await DrawPhaseAsync();
     }
 
