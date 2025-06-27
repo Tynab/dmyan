@@ -1,11 +1,6 @@
 using DMYAN.Scripts.Controls;
 using DMYAN.Scripts.Popups;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DMYAN.Scripts.GameManagerStack;
 

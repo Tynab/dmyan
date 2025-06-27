@@ -1,13 +1,9 @@
 using DMYAN.Scripts.Common;
+using DMYAN.Scripts.Common.Enum;
 using Godot;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static DMYAN.Scripts.Common.CardDatabase;
 using static DMYAN.Scripts.Common.Constant;
-using static Godot.MouseButton;
 using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.GameManagerStack;

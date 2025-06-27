@@ -1,4 +1,4 @@
-using DMYAN.Scripts.Common;
+using DMYAN.Scripts.Common.Enum;
 using Godot;
 using System.Collections.Generic;
 using System.Threading.Tasks;

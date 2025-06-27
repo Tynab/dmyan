@@ -5,7 +5,6 @@ using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;
 using static Godot.Tween.EaseType;
 using static Godot.Tween.TransitionType;
-using static Godot.Vector2;
 using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.Popups;
