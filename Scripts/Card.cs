@@ -1,4 +1,6 @@
 using DMYAN.Scripts.Common;
+using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.GameManagerStack;
 using DMYAN.Scripts.Popups;
 using Godot;
 using System.Threading.Tasks;
@@ -105,6 +107,9 @@ internal partial class Card : Node2D
 
     private void OnAreaMouseEntered()
     {
+        CanSummon = false;
+        CanSet = false;
+
         if (DuelSide is DuelSide.Player)
         {
             if (Location is CardLocation.InBoard && Zone is CardZone.Field or CardZone.Main or CardZone.STP)
@@ -119,22 +124,20 @@ internal partial class Card : Node2D
 
                 HighlightOn();
 
-                if (CanActivate)
+                if (_gameManager.CurrentTurnSide is DuelSide.Player)
                 {
-                    PopupAction.ShowAction(PopupActionType.Activate);
-                    ActionType = CardActionType.Activate;
-                }
-                else if ((Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && _gameManager.CurrentPhase is DuelPhase.Main1 or DuelPhase.Main2 && !_gameManager.HasSummoned)
-                {
-                    CanSummon = true;
-                    CanSet = true;
-                    PopupAction.ShowAction(PopupActionType.Summon);
-                    ActionType = CardActionType.Summon;
-                }
-                else
-                {
-                    CanSummon = false;
-                    CanSet = false;
+                    if (CanActivate)
+                    {
+                        PopupAction.ShowAction(PopupActionType.Activate);
+                        ActionType = CardActionType.Activate;
+                    }
+                    else if ((Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && _gameManager.CurrentPhase is DuelPhase.Main1 or DuelPhase.Main2 && !_gameManager.HasSummoned)
+                    {
+                        CanSummon = true;
+                        CanSet = true;
+                        PopupAction.ShowAction(PopupActionType.Summon);
+                        ActionType = CardActionType.Summon;
+                    }
                 }
             }
         }
@@ -162,10 +165,8 @@ internal partial class Card : Node2D
         Zone = CardZone.Main;
         CardFace = CardFace.FaceUp;
         CardPosition = CardPosition.Attack;
-        CanSummon = false;
-        CanSet = false;
 
-        AnimationSummon(cardSlot.GlobalPosition, CARD_IN_SLOT_SCALE);
+        AnimationSummon(cardSlot.GlobalPosition, SCALE_MAX);
     }
 
     internal void SummonSet(MainCardSlot cardSlot)
@@ -177,10 +178,8 @@ internal partial class Card : Node2D
         Zone = CardZone.Main;
         CardFace = CardFace.FaceDown;
         CardPosition = CardPosition.Defense;
-        CanSummon = false;
-        CanSet = false;
 
-        AnimationSummonSet(cardSlot.GlobalPosition, CARD_IN_SLOT_SCALE);
+        AnimationSummonSet(cardSlot.GlobalPosition, SCALE_MAX);
     }
 
     internal async Task AnimationDrawFlipAsync()
@@ -219,7 +218,7 @@ internal partial class Card : Node2D
 
         if (CanAttack)
         {
-            await Sword.FadeIn(OPACITY_MAX);
+            await Sword.Show(OPACITY_MAX);
         }
     }
 

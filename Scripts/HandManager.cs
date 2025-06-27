@@ -1,4 +1,4 @@
-using DMYAN.Scripts.Common;
+using DMYAN.Scripts.Common.Enum;
 using Godot;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ internal partial class HandManager : Node2D
 
         card.Reparent(this);
 
-        card.Scale = CARD_IN_HAND_SCALE;
+        card.Scale = SCALE_MAX;
         card.Location = CardLocation.InHand;
 
         ArrangeCards();
