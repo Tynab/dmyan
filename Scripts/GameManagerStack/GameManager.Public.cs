@@ -15,7 +15,7 @@ internal partial class GameManager : Node2D
         CurrentPhase = DuelPhase.Draw;
         HasSummoned = false;
 
-        _dpButton.ChangeStatus(false);
+        _playerDpButton.ChangeStatus(false);
 
         await _popupPhase.ShowPhase(PopupPhaseType.DP);
 
@@ -37,7 +37,7 @@ internal partial class GameManager : Node2D
     {
         CurrentPhase = DuelPhase.Standby;
 
-        _spButton.ChangeStatus(false);
+        _playerSpButton.ChangeStatus(false);
 
         await _popupPhase.ShowPhase(PopupPhaseType.SP);
 
@@ -50,7 +50,7 @@ internal partial class GameManager : Node2D
     {
         CurrentPhase = DuelPhase.Main1;
 
-        _m1Button.ChangeStatus(false);
+        _playerM1Button.ChangeStatus(false);
 
         await _popupPhase.ShowPhase(PopupPhaseType.M1);
 
@@ -61,7 +61,7 @@ internal partial class GameManager : Node2D
     {
         CurrentPhase = DuelPhase.Battle;
 
-        _bpButton.ChangeStatus(false);
+        _playerBpButton.ChangeStatus(false);
 
         await _popupPhase.ShowPhase(PopupPhaseType.BP);
 
@@ -81,7 +81,7 @@ internal partial class GameManager : Node2D
             .ToList()
             .ForEach(async x => await x.Sword.Hide(OPACITY_MIN));
 
-        _m2Button.ChangeStatus(false);
+        _playerM2Button.ChangeStatus(false);
 
         await _popupPhase.ShowPhase(PopupPhaseType.M2);
 
@@ -102,7 +102,7 @@ internal partial class GameManager : Node2D
 
         CurrentPhase = DuelPhase.End;
 
-        _epButton.ChangeStatus(false);
+        _playerEpButton.ChangeStatus(false);
 
         await _popupPhase.ShowPhase(PopupPhaseType.EP);
 

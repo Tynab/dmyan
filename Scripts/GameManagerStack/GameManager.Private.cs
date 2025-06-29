@@ -61,17 +61,17 @@ internal partial class GameManager : Node2D
 
     private async Task ChangeTurnAsync()
     {
-        _dpButton.ChangeStatus(true);
+        _playerDpButton.ChangeStatus(true);
         await Delay(STARTUP_DELAY);
-        _spButton.ChangeStatus(true);
+        _playerSpButton.ChangeStatus(true);
         await Delay(STARTUP_DELAY);
-        _m1Button.ChangeStatus(true);
+        _playerM1Button.ChangeStatus(true);
         await Delay(STARTUP_DELAY);
-        _bpButton.ChangeStatus(true);
+        _playerBpButton.ChangeStatus(true);
         await Delay(STARTUP_DELAY);
-        _m2Button.ChangeStatus(true);
+        _playerM2Button.ChangeStatus(true);
         await Delay(STARTUP_DELAY);
-        _epButton.ChangeStatus(true);
+        _playerEpButton.ChangeStatus(true);
         await Delay(STARTUP_DELAY);
 
         CurrentTurnSide = CurrentTurnSide is DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;

@@ -30,10 +30,10 @@
 shader = ExtResource("1_wkp8b")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpfj3"]
-bg_color = Color(0, 0.560784, 0, 1)
+bg_color = Color(0.0156863, 0.2, 1, 1)
 border_width_left = 5
 border_width_top = 5
-border_color = Color(0.392157, 0.690196, 0.360784, 1)
+border_color = Color(0.0156863, 0.176471, 0.901961, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -76,10 +76,10 @@ Button/styles/normal = SubResource("StyleBoxFlat_kjvhd")
 Button/styles/pressed = SubResource("StyleBoxFlat_5tuhn")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_devvj"]
-bg_color = Color(0, 0.560784, 0, 1)
+bg_color = Color(0.0156863, 0.2, 1, 1)
 border_width_left = 5
 border_width_top = 3
-border_color = Color(0.392157, 0.690196, 0.360784, 1)
+border_color = Color(0.0156863, 0.176471, 0.901961, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -122,10 +122,10 @@ Button/styles/normal = SubResource("StyleBoxFlat_bg4s2")
 Button/styles/pressed = SubResource("StyleBoxFlat_hhcpw")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrxkg"]
-bg_color = Color(0, 0.560784, 0, 1)
+bg_color = Color(0.0156863, 0.2, 1, 1)
 border_width_left = 5
 border_width_top = 1
-border_color = Color(0.392157, 0.690196, 0.360784, 1)
+border_color = Color(0.0156863, 0.176471, 0.901961, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -167,10 +167,10 @@ Button/styles/normal = SubResource("StyleBoxFlat_hri7i")
 Button/styles/pressed = SubResource("StyleBoxFlat_w3rk5")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oye8v"]
-bg_color = Color(0, 0.560784, 0, 1)
+bg_color = Color(0.0156863, 0.2, 1, 1)
 border_width_left = 5
 border_width_bottom = 1
-border_color = Color(0.392157, 0.690196, 0.360784, 1)
+border_color = Color(0.0156863, 0.176471, 0.901961, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -213,10 +213,10 @@ Button/styles/normal = SubResource("StyleBoxFlat_gb15f")
 Button/styles/pressed = SubResource("StyleBoxFlat_sph85")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vi5kq"]
-bg_color = Color(0, 0.560784, 0, 1)
+bg_color = Color(0.0156863, 0.2, 1, 1)
 border_width_left = 5
 border_width_bottom = 3
-border_color = Color(0.392157, 0.690196, 0.360784, 1)
+border_color = Color(0.0156863, 0.176471, 0.901961, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -259,10 +259,10 @@ Button/styles/normal = SubResource("StyleBoxFlat_3ccbu")
 Button/styles/pressed = SubResource("StyleBoxFlat_ny7u2")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1w2xm"]
-bg_color = Color(0, 0.560784, 0, 1)
+bg_color = Color(0.0156863, 0.2, 1, 1)
 border_width_left = 5
 border_width_bottom = 5
-border_color = Color(0.392157, 0.690196, 0.360784, 1)
+border_color = Color(0.0156863, 0.176471, 0.901961, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -332,8 +332,9 @@ mouse_filter = 2
 texture = ExtResource("2_wkp8b")
 metadata/_edit_lock_ = true
 
-[node name="DPButton" type="Button" parent="Control"]
-layout_mode = 0
+[node name="OpponentControl" type="Node" parent="Control"]
+
+[node name="DPButton" type="Button" parent="Control/OpponentControl"]
 offset_left = 440.0
 offset_top = 155.0
 offset_right = 495.0
@@ -341,14 +342,13 @@ offset_bottom = 251.0
 tooltip_text = "Pha rút bài"
 theme = SubResource("Theme_2gh4u")
 theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 40
 text = "D
 P"
 script = ExtResource("5_hhcpw")
 metadata/_edit_lock_ = true
 
-[node name="SPButton" type="Button" parent="Control"]
-layout_mode = 0
+[node name="SPButton" type="Button" parent="Control/OpponentControl"]
 offset_left = 440.0
 offset_top = 291.0
 offset_right = 495.0
@@ -362,8 +362,7 @@ P"
 script = ExtResource("6_mxvw5")
 metadata/_edit_lock_ = true
 
-[node name="M1Button" type="Button" parent="Control"]
-layout_mode = 0
+[node name="M1Button" type="Button" parent="Control/OpponentControl"]
 offset_left = 440.0
 offset_top = 427.0
 offset_right = 495.0
@@ -377,8 +376,7 @@ I"
 script = ExtResource("7_xrxkg")
 metadata/_edit_lock_ = true
 
-[node name="BPButton" type="Button" parent="Control"]
-layout_mode = 0
+[node name="BPButton" type="Button" parent="Control/OpponentControl"]
 offset_left = 440.0
 offset_top = 563.0
 offset_right = 495.0
@@ -392,8 +390,7 @@ P"
 script = ExtResource("5_sc1dx")
 metadata/_edit_lock_ = true
 
-[node name="M2Button" type="Button" parent="Control"]
-layout_mode = 0
+[node name="M2Button" type="Button" parent="Control/OpponentControl"]
 offset_left = 440.0
 offset_top = 699.0
 offset_right = 495.0
@@ -407,8 +404,93 @@ II"
 script = ExtResource("9_sqvbp")
 metadata/_edit_lock_ = true
 
-[node name="EPButton" type="Button" parent="Control"]
-layout_mode = 0
+[node name="EPButton" type="Button" parent="Control/OpponentControl"]
+offset_left = 440.0
+offset_top = 835.0
+offset_right = 495.0
+offset_bottom = 931.0
+tooltip_text = "Pha kết thúc"
+theme = SubResource("Theme_y1tbi")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "E
+P"
+script = ExtResource("6_kjvhd")
+metadata/_edit_lock_ = true
+
+[node name="PlayerControl" type="Node" parent="Control"]
+
+[node name="DPButton" type="Button" parent="Control/PlayerControl"]
+offset_left = 440.0
+offset_top = 155.0
+offset_right = 495.0
+offset_bottom = 251.0
+tooltip_text = "Pha rút bài"
+theme = SubResource("Theme_2gh4u")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "D
+P"
+script = ExtResource("5_hhcpw")
+metadata/_edit_lock_ = true
+
+[node name="SPButton" type="Button" parent="Control/PlayerControl"]
+offset_left = 440.0
+offset_top = 291.0
+offset_right = 495.0
+offset_bottom = 387.0
+tooltip_text = "Pha chuẩn bị"
+theme = SubResource("Theme_mxvw5")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "S
+P"
+script = ExtResource("6_mxvw5")
+metadata/_edit_lock_ = true
+
+[node name="M1Button" type="Button" parent="Control/PlayerControl"]
+offset_left = 440.0
+offset_top = 427.0
+offset_right = 495.0
+offset_bottom = 523.0
+tooltip_text = "Pha chính 1"
+theme = SubResource("Theme_5mvff")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "M
+I"
+script = ExtResource("7_xrxkg")
+metadata/_edit_lock_ = true
+
+[node name="BPButton" type="Button" parent="Control/PlayerControl"]
+offset_left = 440.0
+offset_top = 563.0
+offset_right = 495.0
+offset_bottom = 659.0
+tooltip_text = "Pha giao tranh"
+theme = SubResource("Theme_o7g6l")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "B
+P"
+script = ExtResource("5_sc1dx")
+metadata/_edit_lock_ = true
+
+[node name="M2Button" type="Button" parent="Control/PlayerControl"]
+offset_left = 440.0
+offset_top = 699.0
+offset_right = 495.0
+offset_bottom = 795.0
+tooltip_text = "Pha chính 2"
+theme = SubResource("Theme_x3yn0")
+theme_override_fonts/font = ExtResource("12_5vvyt")
+theme_override_font_sizes/font_size = 40
+text = "M
+II"
+script = ExtResource("9_sqvbp")
+metadata/_edit_lock_ = true
+
+[node name="EPButton" type="Button" parent="Control/PlayerControl"]
 offset_left = 440.0
 offset_top = 835.0
 offset_right = 495.0
