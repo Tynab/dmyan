@@ -10,7 +10,7 @@ internal partial class PhaseButton : Button
 
     public override void _Ready()
     {
-        _gameManager = GetParent().GetParent().GetNode<GameManager>(nameof(GameManager));
+        _gameManager = GetParent().GetParent().GetParent().GetNode<GameManager>(nameof(GameManager));
 
         ButtonDown += OnButtonDown;
     }
@@ -21,6 +21,13 @@ internal partial class PhaseButton : Button
     {
         Disabled = !isEnable;
 
-        AddThemeFontSizeOverride(FONT_SIZE_PROPERTY, BUTTON_UP_FONT_SIZE);
+        if (isEnable)
+        {
+            AddThemeFontSizeOverride(FONT_SIZE_PROPERTY, BUTTON_UP_FONT_SIZE);
+        }
+        else
+        {
+            AddThemeFontSizeOverride(FONT_SIZE_PROPERTY, BUTTON_DOWN_FONT_SIZE);
+        }
     }
 }

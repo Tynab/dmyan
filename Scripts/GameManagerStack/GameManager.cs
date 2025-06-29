@@ -44,13 +44,22 @@ internal partial class GameManager : Node2D
         _opponentInfo = parent.GetNode<Infomation>(INFO_OPPONENT_NODE);
         _popupPhase = parent.GetNode<PopupPhase>(nameof(PopupPhase));
         _control = parent.GetNode<Control>(nameof(Control));
+        _playerControl = _control.GetNode<Node>("PlayerControl");
+        _opponentControl = _control.GetNode<Node>("OpponentControl");
 
-        _dpButton = _control.GetNode<DpButton>(DP_BUTTON_NODE);
-        _spButton = _control.GetNode<SpButton>(SP_BUTTON_NODE);
-        _m1Button = _control.GetNode<M1Button>(M1_BUTTON_NODE);
-        _bpButton = _control.GetNode<BpButton>(BP_BUTTON_NODE);
-        _m2Button = _control.GetNode<M2Button>(M2_BUTTON_NODE);
-        _epButton = _control.GetNode<EpButton>(EP_BUTTON_NODE);
+        _playerDpButton = _playerControl.GetNode<DpButton>(DP_BUTTON_NODE);
+        _playerSpButton = _playerControl.GetNode<SpButton>(SP_BUTTON_NODE);
+        _playerM1Button = _playerControl.GetNode<M1Button>(M1_BUTTON_NODE);
+        _playerBpButton = _playerControl.GetNode<BpButton>(BP_BUTTON_NODE);
+        _playerM2Button = _playerControl.GetNode<M2Button>(M2_BUTTON_NODE);
+        _playerEpButton = _playerControl.GetNode<EpButton>(EP_BUTTON_NODE);
+
+        _opponentDpButton = _opponentControl.GetNode<DpButton>(DP_BUTTON_NODE);
+        _opponentSpButton = _opponentControl.GetNode<SpButton>(SP_BUTTON_NODE);
+        _opponentM1Button = _opponentControl.GetNode<M1Button>(M1_BUTTON_NODE);
+        _opponentBpButton = _opponentControl.GetNode<BpButton>(BP_BUTTON_NODE);
+        _opponentM2Button = _opponentControl.GetNode<M2Button>(M2_BUTTON_NODE);
+        _opponentEpButton = _opponentControl.GetNode<EpButton>(EP_BUTTON_NODE);
 
         _playerEye = playerField.GetNode<Eye>(nameof(Eye));
         _opponentEye = opponentField.GetNode<Eye>(nameof(Eye));
