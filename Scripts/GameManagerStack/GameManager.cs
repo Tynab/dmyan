@@ -54,15 +54,12 @@ internal partial class GameManager : Node2D
         _playerM2Button = _playerControl.GetNode<M2Button>(M2_BUTTON_NODE);
         _playerEpButton = _playerControl.GetNode<EpButton>(EP_BUTTON_NODE);
 
-        _opponentDpButton = _opponentControl.GetNode<DpButton>(DP_BUTTON_NODE);
-        _opponentSpButton = _opponentControl.GetNode<SpButton>(SP_BUTTON_NODE);
-        _opponentM1Button = _opponentControl.GetNode<M1Button>(M1_BUTTON_NODE);
-        _opponentBpButton = _opponentControl.GetNode<BpButton>(BP_BUTTON_NODE);
-        _opponentM2Button = _opponentControl.GetNode<M2Button>(M2_BUTTON_NODE);
-        _opponentEpButton = _opponentControl.GetNode<EpButton>(EP_BUTTON_NODE);
-
-        _playerEye = playerField.GetNode<Eye>(nameof(Eye));
-        _opponentEye = opponentField.GetNode<Eye>(nameof(Eye));
+        _opponentDpButton = _opponentControl.GetNode<PhaseButton>(DP_BUTTON_NODE);
+        _opponentSpButton = _opponentControl.GetNode<PhaseButton>(SP_BUTTON_NODE);
+        _opponentM1Button = _opponentControl.GetNode<PhaseButton>(M1_BUTTON_NODE);
+        _opponentBpButton = _opponentControl.GetNode<PhaseButton>(BP_BUTTON_NODE);
+        _opponentM2Button = _opponentControl.GetNode<PhaseButton>(M2_BUTTON_NODE);
+        _opponentEpButton = _opponentControl.GetNode<PhaseButton>(EP_BUTTON_NODE);
 
         _playerInfo.Initialize(DEFAULT_PLAYER);
         _opponentInfo.Initialize(DEFAULT_OPPONENT);
@@ -72,9 +69,6 @@ internal partial class GameManager : Node2D
         await Delay(STARTUP_DELAY);
 
         await StartInitialDrawAsync();
-
-        HighlightEye();
-
         await DrawPhaseAsync();
     }
 

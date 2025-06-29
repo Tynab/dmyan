@@ -14,12 +14,18 @@ internal static class Constant
     internal const string ACTIVATE_POPUP_ASSET_PATH = "res://Assets/Popups/activate.png";
     internal const string ATK_POPUP_ASSET_PATH = "res://Assets/Popups/acttack.png";
     internal const string DEF_POPUP_ASSET_PATH = "res://Assets/Popups/defense.png";
-    internal const string DP_POPUP_ASSET_PATH = "res://Assets/Popups/dp.png";
-    internal const string SP_POPUP_ASSET_PATH = "res://Assets/Popups/sp.png";
-    internal const string M1_POPUP_ASSET_PATH = "res://Assets/Popups/m1.png";
-    internal const string BP_POPUP_ASSET_PATH = "res://Assets/Popups/bp.png";
-    internal const string M2_POPUP_ASSET_PATH = "res://Assets/Popups/m2.png";
-    internal const string EP_POPUP_ASSET_PATH = "res://Assets/Popups/ep.png";
+    internal const string PLAYER_DP_POPUP_ASSET_PATH = "res://Assets/Popups/Player/dp.png";
+    internal const string PLAYER_SP_POPUP_ASSET_PATH = "res://Assets/Popups/Player/sp.png";
+    internal const string PLAYER_M1_POPUP_ASSET_PATH = "res://Assets/Popups/Player/m1.png";
+    internal const string PLAYER_BP_POPUP_ASSET_PATH = "res://Assets/Popups/Player/bp.png";
+    internal const string PLAYER_M2_POPUP_ASSET_PATH = "res://Assets/Popups/Player/m2.png";
+    internal const string PLAYER_EP_POPUP_ASSET_PATH = "res://Assets/Popups/Player/ep.png";
+    internal const string OPPONENT_DP_POPUP_ASSET_PATH = "res://Assets/Popups/Opponent/dp.png";
+    internal const string OPPONENT_SP_POPUP_ASSET_PATH = "res://Assets/Popups/Opponent/sp.png";
+    internal const string OPPONENT_M1_POPUP_ASSET_PATH = "res://Assets/Popups/Opponent/m1.png";
+    internal const string OPPONENT_BP_POPUP_ASSET_PATH = "res://Assets/Popups/Opponent/bp.png";
+    internal const string OPPONENT_M2_POPUP_ASSET_PATH = "res://Assets/Popups/Opponent/m2.png";
+    internal const string OPPONENT_EP_POPUP_ASSET_PATH = "res://Assets/Popups/Opponent/ep.png";
     internal const string POSITION_NODE_PATH = "position";
     internal const string GLOBAL_POSITION_NODE_PATH = "global_position";
     internal const string SCALE_NODE_PATH = "scale";
@@ -105,35 +111,6 @@ internal static class Constant
     internal const string DEFAULT_OPPONENT = "Seto";
 
     internal const DuelSide STARTING_DUEL_SIDE = DuelSide.Player;
-}
-
-internal enum CardFace
-{
-    None = 0,         // Vô
-    FaceUp = 1,       // Ngửa
-    FaceDown = 2      // Úp
-}
-
-internal enum CardPosition
-{
-    None = 0,         // Vô
-    Attack = 1,       // Công
-    Defense = 2       // Thủ
-}
-
-internal enum CardStatus
-{
-    None = 0,         // Vô
-    Summoning = 1,   // Đang triệu hồi
-    Summoned = 2,     // Đã triệu hồi
-    Attacking = 3,    // Đang tấn công
-    Attacked = 4,     // Đã tấn công
-    Destroying = 5,  // Đang phá hủy
-    Destroyed = 6,    // Đã phá hủy
-    SpecialSummoning = 7, // Đang đặc biệt triệu hồi
-    SpecialSummoned = 8, // Đã đặc biệt triệu hồi
-    Activating = 9,   // Đang kích hoạt
-    Activated = 10,   // Đã kích hoạt
 }
 
 internal enum CardType
@@ -246,15 +223,4 @@ internal enum PopupActionType
     Activate = 3,     // Kích hoạt
     Attack = 4,       // Tấn công
     Defense = 5      // Phòng thủ
-}
-
-internal enum PopupPhaseType
-{
-    None = 0,         // Vô
-    DP = 1,           // Rút bài
-    SP = 2,           // Chuẩn bị
-    M1 = 3,           // Chính 1
-    BP = 4,           // Giao tranh
-    M2 = 5,           // Chính 2
-    EP = 6            // Kết thúc
 }

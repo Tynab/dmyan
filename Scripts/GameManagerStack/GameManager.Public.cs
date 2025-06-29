@@ -15,9 +15,9 @@ internal partial class GameManager : Node2D
         CurrentPhase = DuelPhase.Draw;
         HasSummoned = false;
 
-        _playerDpButton.ChangeStatus(false);
+        GetPhaseButton(CurrentTurnSide, CurrentPhase).ChangeStatus(false);
 
-        await _popupPhase.ShowPhase(PopupPhaseType.DP);
+        await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
         if (CurrentTurnSide is DuelSide.Player)
         {
@@ -37,9 +37,9 @@ internal partial class GameManager : Node2D
     {
         CurrentPhase = DuelPhase.Standby;
 
-        _playerSpButton.ChangeStatus(false);
+        GetPhaseButton(CurrentTurnSide, CurrentPhase).ChangeStatus(false);
 
-        await _popupPhase.ShowPhase(PopupPhaseType.SP);
+        await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
         await Delay(delay);
 
@@ -50,9 +50,9 @@ internal partial class GameManager : Node2D
     {
         CurrentPhase = DuelPhase.Main1;
 
-        _playerM1Button.ChangeStatus(false);
+        GetPhaseButton(CurrentTurnSide, CurrentPhase).ChangeStatus(false);
 
-        await _popupPhase.ShowPhase(PopupPhaseType.M1);
+        await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
         await Delay(delay);
     }
@@ -61,9 +61,9 @@ internal partial class GameManager : Node2D
     {
         CurrentPhase = DuelPhase.Battle;
 
-        _playerBpButton.ChangeStatus(false);
+        GetPhaseButton(CurrentTurnSide, CurrentPhase).ChangeStatus(false);
 
-        await _popupPhase.ShowPhase(PopupPhaseType.BP);
+        await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
         if (!IsFirstTurn)
         {
@@ -81,9 +81,9 @@ internal partial class GameManager : Node2D
             .ToList()
             .ForEach(async x => await x.Sword.Hide(OPACITY_MIN));
 
-        _playerM2Button.ChangeStatus(false);
+        GetPhaseButton(CurrentTurnSide, CurrentPhase).ChangeStatus(false);
 
-        await _popupPhase.ShowPhase(PopupPhaseType.M2);
+        await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
         await Delay(delay);
     }
@@ -102,9 +102,9 @@ internal partial class GameManager : Node2D
 
         CurrentPhase = DuelPhase.End;
 
-        _playerEpButton.ChangeStatus(false);
+        GetPhaseButton(CurrentTurnSide, CurrentPhase).ChangeStatus(false);
 
-        await _popupPhase.ShowPhase(PopupPhaseType.EP);
+        await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
         await Delay(delay);
 
