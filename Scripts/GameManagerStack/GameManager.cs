@@ -1,3 +1,4 @@
+using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
 using Godot;
 using System.Linq;
@@ -54,6 +55,8 @@ internal partial class GameManager : Node2D
         await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
         await Delay(delay);
+
+        Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CanSummonCheck());
     }
 
     internal async Task BattlePhaseAsync(int delay = PHASE_CHANGE_DELAY)

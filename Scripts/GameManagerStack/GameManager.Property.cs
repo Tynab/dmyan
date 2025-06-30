@@ -8,6 +8,9 @@ namespace DMYAN.Scripts.GameManagerStack;
 
 internal partial class GameManager : Node2D
 {
+    [Export]
+    private PackedScene CardScene { get; set; }
+
     internal DuelSide CurrentTurnSide { get; set; } = STARTING_DUEL_SIDE;
 
     internal DuelPhase CurrentPhase { get; set; } = DuelPhase.None;

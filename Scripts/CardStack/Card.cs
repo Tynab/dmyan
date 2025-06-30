@@ -38,12 +38,10 @@ internal partial class Card : Node2D
 
     internal void CanSummonCheck()
     {
-        if ((Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && !_gameManager.HasSummoned)
-        {
-            CanSummon = true;
-            CanSet = true;
-            ActionType = CardActionType.Summon;
-        }
+        var isValid = (Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && !_gameManager.HasSummoned;
+
+        CanSummon = isValid;
+        CanSet = isValid;
     }
 
     internal async Task CanAttackCheck(DuelSide currentSide)

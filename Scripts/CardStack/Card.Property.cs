@@ -7,6 +7,8 @@ namespace DMYAN.Scripts.CardStack;
 
 internal partial class Card : Node2D
 {
+    internal DuelSide BaseSide { get; set; } = DuelSide.None;
+
     internal DuelSide DuelSide { get; set; } = DuelSide.None;
 
     internal CardLocation Location { get; set; } = CardLocation.None;
@@ -31,6 +33,20 @@ internal partial class Card : Node2D
 
     internal CardEffectType EffectType { get; set; } = CardEffectType.None;
 
+    internal int? MainDeckIndex { get; set; } = null;
+
+    internal int? ExtraDeckIndex { get; set; } = null;
+
+    internal int? HandIndex { get; set; } = null;
+
+    internal int? MainIndex { get; set; } = null;
+
+    internal int? STPIndex { get; set; } = null;
+
+    internal int? GraveyardIndex { get; set; } = null;
+
+    internal int? BanishedIndex { get; set; } = null;
+
     internal string Code { get; set; }
 
     internal string CardName { get; set; }
@@ -49,11 +65,11 @@ internal partial class Card : Node2D
 
     internal Vector2 BasePosition { get; set; }
 
+    internal bool CanActivate { get; set; } = false;
+
     internal bool CanSummon { get; set; } = false;
 
     internal bool CanSet { get; set; } = false;
-
-    internal bool CanActivate { get; set; } = false;
 
     internal bool CanAttack { get; set; } = false;
 
