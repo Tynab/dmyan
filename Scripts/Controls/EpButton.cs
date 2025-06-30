@@ -1,6 +1,6 @@
 namespace DMYAN.Scripts.Controls;
 
-internal partial class EpButton : PhaseButton
+internal partial class EPButton : PhaseButton
 {
     public override void _Ready()
     {

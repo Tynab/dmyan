@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=88 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
 [ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Shaders/Scroll.gdshader" id="1_wkp8b"]
@@ -6,12 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dw85pyqr2i5mu" path="res://Assets/board.png" id="3_wkp8b"]
 [ext_resource type="PackedScene" uid="uid://crqe8ju0cbbn1" path="res://Scenes/CardInfo.tscn" id="5_c2ibq"]
 [ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DpButton.cs" id="5_hhcpw"]
-[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BpButton.cs" id="5_sc1dx"]
+[ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DPButton.cs" id="5_hhcpw"]
+[ext_resource type="Script" uid="uid://b36plooh1hgx7" path="res://Scripts/Controls/PhaseButton.cs" id="5_mxvw5"]
+[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BPButton.cs" id="5_sc1dx"]
 [ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
-[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EpButton.cs" id="6_kjvhd"]
-[ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SpButton.cs" id="6_mxvw5"]
+[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EPButton.cs" id="6_kjvhd"]
+[ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SPButton.cs" id="6_mxvw5"]
 [ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandManager.cs" id="7_03owx"]
 [ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeck.cs" id="7_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://bbngw4ss27y8e" path="res://Scenes/PowerSlot.tscn" id="7_trn2v"]
@@ -22,9 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://b3pth5pvbjjft" path="res://Scenes/Infomation.tscn" id="13_c6i3y"]
 [ext_resource type="Script" uid="uid://mqv6i7ckx7d2" path="res://Scripts/MainZone.cs" id="14_sc1dx"]
 [ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlot.cs" id="15_sc1dx"]
-[ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/dp.png" id="19_5tuhn"]
+[ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/Player/dp.png" id="19_5tuhn"]
 [ext_resource type="Script" uid="uid://cffof8cg6k2ol" path="res://Scripts/Popups/PopupPhase.cs" id="20_2gh4u"]
-[ext_resource type="PackedScene" uid="uid://d3abeio5copg4" path="res://Scenes/Eye.tscn" id="21_hri7i"]
+[ext_resource type="Script" uid="uid://cck0kpwvqybf0" path="res://Scripts/AIStack/AI.cs" id="26_xrxkg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
 shader = ExtResource("1_wkp8b")
@@ -304,6 +305,282 @@ Button/styles/hover = SubResource("StyleBoxFlat_gngx1")
 Button/styles/normal = SubResource("StyleBoxFlat_jt61w")
 Button/styles/pressed = SubResource("StyleBoxFlat_v8qla")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khphd"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4ese"]
+bg_color = Color(0.533333, 0.976471, 0.313726, 1)
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.478431, 0.878431, 0.27451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxvw5"]
+bg_color = Color(0, 0.560784, 0, 1)
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0.501961, 0.00392157, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4yo4"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_xrxkg"]
+Button/styles/disabled = SubResource("StyleBoxFlat_khphd")
+Button/styles/hover = SubResource("StyleBoxFlat_f4ese")
+Button/styles/normal = SubResource("StyleBoxFlat_mxvw5")
+Button/styles/pressed = SubResource("StyleBoxFlat_g4yo4")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_im7ls"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_top = 3
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rchyr"]
+bg_color = Color(0.533333, 0.976471, 0.313726, 1)
+border_width_right = 5
+border_width_bottom = 3
+border_color = Color(0.478431, 0.878431, 0.27451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mvff"]
+bg_color = Color(0, 0.560784, 0, 1)
+border_width_right = 5
+border_width_bottom = 3
+border_color = Color(0, 0.501961, 0.00392157, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a34eg"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_top = 3
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_oye8v"]
+Button/styles/disabled = SubResource("StyleBoxFlat_im7ls")
+Button/styles/hover = SubResource("StyleBoxFlat_rchyr")
+Button/styles/normal = SubResource("StyleBoxFlat_5mvff")
+Button/styles/pressed = SubResource("StyleBoxFlat_a34eg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_via5u"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_top = 1
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pljue"]
+bg_color = Color(0.533333, 0.976471, 0.313726, 1)
+border_width_right = 5
+border_width_bottom = 1
+border_color = Color(0.478431, 0.878431, 0.27451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7g6l"]
+bg_color = Color(0, 0.560784, 0, 1)
+border_width_right = 5
+border_width_bottom = 1
+border_color = Color(0, 0.501961, 0.00392157, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ac6pf"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_top = 1
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_vi5kq"]
+Button/styles/disabled = SubResource("StyleBoxFlat_via5u")
+Button/styles/hover = SubResource("StyleBoxFlat_pljue")
+Button/styles/normal = SubResource("StyleBoxFlat_o7g6l")
+Button/styles/pressed = SubResource("StyleBoxFlat_ac6pf")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oaklg"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_bottom = 1
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nx4yo"]
+bg_color = Color(0.533333, 0.976471, 0.313726, 1)
+border_width_top = 1
+border_width_right = 5
+border_color = Color(0.478431, 0.878431, 0.27451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3yn0"]
+bg_color = Color(0, 0.560784, 0, 1)
+border_width_top = 1
+border_width_right = 5
+border_color = Color(0, 0.501961, 0.00392157, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek63v"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_bottom = 1
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_1w2xm"]
+Button/styles/disabled = SubResource("StyleBoxFlat_oaklg")
+Button/styles/hover = SubResource("StyleBoxFlat_nx4yo")
+Button/styles/normal = SubResource("StyleBoxFlat_x3yn0")
+Button/styles/pressed = SubResource("StyleBoxFlat_ek63v")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4bst2"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_bottom = 3
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tfui"]
+bg_color = Color(0.533333, 0.976471, 0.313726, 1)
+border_width_top = 3
+border_width_right = 5
+border_color = Color(0.478431, 0.878431, 0.27451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1tbi"]
+bg_color = Color(0, 0.560784, 0, 1)
+border_width_top = 3
+border_width_right = 5
+border_color = Color(0, 0.501961, 0.00392157, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uy3go"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_bottom = 3
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_c2s76"]
+Button/styles/disabled = SubResource("StyleBoxFlat_4bst2")
+Button/styles/hover = SubResource("StyleBoxFlat_5tfui")
+Button/styles/normal = SubResource("StyleBoxFlat_y1tbi")
+Button/styles/pressed = SubResource("StyleBoxFlat_uy3go")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdb40"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38apo"]
+bg_color = Color(0.533333, 0.976471, 0.313726, 1)
+border_width_top = 5
+border_width_right = 5
+border_color = Color(0.478431, 0.878431, 0.27451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2s76"]
+bg_color = Color(0, 0.560784, 0, 1)
+border_width_top = 5
+border_width_right = 5
+border_color = Color(0, 0.501961, 0.00392157, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf3a2"]
+bg_color = Color(0, 0.568627, 0.576471, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.00784314, 0.509804, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_f4ese"]
+Button/styles/disabled = SubResource("StyleBoxFlat_gdb40")
+Button/styles/hover = SubResource("StyleBoxFlat_38apo")
+Button/styles/normal = SubResource("StyleBoxFlat_c2s76")
+Button/styles/pressed = SubResource("StyleBoxFlat_yf3a2")
+
 [node name="Main" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [965.0, 540.0, 115.0]
 
@@ -335,6 +612,7 @@ metadata/_edit_lock_ = true
 [node name="OpponentControl" type="Node" parent="Control"]
 
 [node name="DPButton" type="Button" parent="Control/OpponentControl"]
+visible = false
 offset_left = 440.0
 offset_top = 155.0
 offset_right = 495.0
@@ -345,10 +623,11 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "D
 P"
-script = ExtResource("5_hhcpw")
+script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
 [node name="SPButton" type="Button" parent="Control/OpponentControl"]
+visible = false
 offset_left = 440.0
 offset_top = 291.0
 offset_right = 495.0
@@ -359,10 +638,11 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "S
 P"
-script = ExtResource("6_mxvw5")
+script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
 [node name="M1Button" type="Button" parent="Control/OpponentControl"]
+visible = false
 offset_left = 440.0
 offset_top = 427.0
 offset_right = 495.0
@@ -373,10 +653,11 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "M
 I"
-script = ExtResource("7_xrxkg")
+script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
 [node name="BPButton" type="Button" parent="Control/OpponentControl"]
+visible = false
 offset_left = 440.0
 offset_top = 563.0
 offset_right = 495.0
@@ -387,10 +668,11 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "B
 P"
-script = ExtResource("5_sc1dx")
+script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
 [node name="M2Button" type="Button" parent="Control/OpponentControl"]
+visible = false
 offset_left = 440.0
 offset_top = 699.0
 offset_right = 495.0
@@ -401,10 +683,11 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "M
 II"
-script = ExtResource("9_sqvbp")
+script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
 [node name="EPButton" type="Button" parent="Control/OpponentControl"]
+visible = false
 offset_left = 440.0
 offset_top = 835.0
 offset_right = 495.0
@@ -415,7 +698,7 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "E
 P"
-script = ExtResource("6_kjvhd")
+script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
 [node name="PlayerControl" type="Node" parent="Control"]
@@ -426,7 +709,7 @@ offset_top = 155.0
 offset_right = 495.0
 offset_bottom = 251.0
 tooltip_text = "Pha rút bài"
-theme = SubResource("Theme_2gh4u")
+theme = SubResource("Theme_xrxkg")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "D
@@ -440,7 +723,7 @@ offset_top = 291.0
 offset_right = 495.0
 offset_bottom = 387.0
 tooltip_text = "Pha chuẩn bị"
-theme = SubResource("Theme_mxvw5")
+theme = SubResource("Theme_oye8v")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "S
@@ -454,7 +737,7 @@ offset_top = 427.0
 offset_right = 495.0
 offset_bottom = 523.0
 tooltip_text = "Pha chính 1"
-theme = SubResource("Theme_5mvff")
+theme = SubResource("Theme_vi5kq")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "M
@@ -468,7 +751,7 @@ offset_top = 563.0
 offset_right = 495.0
 offset_bottom = 659.0
 tooltip_text = "Pha giao tranh"
-theme = SubResource("Theme_o7g6l")
+theme = SubResource("Theme_1w2xm")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "B
@@ -482,7 +765,7 @@ offset_top = 699.0
 offset_right = 495.0
 offset_bottom = 795.0
 tooltip_text = "Pha chính 2"
-theme = SubResource("Theme_x3yn0")
+theme = SubResource("Theme_c2s76")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "M
@@ -496,7 +779,7 @@ offset_top = 835.0
 offset_right = 495.0
 offset_bottom = 931.0
 tooltip_text = "Pha kết thúc"
-theme = SubResource("Theme_y1tbi")
+theme = SubResource("Theme_f4ese")
 theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "E
@@ -708,9 +991,6 @@ z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 2
 
-[node name="Eye" parent="Board/OpponentField" instance=ExtResource("21_hri7i")]
-position = Vector2(1, 68)
-
 [node name="PlayerField" type="Node2D" parent="Board"]
 
 [node name="MainDeck" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
@@ -919,9 +1199,6 @@ z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 1
 
-[node name="Eye" parent="Board/PlayerField" instance=ExtResource("21_hri7i")]
-position = Vector2(1, 68)
-
 [node name="OpponentInfo" parent="." instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 226)
 
@@ -943,3 +1220,6 @@ position = Vector2(960, 540)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("19_5tuhn")
 script = ExtResource("20_2gh4u")
+
+[node name="AI" type="Node" parent="."]
+script = ExtResource("26_xrxkg")
