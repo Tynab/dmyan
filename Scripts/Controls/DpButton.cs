@@ -1,5 +1,5 @@
 namespace DMYAN.Scripts.Controls;
 
-internal partial class DpButton : PhaseButton
+internal partial class DPButton : PhaseButton
 {
 }

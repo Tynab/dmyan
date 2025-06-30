@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=88 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
 [ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Shaders/Scroll.gdshader" id="1_wkp8b"]
@@ -6,13 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dw85pyqr2i5mu" path="res://Assets/board.png" id="3_wkp8b"]
 [ext_resource type="PackedScene" uid="uid://crqe8ju0cbbn1" path="res://Scenes/CardInfo.tscn" id="5_c2ibq"]
 [ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DpButton.cs" id="5_hhcpw"]
+[ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DPButton.cs" id="5_hhcpw"]
 [ext_resource type="Script" uid="uid://b36plooh1hgx7" path="res://Scripts/Controls/PhaseButton.cs" id="5_mxvw5"]
-[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BpButton.cs" id="5_sc1dx"]
+[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BPButton.cs" id="5_sc1dx"]
 [ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
-[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EpButton.cs" id="6_kjvhd"]
-[ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SpButton.cs" id="6_mxvw5"]
+[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EPButton.cs" id="6_kjvhd"]
+[ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SPButton.cs" id="6_mxvw5"]
 [ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandManager.cs" id="7_03owx"]
 [ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeck.cs" id="7_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://bbngw4ss27y8e" path="res://Scenes/PowerSlot.tscn" id="7_trn2v"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlot.cs" id="15_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/Player/dp.png" id="19_5tuhn"]
 [ext_resource type="Script" uid="uid://cffof8cg6k2ol" path="res://Scripts/Popups/PopupPhase.cs" id="20_2gh4u"]
+[ext_resource type="Script" uid="uid://cck0kpwvqybf0" path="res://Scripts/AIStack/AI.cs" id="26_xrxkg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
 shader = ExtResource("1_wkp8b")
@@ -1219,3 +1220,6 @@ position = Vector2(960, 540)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("19_5tuhn")
 script = ExtResource("20_2gh4u")
+
+[node name="AI" type="Node" parent="."]
+script = ExtResource("26_xrxkg")

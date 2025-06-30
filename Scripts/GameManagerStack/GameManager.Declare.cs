@@ -13,12 +13,12 @@ internal partial class GameManager : Node2D
     private Node _playerControl;
     private Node _opponentControl;
 
-    private DpButton _playerDpButton;
-    private SpButton _playerSpButton;
+    private DPButton _playerDpButton;
+    private SPButton _playerSpButton;
     private M1Button _playerM1Button;
-    private BpButton _playerBpButton;
+    private BPButton _playerBpButton;
     private M2Button _playerM2Button;
-    private EpButton _playerEpButton;
+    private EPButton _playerEpButton;
 
     private PhaseButton _opponentDpButton;
     private PhaseButton _opponentSpButton;

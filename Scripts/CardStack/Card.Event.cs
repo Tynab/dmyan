@@ -1,0 +1,59 @@
+using DMYAN.Scripts.Common;
+using DMYAN.Scripts.Common.Enum;
+using Godot;
+
+namespace DMYAN.Scripts.CardStack;
+
+internal partial class Card : Node2D
+{
+    private void OnAreaMouseEntered()
+    {
+        CanSummon = false;
+        CanSet = false;
+
+        if (DuelSide is DuelSide.Player)
+        {
+            if (Location is CardLocation.InBoard && Zone is CardZone.Field or CardZone.Main or CardZone.STP)
+            {
+                _canView = true;
+                _cardInfo.BindingData(this);
+            }
+            else if (Location is CardLocation.InHand)
+            {
+                _canView = true;
+                _cardInfo.BindingData(this);
+
+                HighlightOn();
+
+                if (_gameManager.CurrentTurnSide is DuelSide.Player)
+                {
+                    if (CanActivate)
+                    {
+                        PopupAction.ShowAction(PopupActionType.Activate);
+                        ActionType = CardActionType.Activate;
+                    }
+                    else if (_gameManager.CurrentPhase is DuelPhase.Main1 or DuelPhase.Main2)
+                    {
+                        CanSummon = true;
+                        CanSet = true;
+                        PopupAction.ShowAction(PopupActionType.Summon);
+                        ActionType = CardActionType.Summon;
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnAreaMouseExited()
+    {
+        if (_canView)
+        {
+            if (Location is CardLocation.InHand)
+            {
+                HighlightOff();
+            }
+
+            PopupAction.Hide();
+        }
+    }
+}
