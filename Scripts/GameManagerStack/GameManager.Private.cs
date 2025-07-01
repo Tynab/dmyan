@@ -25,11 +25,14 @@ internal partial class GameManager : Node2D
 
         LoadCards();
 
-        LoadDeck(DuelSide.Player, DECKS_DATA_PATH);
-        LoadDeck(DuelSide.Opponent, DECKS_DATA_PATH);
+        LoadMainDeck(DuelSide.Player, DECKS_DATA_PATH);
+        LoadMainDeck(DuelSide.Opponent, DECKS_DATA_PATH);
+
+        //Cards.Where(x => x.DuelSide == DuelSide.Player).ToList().ForEach(PlayerDeck.AddCard);
+        Cards.Where(x => x.DuelSide == DuelSide.Opponent).ToList().ForEach(OpponentMainDeck.AddCard);
     }
 
-    private void LoadDeck(DuelSide side, string path)
+    private void LoadMainDeck(DuelSide side, string path)
     {
         using var file = Open(path, Read);
 
@@ -103,10 +106,6 @@ internal partial class GameManager : Node2D
             i++;
         }
     }
-
-    internal List<Card> GetCardsInMainDeck(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InDeck && x.Zone == CardZone.MainDeck && x.MainDeckIndex.HasValue)];
-
-    internal List<int> GetMainDeckIndices(DuelSide side) => [.. GetCardsInMainDeck(side).Select(x => x.MainDeckIndex.Value)];
 
     private PhaseButton GetPhaseButton(DuelSide side, DuelPhase phase) => side switch
     {
@@ -227,8 +226,8 @@ internal partial class GameManager : Node2D
     {
         for (var i = 0; i < INITIAL_HAND_SIZE; i++)
         {
-            await DrawAndPlaceCardAsync(PlayerDeck, PlayerHand);
-            await DrawAndPlaceCardAsync(OpponentDeck, OpponentHand);
+            await DrawAndPlaceCardAsync(PlayerMainDeck, PlayerHand);
+            await DrawAndPlaceCardAsync(OpponentMainDeck, OpponentHand);
         }
     }
 

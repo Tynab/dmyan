@@ -61,7 +61,11 @@ internal partial class Card : Node2D
         _ = await ToSignal(_animationPlayer, AnimationFinished);
     }
 
-    internal void AnimationDraw(Vector2 position) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
+    internal void AnimationDraw(Vector2 position)
+    {
+        var cc = GetTree();
+        GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
+    }
 
     internal void AnimationSummon(Vector2 globalPosition, Vector2 scale)
     {

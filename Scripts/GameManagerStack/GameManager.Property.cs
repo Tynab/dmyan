@@ -1,5 +1,6 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.Controls;
 using Godot;
 using System.Collections.Generic;
 using static DMYAN.Scripts.Common.Constant;
@@ -8,6 +9,69 @@ namespace DMYAN.Scripts.GameManagerStack;
 
 internal partial class GameManager : Node2D
 {
+    [Export]
+    private MainDeck PlayerMainDeck { get; set; }
+
+    [Export]
+    private MainDeck OpponentMainDeck { get; set; }
+
+    [Export]
+    private HandManager PlayerHand { get; set; }
+
+    [Export]
+    private HandManager OpponentHand { get; set; }
+
+    [Export]
+    private MainZone PlayerMainZone { get; set; }
+
+    [Export]
+    private MainZone OpponentMainZone { get; set; }
+
+    [Export]
+    private DPButton PlayerDP { get; set; }
+
+    [Export]
+    private DPButton OpponentDP { get; set; }
+
+    [Export]
+    private DPButton PlayerSP { get; set; }
+
+    [Export]
+    private DPButton OpponentSP { get; set; }
+
+    [Export]
+    private DPButton PlayerM1 { get; set; }
+
+    [Export]
+    private DPButton OpponentM1 { get; set; }
+
+    [Export]
+    private DPButton PlayerBP { get; set; }
+
+    [Export]
+    private DPButton OpponentBP { get; set; }
+
+    [Export]
+    private DPButton PlayerM2 { get; set; }
+
+    [Export]
+    private DPButton OpponentM2 { get; set; }
+
+    [Export]
+    private DPButton PlayerEP { get; set; }
+
+    [Export]
+    private DPButton OpponentEP { get; set; }
+
+    [Export]
+    private Infomation PlayerInfo { get; set; }
+
+    [Export]
+    private Infomation OpponentInfo { get; set; }
+
+    [Export]
+    private CardInfo CardInfo { get; set; }
+
     [Export]
     private PackedScene CardScene { get; set; }
 

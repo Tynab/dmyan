@@ -584,14 +584,29 @@ Button/styles/pressed = SubResource("StyleBoxFlat_yf3a2")
 [node name="Main" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [965.0, 540.0, 115.0]
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerDeck", "OpponentDeck", "PlayerHand", "OpponentHand", "PlayerMainZone", "OpponentMainZone")]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerMainDeck", "OpponentMainDeck", "PlayerHand", "OpponentHand", "PlayerMainZone", "OpponentMainZone", "PlayerDP", "OpponentDP", "PlayerSP", "OpponentSP", "PlayerM1", "OpponentM1", "PlayerBP", "OpponentBP", "PlayerM2", "OpponentM2", "PlayerEP", "OpponentEP", "PlayerInfo", "OpponentInfo", "CardInfo")]
 script = ExtResource("8_wkp8b")
-PlayerDeck = NodePath("../Board/PlayerField/MainDeck")
-OpponentDeck = NodePath("../Board/OpponentField/MainDeck")
-PlayerHand = NodePath("../Board/PlayerField/HandZone")
-OpponentHand = NodePath("../Board/OpponentField/HandZone")
-PlayerMainZone = NodePath("../Board/PlayerField/MainZone")
-OpponentMainZone = NodePath("../Board/OpponentField/MainZone")
+PlayerMainDeck = NodePath("../Field/Player/MainDeck")
+OpponentMainDeck = NodePath("../Field/Opponent/MainDeck")
+PlayerHand = NodePath("../Field/Player/HandZone")
+OpponentHand = NodePath("../Field/Opponent/HandZone")
+PlayerMainZone = NodePath("../Field/Player/MainZone")
+OpponentMainZone = NodePath("../Field/Opponent/MainZone")
+PlayerDP = NodePath("../Control/Button/Player/DPButton")
+OpponentDP = NodePath("../Control/Button/Opponent/DPButton")
+PlayerSP = NodePath("../Control/Button/Player/SPButton")
+OpponentSP = NodePath("../Control/Button/Opponent/SPButton")
+PlayerM1 = NodePath("../Control/Button/Player/M1Button")
+OpponentM1 = NodePath("../Control/Button/Opponent/M1Button")
+PlayerBP = NodePath("../Control/Button/Player/BPButton")
+OpponentBP = NodePath("../Control/Button/Opponent/BPButton")
+PlayerM2 = NodePath("../Control/Button/Player/M2Button")
+OpponentM2 = NodePath("../Control/Button/Opponent/M2Button")
+PlayerEP = NodePath("../Control/Button/Player/EPButton")
+OpponentEP = NodePath("../Control/Button/Opponent/EPButton")
+PlayerInfo = NodePath("../Info/Player")
+OpponentInfo = NodePath("../Info/Opponent")
+CardInfo = NodePath("../CardInfo")
 CardScene = ExtResource("6_3dxm6")
 
 [node name="Control" type="Control" parent="."]
@@ -600,8 +615,12 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Background" type="TextureRect" parent="Control"]
-layout_mode = 0
+[node name="Texture" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="TextureRect" parent="Control/Texture"]
 offset_top = -100.0
 offset_right = 1920.0
 offset_bottom = 1180.0
@@ -609,20 +628,27 @@ mouse_filter = 2
 texture = ExtResource("1_20pc6")
 metadata/_edit_lock_ = true
 
-[node name="Scoll" type="TextureRect" parent="Control"]
+[node name="Scoll" type="TextureRect" parent="Control/Texture"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_5vvyt")
-layout_mode = 0
 offset_right = 2787.0
 offset_bottom = 1080.0
 mouse_filter = 2
 texture = ExtResource("2_wkp8b")
 metadata/_edit_lock_ = true
 
-[node name="OpponentControl" type="Node" parent="Control"]
+[node name="Button" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="DPButton" type="Button" parent="Control/OpponentControl"]
+[node name="Opponent" type="Control" parent="Control/Button"]
 visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DPButton" type="Button" parent="Control/Button/Opponent"]
 offset_left = 440.0
 offset_top = 155.0
 offset_right = 495.0
@@ -636,8 +662,7 @@ P"
 script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
-[node name="SPButton" type="Button" parent="Control/OpponentControl"]
-visible = false
+[node name="SPButton" type="Button" parent="Control/Button/Opponent"]
 offset_left = 440.0
 offset_top = 291.0
 offset_right = 495.0
@@ -651,8 +676,7 @@ P"
 script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
-[node name="M1Button" type="Button" parent="Control/OpponentControl"]
-visible = false
+[node name="M1Button" type="Button" parent="Control/Button/Opponent"]
 offset_left = 440.0
 offset_top = 427.0
 offset_right = 495.0
@@ -666,8 +690,7 @@ I"
 script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
-[node name="BPButton" type="Button" parent="Control/OpponentControl"]
-visible = false
+[node name="BPButton" type="Button" parent="Control/Button/Opponent"]
 offset_left = 440.0
 offset_top = 563.0
 offset_right = 495.0
@@ -681,8 +704,7 @@ P"
 script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
-[node name="M2Button" type="Button" parent="Control/OpponentControl"]
-visible = false
+[node name="M2Button" type="Button" parent="Control/Button/Opponent"]
 offset_left = 440.0
 offset_top = 699.0
 offset_right = 495.0
@@ -696,8 +718,7 @@ II"
 script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
-[node name="EPButton" type="Button" parent="Control/OpponentControl"]
-visible = false
+[node name="EPButton" type="Button" parent="Control/Button/Opponent"]
 offset_left = 440.0
 offset_top = 835.0
 offset_right = 495.0
@@ -711,9 +732,12 @@ P"
 script = ExtResource("5_mxvw5")
 metadata/_edit_lock_ = true
 
-[node name="PlayerControl" type="Node" parent="Control"]
+[node name="Player" type="Control" parent="Control/Button"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="DPButton" type="Button" parent="Control/PlayerControl"]
+[node name="DPButton" type="Button" parent="Control/Button/Player"]
 offset_left = 440.0
 offset_top = 155.0
 offset_right = 495.0
@@ -727,7 +751,7 @@ P"
 script = ExtResource("5_hhcpw")
 metadata/_edit_lock_ = true
 
-[node name="SPButton" type="Button" parent="Control/PlayerControl"]
+[node name="SPButton" type="Button" parent="Control/Button/Player"]
 offset_left = 440.0
 offset_top = 291.0
 offset_right = 495.0
@@ -741,7 +765,7 @@ P"
 script = ExtResource("6_mxvw5")
 metadata/_edit_lock_ = true
 
-[node name="M1Button" type="Button" parent="Control/PlayerControl"]
+[node name="M1Button" type="Button" parent="Control/Button/Player"]
 offset_left = 440.0
 offset_top = 427.0
 offset_right = 495.0
@@ -755,7 +779,7 @@ I"
 script = ExtResource("7_xrxkg")
 metadata/_edit_lock_ = true
 
-[node name="BPButton" type="Button" parent="Control/PlayerControl"]
+[node name="BPButton" type="Button" parent="Control/Button/Player"]
 offset_left = 440.0
 offset_top = 563.0
 offset_right = 495.0
@@ -769,7 +793,7 @@ P"
 script = ExtResource("5_sc1dx")
 metadata/_edit_lock_ = true
 
-[node name="M2Button" type="Button" parent="Control/PlayerControl"]
+[node name="M2Button" type="Button" parent="Control/Button/Player"]
 offset_left = 440.0
 offset_top = 699.0
 offset_right = 495.0
@@ -783,7 +807,7 @@ II"
 script = ExtResource("9_sqvbp")
 metadata/_edit_lock_ = true
 
-[node name="EPButton" type="Button" parent="Control/PlayerControl"]
+[node name="EPButton" type="Button" parent="Control/Button/Player"]
 offset_left = 440.0
 offset_top = 835.0
 offset_right = 495.0
@@ -800,216 +824,26 @@ metadata/_edit_lock_ = true
 [node name="CardInfo" parent="." instance=ExtResource("5_c2ibq")]
 position = Vector2(220, 376)
 
-[node name="Board" type="Node2D" parent="."]
+[node name="Board" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
-
-[node name="Sprite2D" type="Sprite2D" parent="Board"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_wkp8b")
 metadata/_edit_lock_ = true
 
-[node name="OpponentField" type="Node2D" parent="Board"]
+[node name="Field" type="Node2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="Opponent" type="Node2D" parent="Field"]
+
+[node name="MainDeck" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
+position = Vector2(362, -321)
 rotation = 3.14159
-
-[node name="MainDeck" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(-362.001, 320.999)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("7_5vvyt")
 DuelSide = 2
 metadata/_edit_lock_ = true
 
-[node name="Graveyard" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(-362, 183.999)
-scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
-
-[node name="FieldCard" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(361.999, 184.001)
-scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
-
-[node name="ExtraDeck" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(361.999, 321.001)
-scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
-
-[node name="Banished" parent="Board/OpponentField" instance=ExtResource("6_20pc6")]
-position = Vector2(-343, 67.9985)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
-
-[node name="MainZone" type="Node2D" parent="Board/OpponentField"]
-script = ExtResource("14_sc1dx")
-DuelSide = 2
-
-[node name="CardSlot1" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-248.001, 212)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot1")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot2" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-124.001, 212)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot2")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot3" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-0.000793457, 212)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot3")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot4" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(123.999, 212)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot4")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot5" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(247.999, 212.001)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot5")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot6" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-248.001, 211.999)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot1")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot7" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-124.001, 212)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot2")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot8" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-0.000793457, 212)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot3")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot9" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(123.999, 212)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot4")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot10" parent="Board/OpponentField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(247.999, 212.001)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot5")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="PowerSlot1" parent="Board/OpponentField/MainZone" instance=ExtResource("7_trn2v")]
-visible = false
-position = Vector2(-248, 139.999)
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="PowerSlot2" parent="Board/OpponentField/MainZone" instance=ExtResource("7_trn2v")]
-visible = false
-position = Vector2(-124, 140)
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="PowerSlot3" parent="Board/OpponentField/MainZone" instance=ExtResource("7_trn2v")]
-visible = false
-position = Vector2(0.000244141, 140)
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="PowerSlot4" parent="Board/OpponentField/MainZone" instance=ExtResource("7_trn2v")]
-visible = false
-position = Vector2(124, 140)
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="PowerSlot5" parent="Board/OpponentField/MainZone" instance=ExtResource("7_trn2v")]
-visible = false
-position = Vector2(248, 140.001)
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="STPZone" type="Node2D" parent="Board/OpponentField"]
-
-[node name="CardSlot1" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-248.001, 337.999)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("5_fos0i")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot2" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-124.001, 338)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("5_fos0i")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot3" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(-0.000793457, 338)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("5_fos0i")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot4" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(123.999, 338)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("5_fos0i")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="CardSlot5" parent="Board/OpponentField/STPZone" instance=ExtResource("6_20pc6")]
-position = Vector2(247.999, 338.001)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("5_fos0i")
-DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="HandZone" type="Node2D" parent="Board/OpponentField"]
-z_index = 99
-script = ExtResource("7_03owx")
-DuelSide = 2
-
-[node name="PlayerField" type="Node2D" parent="Board"]
-
-[node name="MainDeck" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
-position = Vector2(-362, 321)
-scale = Vector2(0.7, 0.7)
-script = ExtResource("7_5vvyt")
-DuelSide = 1
-metadata/_edit_lock_ = true
-
-[node name="Count" type="RichTextLabel" parent="Board/PlayerField/MainDeck"]
+[node name="Count" type="RichTextLabel" parent="Field/Opponent/MainDeck"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -1025,32 +859,360 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Graveyard" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+[node name="Graveyard" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
+position = Vector2(362, -184)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
+
+[node name="Count" type="RichTextLabel" parent="Field/Opponent/Graveyard"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FieldCard" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
+position = Vector2(-362, -184)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
+
+[node name="ExtraDeck" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
+position = Vector2(-362, -321)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
+
+[node name="Count" type="RichTextLabel" parent="Field/Opponent/ExtraDeck"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Banished" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
+position = Vector2(343, -68)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+metadata/_edit_lock_ = true
+
+[node name="Count" type="RichTextLabel" parent="Field/Opponent/Banished"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = -87.0
+offset_right = 147.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+scale = Vector2(2, 2)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainZone" type="Node2D" parent="Field/Opponent"]
+script = ExtResource("14_sc1dx")
+DuelSide = 2
+
+[node name="CardSlot1" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(248, -212)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot1")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot2" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(124, -212)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot2")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot3" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(0, -212)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot3")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot4" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(-124, -212)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot4")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot5" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(-248, -212)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot5")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot6" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(248, -212)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot1")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot7" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(124, -212)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot2")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot8" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(0, -212)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot3")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot9" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(-124, -212)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot4")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot10" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+position = Vector2(-248, -212)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+script = ExtResource("15_sc1dx")
+PowerSlot = NodePath("../PowerSlot5")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="PowerSlot1" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(248, -140)
+rotation = 3.14159
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="PowerSlot2" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(124, -140)
+rotation = 3.14159
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="PowerSlot3" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(0, -140)
+rotation = 3.14159
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="PowerSlot4" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(-124, -140)
+rotation = 3.14159
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="PowerSlot5" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
+visible = false
+position = Vector2(-248, -140)
+rotation = 3.14159
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="STPZone" type="Node2D" parent="Field/Opponent"]
+
+[node name="CardSlot1" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(248, -338)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot2" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(124, -338)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot3" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(0, -338)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot4" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-124, -338)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="CardSlot5" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+position = Vector2(-248, -338)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("5_fos0i")
+DuelSide = 2
+metadata/_edit_lock_ = true
+
+[node name="HandZone" type="Node2D" parent="Field/Opponent"]
+z_index = 99
+rotation = 3.14159
+script = ExtResource("7_03owx")
+DuelSide = 2
+
+[node name="Player" type="Node2D" parent="Field"]
+
+[node name="MainDeck" parent="Field/Player" instance=ExtResource("6_20pc6")]
+position = Vector2(-362, 321)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("7_5vvyt")
+DuelSide = 1
+metadata/_edit_lock_ = true
+
+[node name="Count" type="RichTextLabel" parent="Field/Player/MainDeck"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Graveyard" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(-362, 184)
 scale = Vector2(0.7, 0.7)
 metadata/_edit_lock_ = true
 
-[node name="FieldCard" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+[node name="Count" type="RichTextLabel" parent="Field/Player/Graveyard"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FieldCard" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(362, 184)
 scale = Vector2(0.7, 0.7)
 metadata/_edit_lock_ = true
 
-[node name="ExtraDeck" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+[node name="ExtraDeck" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(362, 321)
 scale = Vector2(0.7, 0.7)
 metadata/_edit_lock_ = true
 
-[node name="Banished" parent="Board/PlayerField" instance=ExtResource("6_20pc6")]
+[node name="Count" type="RichTextLabel" parent="Field/Player/ExtraDeck"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Banished" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(-343, 68.0001)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
 metadata/_edit_lock_ = true
 
-[node name="MainZone" type="Node2D" parent="Board/PlayerField"]
+[node name="Count" type="RichTextLabel" parent="Field/Player/Banished"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = -87.0
+offset_right = 147.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+scale = Vector2(2, 2)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainZone" type="Node2D" parent="Field/Player"]
 script = ExtResource("14_sc1dx")
 DuelSide = 1
 
-[node name="CardSlot1" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot1" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 212)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
@@ -1058,7 +1220,7 @@ PowerSlot = NodePath("../PowerSlot1")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot2" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot2" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 212)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
@@ -1066,7 +1228,7 @@ PowerSlot = NodePath("../PowerSlot2")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot3" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot3" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(0, 212)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
@@ -1074,7 +1236,7 @@ PowerSlot = NodePath("../PowerSlot3")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot4" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot4" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(124, 212)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
@@ -1082,7 +1244,7 @@ PowerSlot = NodePath("../PowerSlot4")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot5" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot5" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(248, 212)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
@@ -1090,7 +1252,7 @@ PowerSlot = NodePath("../PowerSlot5")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot6" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot6" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
@@ -1099,7 +1261,7 @@ PowerSlot = NodePath("../PowerSlot1")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot7" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot7" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
@@ -1108,7 +1270,7 @@ PowerSlot = NodePath("../PowerSlot2")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot8" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot8" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(0, 212)
 rotation = -1.57079
 scale = Vector2(0.7, 0.7)
@@ -1117,7 +1279,7 @@ PowerSlot = NodePath("../PowerSlot3")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot9" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot9" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(124, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
@@ -1126,7 +1288,7 @@ PowerSlot = NodePath("../PowerSlot4")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot10" parent="Board/PlayerField/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
+[node name="CardSlot10" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(248, 212)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
@@ -1135,82 +1297,84 @@ PowerSlot = NodePath("../PowerSlot5")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="PowerSlot1" parent="Board/PlayerField/MainZone" instance=ExtResource("7_trn2v")]
+[node name="PowerSlot1" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(-248, 140)
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="PowerSlot2" parent="Board/PlayerField/MainZone" instance=ExtResource("7_trn2v")]
+[node name="PowerSlot2" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(-124, 140)
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="PowerSlot3" parent="Board/PlayerField/MainZone" instance=ExtResource("7_trn2v")]
+[node name="PowerSlot3" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(0, 140)
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="PowerSlot4" parent="Board/PlayerField/MainZone" instance=ExtResource("7_trn2v")]
+[node name="PowerSlot4" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(124, 140)
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="PowerSlot5" parent="Board/PlayerField/MainZone" instance=ExtResource("7_trn2v")]
+[node name="PowerSlot5" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(248, 140)
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="STPZone" type="Node2D" parent="Board/PlayerField"]
+[node name="STPZone" type="Node2D" parent="Field/Player"]
 
-[node name="CardSlot1" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot1" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot2" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot2" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot3" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot3" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(0, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot4" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot4" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(124, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="CardSlot5" parent="Board/PlayerField/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot5" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(248, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 metadata/_edit_lock_ = true
 
-[node name="HandZone" type="Node2D" parent="Board/PlayerField"]
+[node name="HandZone" type="Node2D" parent="Field/Player"]
 z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 1
 
-[node name="OpponentInfo" parent="." instance=ExtResource("13_c6i3y")]
+[node name="Info" type="Node2D" parent="."]
+
+[node name="Opponent" parent="Info" instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 226)
 
-[node name="PlayerInfo" parent="." instance=ExtResource("13_c6i3y")]
+[node name="Player" parent="Info" instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 854)
 
 [node name="PopupPhase" type="Sprite2D" parent="."]

@@ -33,6 +33,17 @@ internal partial class MainDeck : CardSlot
         }
     }
 
+    internal void AddCard(Card card)
+    {
+        card.AddChild(this);
+
+        card.Position = GlobalPosition;
+        card.Location = CardLocation.InDeck;
+        card.Zone = CardZone.MainDeck;
+
+        UpdateCountDisplay();
+    }
+
     internal Card RemoveCard()
     {
         var cardsInMainDeck = _gameManager.GetCardsInMainDeck(DuelSide);
@@ -71,7 +82,6 @@ internal partial class MainDeck : CardSlot
             card.MainDeckIndex = mainDeckIndices[i];
             card.Position = Zero;
             card.ZIndex = mainDeckIndices[i];
-
             AddChild(card);
         }
     }
