@@ -38,12 +38,10 @@ internal partial class Card : Node2D
 
     internal void CanSummonCheck()
     {
-        if ((Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && !_gameManager.HasSummoned)
-        {
-            CanSummon = true;
-            CanSet = true;
-            ActionType = CardActionType.Summon;
-        }
+        var isValid = (Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && !_gameManager.HasSummoned;
+
+        CanSummon = isValid;
+        CanSet = isValid;
     }
 
     internal async Task CanAttackCheck(DuelSide currentSide)
@@ -63,7 +61,11 @@ internal partial class Card : Node2D
         _ = await ToSignal(_animationPlayer, AnimationFinished);
     }
 
-    internal void AnimationDraw(Vector2 position) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
+    internal void AnimationDraw(Vector2 position)
+    {
+        var cc = GetTree();
+        GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
+    }
 
     internal void AnimationSummon(Vector2 globalPosition, Vector2 scale)
     {

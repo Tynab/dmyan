@@ -32,10 +32,8 @@ internal partial class Card : Node2D
                         PopupAction.ShowAction(PopupActionType.Activate);
                         ActionType = CardActionType.Activate;
                     }
-                    else if (_gameManager.CurrentPhase is DuelPhase.Main1 or DuelPhase.Main2)
+                    else if (CanSummon)
                     {
-                        CanSummon = true;
-                        CanSet = true;
                         PopupAction.ShowAction(PopupActionType.Summon);
                         ActionType = CardActionType.Summon;
                     }
