@@ -12,36 +12,17 @@ namespace DMYAN.Scripts.GameManagerStack;
 
 internal partial class GameManager : Node2D
 {
-    [Export]
-    private MainDeck PlayerDeck { get; set; }
-
-    [Export]
-    private MainDeck OpponentDeck { get; set; }
-
-    [Export]
-    private HandManager PlayerHand { get; set; }
-
-    [Export]
-    private HandManager OpponentHand { get; set; }
-
-    [Export]
-    private MainZone PlayerMainZone { get; set; }
-
-    [Export]
-    private MainZone OpponentMainZone { get; set; }
-
     public override async void _Ready()
     {
+        LoadData();
+
         var parent = GetParent();
-        var board = parent.GetNode<Node2D>(BOARD_NODE);
-        var playerField = board.GetNode<Node2D>(FIELD_PLAYER_NODE);
-        var opponentField = board.GetNode<Node2D>(FIELD_OPPONENT_NODE);
+        //var board = parent.GetNode<Node2D>(BOARD_NODE);
+        //var playerField = board.GetNode<Node2D>(FIELD_PLAYER_NODE);
+        //var opponentField = board.GetNode<Node2D>(FIELD_OPPONENT_NODE);
 
-        Cards.AddRange(playerField.GetNode<MainDeck>(nameof(MainDeck)).CardsInDeck);
-        Cards.AddRange(opponentField.GetNode<MainDeck>(nameof(MainDeck)).CardsInDeck);
-
-        _playerInfo = parent.GetNode<Infomation>(INFO_PLAYER_NODE);
-        _opponentInfo = parent.GetNode<Infomation>(INFO_OPPONENT_NODE);
+        //_playerInfo = parent.GetNode<Infomation>(INFO_PLAYER_NODE);
+        //_opponentInfo = parent.GetNode<Infomation>(INFO_OPPONENT_NODE);
         _popupPhase = parent.GetNode<PopupPhase>(nameof(PopupPhase));
         _control = parent.GetNode<Control>(nameof(Control));
         _playerControl = _control.GetNode<Node>("PlayerControl");
@@ -61,10 +42,8 @@ internal partial class GameManager : Node2D
         _opponentM2Button = _opponentControl.GetNode<PhaseButton>(M2_BUTTON_NODE);
         _opponentEpButton = _opponentControl.GetNode<PhaseButton>(EP_BUTTON_NODE);
 
-        _playerInfo.Initialize(DEFAULT_PLAYER);
-        _opponentInfo.Initialize(DEFAULT_OPPONENT);
-
-        LoadCards();
+        //_playerInfo.Initialize(DEFAULT_PLAYER);
+        //_opponentInfo.Initialize(DEFAULT_OPPONENT);
 
         await Delay(STARTUP_DELAY);
 

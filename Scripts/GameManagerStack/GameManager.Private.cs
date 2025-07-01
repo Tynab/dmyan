@@ -1,17 +1,112 @@
 using DMYAN.Scripts.CardStack;
+using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.Controls;
 using Godot;
 using Godot.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DMYAN.Scripts.Common.CardDatabase;
 using static DMYAN.Scripts.Common.Constant;
+using static Godot.FileAccess;
+using static Godot.FileAccess.ModeFlags;
+using static Godot.ResourceLoader;
+using static Godot.Vector2;
 using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.GameManagerStack;
 
 internal partial class GameManager : Node2D
 {
+    private void LoadData()
+    {
+        Cards.Clear();
+
+        LoadCards();
+
+        LoadMainDeck(DuelSide.Player, DECKS_DATA_PATH);
+        LoadMainDeck(DuelSide.Opponent, DECKS_DATA_PATH);
+
+        //Cards.Where(x => x.DuelSide == DuelSide.Player).ToList().ForEach(PlayerDeck.AddCard);
+        Cards.Where(x => x.DuelSide == DuelSide.Opponent).ToList().ForEach(OpponentMainDeck.AddCard);
+    }
+
+    private void LoadMainDeck(DuelSide side, string path)
+    {
+        using var file = Open(path, Read);
+
+        if (!file.EofReached())
+        {
+            _ = file.GetLine();
+        }
+
+        var i = 0;
+
+        while (!file.EofReached())
+        {
+            var line = file.GetLine();
+
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                continue;
+            }
+
+            var parts = line.Split(',');
+            var cardData = GetCardData(parts[1].Trim('"'));
+            var card = CardScene.Instantiate<Card>();
+
+            card.BaseSide = side;
+            card.DuelSide = side;
+            card.Location = CardLocation.InDeck;
+            card.Zone = CardZone.MainDeck;
+            card.CardFace = CardFace.FaceDown;
+            card.CardPosition = CardPosition.None;
+            card.Type = cardData.Type;
+            card.Property = cardData.Property;
+            card.Attribute = cardData.Attribute;
+            card.Race = cardData.Race;
+            card.SummonType = cardData.SummonType;
+            card.BanlistStatus = cardData.BanlistStatus;
+            card.EffectType = cardData.EffectType;
+            card.MainDeckIndex = i;
+            card.ExtraDeckIndex = null;
+            card.HandIndex = null;
+            card.MainIndex = null;
+            card.STPIndex = null;
+            card.GraveyardIndex = null;
+            card.BanishedIndex = null;
+            card.Code = cardData.Code;
+            card.CardName = cardData.Name;
+            card.Description = cardData.Description;
+            card.Level = cardData.Level;
+            card.BaseATK = cardData.ATK;
+            card.BaseDEF = cardData.DEF;
+            card.ATK = cardData.ATK;
+            card.DEF = cardData.DEF;
+            card.BasePosition = Zero;
+            card.CanActivate = false;
+            card.CanSummon = false;
+            card.CanSet = false;
+            card.CanAttack = false;
+            card.CanDirectAttack = false;
+            card.ActionType = CardActionType.None;
+
+            var cardFront = card.GetNode<Sprite2D>(CARD_FRONT_NODE);
+
+            cardFront.Texture = Load<Texture2D>(cardData.Code.GetCardAssetPathByCode());
+            cardFront.Hide();
+
+            var cardBack = card.GetNode<Sprite2D>(CARD_BACK_NODE);
+
+            cardBack.Show();
+
+            Cards.Add(card);
+
+            i++;
+        }
+    }
+
     private PhaseButton GetPhaseButton(DuelSide side, DuelPhase phase) => side switch
     {
         DuelSide.Player => phase switch
@@ -131,8 +226,8 @@ internal partial class GameManager : Node2D
     {
         for (var i = 0; i < INITIAL_HAND_SIZE; i++)
         {
-            await DrawAndPlaceCardAsync(PlayerDeck, PlayerHand);
-            await DrawAndPlaceCardAsync(OpponentDeck, OpponentHand);
+            await DrawAndPlaceCardAsync(PlayerMainDeck, PlayerHand);
+            await DrawAndPlaceCardAsync(OpponentMainDeck, OpponentHand);
         }
     }
 

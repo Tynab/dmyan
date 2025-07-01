@@ -1,5 +1,7 @@
+using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
 using Godot;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static DMYAN.Scripts.Common.Constant;
@@ -9,6 +11,18 @@ namespace DMYAN.Scripts.GameManagerStack;
 
 internal partial class GameManager : Node2D
 {
+    internal List<Card> GetCardsInMainDeck(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InDeck && x.Zone == CardZone.MainDeck && x.MainDeckIndex.HasValue)];
+
+    internal List<int> GetMainDeckIndices(DuelSide side) => [.. GetCardsInMainDeck(side).Select(x => x.MainDeckIndex.Value)];
+
+    internal List<Card> GetCardsInExtraDeck(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InDeck && x.Zone == CardZone.ExtraDeck && x.ExtraDeckIndex.HasValue)];
+
+    internal List<int> GetExtraDeckIndices(DuelSide side) => [.. GetCardsInExtraDeck(side).Select(x => x.ExtraDeckIndex.Value)];
+
+    internal List<Card> GetCardsInHand(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InHand && x.HandIndex.HasValue)];
+
+    internal List<int> GetHandIndices(DuelSide side) => [.. GetCardsInHand(side).Select(x => x.HandIndex.Value)];
+
     internal async Task DrawPhaseAsync(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Draw;
@@ -20,11 +34,11 @@ internal partial class GameManager : Node2D
 
         if (CurrentTurnSide is DuelSide.Player)
         {
-            await DrawAndPlaceCardAsync(PlayerDeck, PlayerHand);
+            await DrawAndPlaceCardAsync(PlayerMainDeck, PlayerHand);
         }
         else
         {
-            await DrawAndPlaceCardAsync(OpponentDeck, OpponentHand);
+            await DrawAndPlaceCardAsync(OpponentMainDeck, OpponentHand);
         }
 
         await Delay(delay);
@@ -54,6 +68,8 @@ internal partial class GameManager : Node2D
         await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
         await Delay(delay);
+
+        Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CanSummonCheck());
     }
 
     internal async Task BattlePhaseAsync(int delay = PHASE_CHANGE_DELAY)
