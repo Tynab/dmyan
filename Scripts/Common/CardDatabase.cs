@@ -11,7 +11,7 @@ internal static class CardDatabase
     private static readonly Dictionary<string, CardData> _cardData = [];
     private static bool _isLoaded = false;
 
-    internal static void LoadCards()
+    internal static void LoadCardsData()
     {
         if (_isLoaded)
         {
@@ -67,7 +67,7 @@ internal static class CardDatabase
     {
         if (!_isLoaded)
         {
-            LoadCards();
+            LoadCardsData();
         }
 
         return _cardData.TryGetValue(cardCode, out var cardData) ? cardData : default;
