@@ -23,16 +23,16 @@ internal partial class GameManager : Node2D
     {
         Cards.Clear();
 
-        LoadCards();
+        LoadCardsData();
 
-        LoadMainDeck(DuelSide.Player, DECKS_DATA_PATH);
-        LoadMainDeck(DuelSide.Opponent, DECKS_DATA_PATH);
+        InitCards(DuelSide.Player, DECKS_DATA_PATH);
+        InitCards(DuelSide.Opponent, DECKS_DATA_PATH);
 
-        //Cards.Where(x => x.DuelSide == DuelSide.Player).ToList().ForEach(PlayerDeck.AddCard);
-        Cards.Where(x => x.DuelSide == DuelSide.Opponent).ToList().ForEach(OpponentMainDeck.AddCard);
+        PlayerMainDeck.Init([.. Cards.Where(x => x.DuelSide is DuelSide.Player)]);
+        OpponentMainDeck.Init([.. Cards.Where(x => x.DuelSide is DuelSide.Opponent)]);
     }
 
-    private void LoadMainDeck(DuelSide side, string path)
+    private void InitCards(DuelSide side, string path)
     {
         using var file = Open(path, Read);
 
@@ -40,8 +40,6 @@ internal partial class GameManager : Node2D
         {
             _ = file.GetLine();
         }
-
-        var i = 0;
 
         while (!file.EofReached())
         {
@@ -56,54 +54,9 @@ internal partial class GameManager : Node2D
             var cardData = GetCardData(parts[1].Trim('"'));
             var card = CardScene.Instantiate<Card>();
 
-            card.BaseSide = side;
-            card.DuelSide = side;
-            card.Location = CardLocation.InDeck;
-            card.Zone = CardZone.MainDeck;
-            card.CardFace = CardFace.FaceDown;
-            card.CardPosition = CardPosition.None;
-            card.Type = cardData.Type;
-            card.Property = cardData.Property;
-            card.Attribute = cardData.Attribute;
-            card.Race = cardData.Race;
-            card.SummonType = cardData.SummonType;
-            card.BanlistStatus = cardData.BanlistStatus;
-            card.EffectType = cardData.EffectType;
-            card.MainDeckIndex = i;
-            card.ExtraDeckIndex = null;
-            card.HandIndex = null;
-            card.MainIndex = null;
-            card.STPIndex = null;
-            card.GraveyardIndex = null;
-            card.BanishedIndex = null;
-            card.Code = cardData.Code;
-            card.CardName = cardData.Name;
-            card.Description = cardData.Description;
-            card.Level = cardData.Level;
-            card.BaseATK = cardData.ATK;
-            card.BaseDEF = cardData.DEF;
-            card.ATK = cardData.ATK;
-            card.DEF = cardData.DEF;
-            card.BasePosition = Zero;
-            card.CanActivate = false;
-            card.CanSummon = false;
-            card.CanSet = false;
-            card.CanAttack = false;
-            card.CanDirectAttack = false;
-            card.ActionType = CardActionType.None;
-
-            var cardFront = card.GetNode<Sprite2D>(CARD_FRONT_NODE);
-
-            cardFront.Texture = Load<Texture2D>(cardData.Code.GetCardAssetPathByCode());
-            cardFront.Hide();
-
-            var cardBack = card.GetNode<Sprite2D>(CARD_BACK_NODE);
-
-            cardBack.Show();
+            card.Init(cardData, side);
 
             Cards.Add(card);
-
-            i++;
         }
     }
 
@@ -111,22 +64,22 @@ internal partial class GameManager : Node2D
     {
         DuelSide.Player => phase switch
         {
-            DuelPhase.Draw => _playerDpButton,
-            DuelPhase.Standby => _playerSpButton,
-            DuelPhase.Main1 => _playerM1Button,
-            DuelPhase.Battle => _playerBpButton,
-            DuelPhase.Main2 => _playerM2Button,
-            DuelPhase.End => _playerEpButton,
+            DuelPhase.Draw => PlayerDP,
+            DuelPhase.Standby => PlayerSP,
+            DuelPhase.Main1 => PlayerM1,
+            DuelPhase.Battle => PlayerBP,
+            DuelPhase.Main2 => PlayerM2,
+            DuelPhase.End => PlayerEP,
             _ => null
         },
         DuelSide.Opponent => phase switch
         {
-            DuelPhase.Draw => _opponentDpButton,
-            DuelPhase.Standby => _opponentSpButton,
-            DuelPhase.Main1 => _opponentM1Button,
-            DuelPhase.Battle => _opponentBpButton,
-            DuelPhase.Main2 => _opponentM2Button,
-            DuelPhase.End => _opponentEpButton,
+            DuelPhase.Draw => OpponentDP,
+            DuelPhase.Standby => OpponentSP,
+            DuelPhase.Main1 => OpponentM1,
+            DuelPhase.Battle => OpponentBP,
+            DuelPhase.Main2 => OpponentM2,
+            DuelPhase.End => OpponentEP,
             _ => null
         },
         _ => null
@@ -136,89 +89,89 @@ internal partial class GameManager : Node2D
     {
         if (side is DuelSide.Player)
         {
-            _playerDpButton.ChangeStatus(true);
-            _playerDpButton.Show();
-            _opponentDpButton.Hide();
-            _opponentDpButton.ChangeStatus(false);
+            PlayerDP.ChangeStatus(true);
+            PlayerDP.Show();
+            OpponentDP.Hide();
+            OpponentDP.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _playerSpButton.ChangeStatus(true);
-            _playerSpButton.Show();
-            _opponentSpButton.Hide();
-            _opponentSpButton.ChangeStatus(false);
+            PlayerSP.ChangeStatus(true);
+            PlayerSP.Show();
+            OpponentSP.Hide();
+            OpponentSP.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _playerM1Button.ChangeStatus(true);
-            _playerM1Button.Show();
-            _opponentM1Button.Hide();
-            _opponentM1Button.ChangeStatus(false);
+            PlayerM1.ChangeStatus(true);
+            PlayerM1.Show();
+            OpponentM1.Hide();
+            OpponentM1.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _playerBpButton.ChangeStatus(true);
-            _playerBpButton.Show();
-            _opponentBpButton.Hide();
-            _opponentBpButton.ChangeStatus(false);
+            PlayerBP.ChangeStatus(true);
+            PlayerBP.Show();
+            OpponentBP.Hide();
+            OpponentBP.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _playerM2Button.ChangeStatus(true);
-            _playerM2Button.Show();
-            _opponentM2Button.Hide();
-            _opponentM2Button.ChangeStatus(false);
+            PlayerM2.ChangeStatus(true);
+            PlayerM2.Show();
+            OpponentM2.Hide();
+            OpponentM2.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _playerEpButton.ChangeStatus(true);
-            _opponentEpButton.Hide();
-            _playerEpButton.Show();
-            _opponentEpButton.ChangeStatus(false);
+            PlayerEP.ChangeStatus(true);
+            PlayerEP.Show();
+            OpponentEP.Hide();
+            OpponentEP.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
         }
         else
         {
-            _opponentDpButton.ChangeStatus(true);
-            _opponentDpButton.Show();
-            _playerDpButton.Hide();
-            _playerDpButton.ChangeStatus(false);
+            OpponentDP.ChangeStatus(true);
+            OpponentDP.Show();
+            PlayerDP.Hide();
+            PlayerDP.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _opponentSpButton.ChangeStatus(true);
-            _opponentSpButton.Show();
-            _playerSpButton.Hide();
-            _playerSpButton.ChangeStatus(false);
+            OpponentSP.ChangeStatus(true);
+            OpponentSP.Show();
+            PlayerSP.Hide();
+            PlayerSP.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _opponentM1Button.ChangeStatus(true);
-            _opponentM1Button.Show();
-            _playerM1Button.Hide();
-            _playerM1Button.ChangeStatus(false);
+            OpponentM1.ChangeStatus(true);
+            OpponentM1.Show();
+            PlayerM1.Hide();
+            PlayerM1.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _opponentBpButton.ChangeStatus(true);
-            _opponentBpButton.Show();
-            _playerBpButton.Hide();
-            _playerBpButton.ChangeStatus(false);
+            OpponentBP.ChangeStatus(true);
+            OpponentBP.Show();
+            PlayerBP.Hide();
+            PlayerBP.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _opponentM2Button.ChangeStatus(true);
-            _opponentM2Button.Show();
-            _playerM2Button.Hide();
-            _playerM2Button.ChangeStatus(false);
+            OpponentM2.ChangeStatus(true);
+            OpponentM2.Show();
+            PlayerM2.Hide();
+            PlayerM2.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            _opponentEpButton.ChangeStatus(true);
-            _opponentEpButton.Show();
-            _playerEpButton.Hide();
-            _playerEpButton.ChangeStatus(false);
+            OpponentEP.ChangeStatus(true);
+            OpponentEP.Show();
+            PlayerEP.Hide();
+            PlayerEP.ChangeStatus(false);
         }
     }
 

@@ -1,15 +1,96 @@
+using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
 using Godot;
+using System.Drawing;
 using System.Threading.Tasks;
+using static DMYAN.Scripts.Common.CardDatabase;
+using static DMYAN.Scripts.Common.Constant;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.AnimationMixer.SignalName;
+using static Godot.FileAccess;
+using static Godot.FileAccess.ModeFlags;
+using static Godot.ResourceLoader;
 using static Godot.Tween.EaseType;
 using static Godot.Tween.TransitionType;
+using static Godot.Vector2;
+using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.CardStack;
 
 internal partial class Card : Node2D
 {
+    internal void Init(CardData data, DuelSide side)
+    {
+        _cardFront.Texture = Load<Texture2D>(data.Code.GetCardAssetPathByCode());
+        _cardFront.Hide();
+
+        _cardBack.Show();
+
+        BaseSide = side;
+        DuelSide = side;
+        Location = CardLocation.None;
+        Zone = CardZone.None;
+        CardFace = CardFace.None;
+        CardPosition = CardPosition.None;
+        Type = data.Type;
+        Property = data.Property;
+        Attribute = data.Attribute;
+        Race = data.Race;
+        SummonType = data.SummonType;
+        BanlistStatus = data.BanlistStatus;
+        EffectType = data.EffectType;
+        MainDeckIndex = null;
+        ExtraDeckIndex = null;
+        HandIndex = null;
+        MainIndex = null;
+        STPIndex = null;
+        GraveyardIndex = null;
+        BanishedIndex = null;
+        Code = data.Code;
+        CardName = data.Name;
+        Description = data.Description;
+        Level = data.Level;
+        BaseATK = data.ATK;
+        BaseDEF = data.DEF;
+        ATK = data.ATK;
+        DEF = data.DEF;
+        BasePosition = Zero;
+        CanActivate = false;
+        CanSummon = false;
+        CanSet = false;
+        CanAttack = false;
+        CanDirectAttack = false;
+        ActionType = CardActionType.None;
+    }
+
+    internal void MainDeckEnter(int index)
+    {
+        ZIndex = index;
+        MainDeckIndex = index;
+        Location = CardLocation.InDeck;
+        Zone = CardZone.MainDeck;
+    }
+
+    internal void MainDeckLeave()
+    {
+        MainDeckIndex = null;
+        Location = CardLocation.None;
+        Zone = CardZone.None;
+    }
+
+    internal void HandEnter(int index)
+    {
+        ZIndex = index;
+        HandIndex = index;
+        Location = CardLocation.InHand;
+    }
+
+    internal void HandLeave()
+    {
+        HandIndex = null;
+        Location = CardLocation.None;
+    }
+
     internal void Summon(MainCardSlot cardSlot)
     {
         Reparent(cardSlot);

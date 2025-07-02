@@ -25,25 +25,30 @@ internal partial class HandManager : Node2D
         card.Location = CardLocation.InHand;
         card.HandIndex = GetChildCount();
 
-        //ArrangeCards();
+        ArrangeCardsAndResetIndex();
 
-        //if (DuelSide is DuelSide.Player)
-        //{
-        //    await card.AnimationDrawFlipAsync();
-        //}
+        if (DuelSide is DuelSide.Player)
+        {
+            await card.AnimationDrawFlipAsync();
+        }
     }
 
     internal void RemoveCard(Card card)
     {
-        //if (_cardsInHand.Remove(card))
-        //{
-        //    ArrangeCards();
-        //}
+        card.HandLeave();
+
+        ArrangeCardsAndResetIndex();
     }
 
-    private void ArrangeCards()
+    private void ArrangeCardsAndResetIndex()
     {
         var cardsInHand = _gameManager.GetCardsInHand(DuelSide);
+
+        if (cardsInHand.Count is 0)
+        {
+            return;
+        }
+
         var space = cardsInHand.Count * CARD_HAND_W + (cardsInHand.Count - 1) * CARD_HAND_GAP_W <= HAND_AREA_MAX_W ? CARD_HAND_W + CARD_HAND_GAP_W : (HAND_AREA_MAX_W - CARD_HAND_W) / (cardsInHand.Count - 1);
 
         for (var i = 0; i < cardsInHand.Count; i++)
@@ -53,6 +58,7 @@ internal partial class HandManager : Node2D
 
             card.BasePosition = position;
             card.ZIndex = i;
+            card.HandIndex = i;
 
             card.AnimationDraw(position);
         }

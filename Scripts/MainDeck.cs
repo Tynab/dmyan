@@ -33,13 +33,19 @@ internal partial class MainDeck : CardSlot
         }
     }
 
-    internal void AddCard(Card card)
+    internal void Init(List<Card> cards)
     {
-        card.AddChild(this);
+        for (var i = 0; i < cards.Count; i++)
+        {
+            AddCard(cards[i], i);
+        }
+    }
 
-        card.Position = GlobalPosition;
-        card.Location = CardLocation.InDeck;
-        card.Zone = CardZone.MainDeck;
+    internal void AddCard(Card card, int index)
+    {
+        card.MainDeckEnter(index);
+
+        AddChild(card);
 
         UpdateCountDisplay();
     }
@@ -75,14 +81,17 @@ internal partial class MainDeck : CardSlot
 
         mainDeckIndices.Shuffle();
 
+        ArrangeCardsAndResetIndex(mainDeckIndices);
+    }
+
+    private void ArrangeCardsAndResetIndex(List<int> mainDeckIndices)
+    {
         for (var i = 0; i < mainDeckIndices.Count; i++)
         {
             var card = _gameManager.Cards[i];
 
-            card.MainDeckIndex = mainDeckIndices[i];
-            card.Position = Zero;
             card.ZIndex = mainDeckIndices[i];
-            AddChild(card);
+            card.MainDeckIndex = mainDeckIndices[i];
         }
     }
 
