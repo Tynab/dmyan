@@ -54,6 +54,8 @@ internal partial class GameManager : Node2D
             var cardData = GetCardData(parts[1].Trim('"'));
             var card = CardScene.Instantiate<Card>();
 
+            AddChild(card);
+
             card.Init(cardData, side);
 
             Cards.Add(card);
@@ -64,22 +66,22 @@ internal partial class GameManager : Node2D
     {
         DuelSide.Player => phase switch
         {
-            DuelPhase.Draw => PlayerDP,
-            DuelPhase.Standby => PlayerSP,
-            DuelPhase.Main1 => PlayerM1,
-            DuelPhase.Battle => PlayerBP,
-            DuelPhase.Main2 => PlayerM2,
-            DuelPhase.End => PlayerEP,
+            DuelPhase.Draw => _playerDPButton,
+            DuelPhase.Standby => _playerSPButton,
+            DuelPhase.Main1 => _playerM1Button,
+            DuelPhase.Battle => _playerBPButton,
+            DuelPhase.Main2 => _playerM2Button,
+            DuelPhase.End => _playerEPButton,
             _ => null
         },
         DuelSide.Opponent => phase switch
         {
-            DuelPhase.Draw => OpponentDP,
-            DuelPhase.Standby => OpponentSP,
-            DuelPhase.Main1 => OpponentM1,
-            DuelPhase.Battle => OpponentBP,
-            DuelPhase.Main2 => OpponentM2,
-            DuelPhase.End => OpponentEP,
+            DuelPhase.Draw => _opponentDPButton,
+            DuelPhase.Standby => _opponentSPButton,
+            DuelPhase.Main1 => _opponentM1Button,
+            DuelPhase.Battle => _opponentBPButton,
+            DuelPhase.Main2 => _opponentM2Button,
+            DuelPhase.End => _opponentEPButton,
             _ => null
         },
         _ => null
@@ -89,89 +91,89 @@ internal partial class GameManager : Node2D
     {
         if (side is DuelSide.Player)
         {
-            PlayerDP.ChangeStatus(true);
-            PlayerDP.Show();
-            OpponentDP.Hide();
-            OpponentDP.ChangeStatus(false);
+            _playerDPButton.ChangeStatus(true);
+            _playerDPButton.Show();
+            _opponentDPButton.Hide();
+            _opponentDPButton.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            PlayerSP.ChangeStatus(true);
-            PlayerSP.Show();
-            OpponentSP.Hide();
-            OpponentSP.ChangeStatus(false);
+            _playerSPButton.ChangeStatus(true);
+            _playerSPButton.Show();
+            _opponentSPButton.Hide();
+            _opponentSPButton.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            PlayerM1.ChangeStatus(true);
-            PlayerM1.Show();
-            OpponentM1.Hide();
-            OpponentM1.ChangeStatus(false);
+            _playerM1Button.ChangeStatus(true);
+            _playerM1Button.Show();
+            _opponentM1Button.Hide();
+            _opponentM1Button.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            PlayerBP.ChangeStatus(true);
-            PlayerBP.Show();
-            OpponentBP.Hide();
-            OpponentBP.ChangeStatus(false);
+            _playerBPButton.ChangeStatus(true);
+            _playerBPButton.Show();
+            _opponentBPButton.Hide();
+            _opponentBPButton.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            PlayerM2.ChangeStatus(true);
-            PlayerM2.Show();
-            OpponentM2.Hide();
-            OpponentM2.ChangeStatus(false);
+            _playerM2Button.ChangeStatus(true);
+            _playerM2Button.Show();
+            _opponentM2Button.Hide();
+            _opponentM2Button.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            PlayerEP.ChangeStatus(true);
-            PlayerEP.Show();
-            OpponentEP.Hide();
-            OpponentEP.ChangeStatus(false);
+            _playerEPButton.ChangeStatus(true);
+            _playerEPButton.Show();
+            _opponentEPButton.Hide();
+            _opponentEPButton.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
         }
         else
         {
-            OpponentDP.ChangeStatus(true);
-            OpponentDP.Show();
-            PlayerDP.Hide();
-            PlayerDP.ChangeStatus(false);
+            _opponentDPButton.ChangeStatus(true);
+            _opponentDPButton.Show();
+            _playerDPButton.Hide();
+            _playerDPButton.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            OpponentSP.ChangeStatus(true);
-            OpponentSP.Show();
-            PlayerSP.Hide();
-            PlayerSP.ChangeStatus(false);
+            _opponentSPButton.ChangeStatus(true);
+            _opponentSPButton.Show();
+            _playerSPButton.Hide();
+            _playerSPButton.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            OpponentM1.ChangeStatus(true);
-            OpponentM1.Show();
-            PlayerM1.Hide();
-            PlayerM1.ChangeStatus(false);
+            _opponentM1Button.ChangeStatus(true);
+            _opponentM1Button.Show();
+            _playerM1Button.Hide();
+            _playerM1Button.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            OpponentBP.ChangeStatus(true);
-            OpponentBP.Show();
-            PlayerBP.Hide();
-            PlayerBP.ChangeStatus(false);
+            _opponentBPButton.ChangeStatus(true);
+            _opponentBPButton.Show();
+            _playerBPButton.Hide();
+            _playerBPButton.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            OpponentM2.ChangeStatus(true);
-            OpponentM2.Show();
-            PlayerM2.Hide();
-            PlayerM2.ChangeStatus(false);
+            _opponentM2Button.ChangeStatus(true);
+            _opponentM2Button.Show();
+            _playerM2Button.Hide();
+            _playerM2Button.ChangeStatus(false);
 
             await Delay(STARTUP_DELAY);
 
-            OpponentEP.ChangeStatus(true);
-            OpponentEP.Show();
-            PlayerEP.Hide();
-            PlayerEP.ChangeStatus(false);
+            _opponentEPButton.ChangeStatus(true);
+            _opponentEPButton.Show();
+            _playerEPButton.Hide();
+            _playerEPButton.ChangeStatus(false);
         }
     }
 

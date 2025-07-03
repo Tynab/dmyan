@@ -27,41 +27,29 @@ internal partial class GameManager : Node2D
     [Export]
     private MainZone OpponentMainZone { get; set; }
 
-    [Export]
-    private DPButton PlayerDP { get; set; }
+    private DPButton _playerDPButton;
 
-    [Export]
-    private DPButton OpponentDP { get; set; }
+    private DPButton _opponentDPButton;
 
-    [Export]
-    private DPButton PlayerSP { get; set; }
+    private DPButton _playerSPButton;
 
-    [Export]
-    private DPButton OpponentSP { get; set; }
+    private DPButton _opponentSPButton;
 
-    [Export]
-    private DPButton PlayerM1 { get; set; }
+    private DPButton _playerM1Button;
 
-    [Export]
-    private DPButton OpponentM1 { get; set; }
+    private DPButton _opponentM1Button;
 
-    [Export]
-    private DPButton PlayerBP { get; set; }
+    private DPButton _playerBPButton;
 
-    [Export]
-    private DPButton OpponentBP { get; set; }
+    private DPButton _opponentBPButton;
 
-    [Export]
-    private DPButton PlayerM2 { get; set; }
+    private DPButton _playerM2Button;
 
-    [Export]
-    private DPButton OpponentM2 { get; set; }
+    private DPButton _opponentM2Button;
 
-    [Export]
-    private DPButton PlayerEP { get; set; }
+    private DPButton _playerEPButton;
 
-    [Export]
-    private DPButton OpponentEP { get; set; }
+    private DPButton _opponentEPButton;
 
     [Export]
     private Infomation PlayerInfo { get; set; }

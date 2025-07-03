@@ -9,17 +9,17 @@ internal partial class Card : Node2D
 {
     public override void _Ready()
     {
-        var field = GetParent().GetParent();
+        //var field = GetParent().GetParent();
 
-        _mainZone = field.GetNode<MainZone>(nameof(MainZone));
+        //_mainZone = field.GetNode<MainZone>(nameof(MainZone));
 
-        var parent = field.GetParent().GetParent();
+        //var parent = field.GetParent().GetParent();
 
-        _cardInfo = parent.GetNode<CardInfo>(nameof(CardInfo));
-        _gameManager = parent.GetNode<GameManager>(nameof(GameManager));
+        //_cardInfo = parent.GetNode<CardInfo>(nameof(CardInfo));
+        //_gameManager = parent.GetNode<GameManager>(nameof(GameManager));
 
-        Sword = GetNode<Sword>(nameof(Sword));
-        PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
+        //Sword = GetNode<Sword>(nameof(Sword));
+        //PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
 
         _cardFront = GetNode<Sprite2D>(CARD_FRONT_NODE);
         _cardBack = GetNode<Sprite2D>(CARD_BACK_NODE);

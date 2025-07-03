@@ -20,13 +20,13 @@ internal partial class Sword : Node2D
 
     public override void _Ready()
     {
-        _gameManager = GetParent().GetParent().GetParent().GetParent().GetParent().GetNode<GameManager>(nameof(GameManager));
-        _swordSprite = GetNode<Sprite2D>(DEFAULT_SPRITE2D_NODE);
-        _swordArea = GetNode<Area2D>(DEFAULT_AREA2D_NODE);
+        //_gameManager = GetParent().GetParent().GetParent().GetParent().GetParent().GetNode<GameManager>(nameof(GameManager));
+        //_swordSprite = GetNode<Sprite2D>(DEFAULT_SPRITE2D_NODE);
+        //_swordArea = GetNode<Area2D>(DEFAULT_AREA2D_NODE);
 
-        _originalSwordRotation = _swordSprite.Rotation;
+        //_originalSwordRotation = _swordSprite.Rotation;
 
-        _swordArea.InputEvent += OnAreaInputEvent;
+        //_swordArea.InputEvent += OnAreaInputEvent;
     }
 
     public override void _Process(double delta)
