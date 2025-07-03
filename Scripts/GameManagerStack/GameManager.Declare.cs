@@ -6,8 +6,6 @@ namespace DMYAN.Scripts.GameManagerStack;
 
 internal partial class GameManager : Node2D
 {
-    private Infomation _playerInfo;
-    private Infomation _opponentInfo;
     private PopupPhase _popupPhase;
 
     private DPButton _playerDPButton;

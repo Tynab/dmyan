@@ -1,9 +1,7 @@
-using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.Controls;
 using DMYAN.Scripts.Popups;
 using Godot;
-using static DMYAN.Scripts.Common.CardDatabase;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.MouseButton;
 using static System.Threading.Tasks.Task;
@@ -22,6 +20,8 @@ internal partial class GameManager : Node2D
         var player = button.GetNode<Node>(DuelSide.Player.ToString());
         var opponent = button.GetNode<Node>(DuelSide.Opponent.ToString());
 
+        _popupPhase = main.GetNode<PopupPhase>(nameof(PopupPhase));
+
         _playerDPButton = player.GetNode<DPButton>(nameof(DPButton));
         _playerSPButton = player.GetNode<SPButton>(nameof(SPButton));
         _playerM1Button = player.GetNode<M1Button>(nameof(M1Button));
@@ -35,8 +35,6 @@ internal partial class GameManager : Node2D
         _opponentBPButton = opponent.GetNode<PhaseButton>(nameof(BPButton));
         _opponentM2Button = opponent.GetNode<PhaseButton>(nameof(M2Button));
         _opponentEPButton = opponent.GetNode<PhaseButton>(nameof(EPButton));
-
-        _popupPhase = main.GetNode<PopupPhase>(nameof(PopupPhase));
 
         PlayerInfo.Init(DEFAULT_PLAYER);
         OpponentInfo.Init(DEFAULT_OPPONENT);
