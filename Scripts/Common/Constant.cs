@@ -50,6 +50,7 @@ internal static class Constant
     internal const int OPACITY_MAX = 255;
     internal const int OPACITY_AVERAGE = 127;
 
+    internal static readonly Vector2 MAIN_DECK_SCALE = One;
     internal static readonly Vector2 SCALE_MIN = new(.1f, .1f);
     internal static readonly Vector2 SCALE_MAX = One;
 
@@ -65,12 +66,6 @@ internal static class Constant
     internal const float DEFAULT_ANIMATION_SPEED = .1f;
     internal const float PHASE_ANIMATION_SPEED = .2f;
 
-    internal const string DP_BUTTON_NODE = "DPButton";
-    internal const string SP_BUTTON_NODE = "SPButton";
-    internal const string M1_BUTTON_NODE = "M1Button";
-    internal const string BP_BUTTON_NODE = "BPButton";
-    internal const string M2_BUTTON_NODE = "M2Button";
-    internal const string EP_BUTTON_NODE = "EPButton";
     internal const string SLOT_COUNT_NODE = "Count";
     internal const string CARD_FRONT_NODE = "CardFront";
     internal const string CARD_BACK_NODE = "CardBack";
@@ -82,14 +77,11 @@ internal static class Constant
     internal const string POWER_DEF_NODE = "Def";
     internal const string POWER_SLASH_NODE = "Slash";
     internal const string INFO_NAME_NODE = "Name";
-    internal const string INFO_LP_NODE = "LP";
     internal const string INFO_LIFE_POINT_NODE = "LifePoint";
+    internal const string INFO_HEALTH_NODE = "Health";
     internal const string INFO_TIMER_NODE = "Timer";
-    internal const string INFO_PLAYER_NODE = "PlayerInfo";
-    internal const string INFO_OPPONENT_NODE = "OpponentInfo";
-    internal const string FIELD_PLAYER_NODE = "PlayerField";
-    internal const string FIELD_OPPONENT_NODE = "OpponentField";
-    internal const string BOARD_NODE = "Board";
+    internal const string MAIN_NODE = "Main";
+    internal const string FIELD_NODE = "Field";
 
     internal const string DEFAULT_ANIMATION_PLAYER_NODE = "AnimationPlayer";
     internal const string DEFAULT_SPRITE2D_NODE = "Sprite2D";

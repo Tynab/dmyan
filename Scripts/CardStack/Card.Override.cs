@@ -1,3 +1,4 @@
+using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.GameManagerStack;
 using DMYAN.Scripts.Popups;
 using Godot;
@@ -9,25 +10,18 @@ internal partial class Card : Node2D
 {
     public override void _Ready()
     {
-        var field = GetParent().GetParent();
+        var main = GetTree().Root.GetNode(MAIN_NODE);
+        var field = main.GetNode<Node2D>(FIELD_NODE);
+        var player = field.GetNode<Node2D>(DuelSide.Player.ToString());
+        var opponent = field.GetNode<Node2D>(DuelSide.Opponent.ToString());
 
-        _mainZone = field.GetNode<MainZone>(nameof(MainZone));
-
-        var parent = field.GetParent().GetParent();
-
-        _cardInfo = parent.GetNode<CardInfo>(nameof(CardInfo));
-        _gameManager = parent.GetNode<GameManager>(nameof(GameManager));
-
-        Sword = GetNode<Sword>(nameof(Sword));
-        PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
+        _gameManager = main.GetNode<GameManager>(nameof(GameManager));
 
         _cardFront = GetNode<Sprite2D>(CARD_FRONT_NODE);
         _cardBack = GetNode<Sprite2D>(CARD_BACK_NODE);
         _animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
 
-        var area = GetNode<Area2D>(DEFAULT_AREA2D_NODE);
-
-        area.MouseEntered += OnAreaMouseEntered;
-        area.MouseExited += OnAreaMouseExited;
+        Sword = GetNode<Sword>(nameof(Sword));
+        PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
     }
 }

@@ -43,9 +43,8 @@ internal partial class MainDeck : CardSlot
 
     internal void AddCard(Card card, int index)
     {
+        card.Reparent(this);
         card.MainDeckEnter(index);
-
-        AddChild(card);
 
         UpdateCountDisplay();
     }
