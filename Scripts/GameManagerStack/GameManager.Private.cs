@@ -57,6 +57,7 @@ internal partial class GameManager : Node2D
             AddChild(card);
 
             card.Init(cardData, side);
+            card.Id = Cards.Count + 1;
 
             Cards.Add(card);
         }

@@ -10,6 +10,15 @@ namespace DMYAN.Scripts.GameManagerStack;
 internal partial class GameManager : Node2D
 {
     [Export]
+    internal MainZone PlayerMainZone { get; set; }
+
+    [Export]
+    internal MainZone OpponentMainZone { get; set; }
+
+    [Export]
+    internal CardInfo CardInfo { get; set; }
+
+    [Export]
     private MainDeck PlayerMainDeck { get; set; }
 
     [Export]
@@ -22,43 +31,10 @@ internal partial class GameManager : Node2D
     private HandManager OpponentHand { get; set; }
 
     [Export]
-    private MainZone PlayerMainZone { get; set; }
-
-    [Export]
-    private MainZone OpponentMainZone { get; set; }
-
-    private DPButton _playerDPButton;
-
-    private DPButton _opponentDPButton;
-
-    private DPButton _playerSPButton;
-
-    private DPButton _opponentSPButton;
-
-    private DPButton _playerM1Button;
-
-    private DPButton _opponentM1Button;
-
-    private DPButton _playerBPButton;
-
-    private DPButton _opponentBPButton;
-
-    private DPButton _playerM2Button;
-
-    private DPButton _opponentM2Button;
-
-    private DPButton _playerEPButton;
-
-    private DPButton _opponentEPButton;
-
-    [Export]
     private Infomation PlayerInfo { get; set; }
 
     [Export]
     private Infomation OpponentInfo { get; set; }
-
-    [Export]
-    private CardInfo CardInfo { get; set; }
 
     [Export]
     private PackedScene CardScene { get; set; }

@@ -26,7 +26,7 @@ texture_over = ExtResource("1_ej2h8")
 texture_progress = ExtResource("2_c6n2m")
 metadata/_edit_lock_ = true
 
-[node name="LifePoint" type="TextureProgressBar" parent="."]
+[node name="Health" type="TextureProgressBar" parent="."]
 offset_left = -119.0
 offset_top = 1.0
 offset_right = 202.0
@@ -48,7 +48,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="LP" type="RichTextLabel" parent="."]
+[node name="LifePoint" type="RichTextLabel" parent="."]
 offset_left = -104.0
 offset_top = 2.0
 offset_right = 173.0

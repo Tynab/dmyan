@@ -16,8 +16,30 @@ internal partial class GameManager : Node2D
     {
         LoadData();
 
-        //_playerInfo.Initialize(DEFAULT_PLAYER);
-        //_opponentInfo.Initialize(DEFAULT_OPPONENT);
+        var main = GetTree().Root.GetNode(MAIN_NODE);
+        var control = main.GetNode<Control>(nameof(Control));
+        var button = control.GetNode<Control>(nameof(Button));
+        var player = button.GetNode<Node>(DuelSide.Player.ToString());
+        var opponent = button.GetNode<Node>(DuelSide.Opponent.ToString());
+
+        _playerDPButton = player.GetNode<DPButton>(nameof(DPButton));
+        _playerSPButton = player.GetNode<SPButton>(nameof(SPButton));
+        _playerM1Button = player.GetNode<M1Button>(nameof(M1Button));
+        _playerBPButton = player.GetNode<BPButton>(nameof(BPButton));
+        _playerM2Button = player.GetNode<M2Button>(nameof(M2Button));
+        _playerEPButton = player.GetNode<EPButton>(nameof(EPButton));
+
+        _opponentDPButton = opponent.GetNode<PhaseButton>(nameof(DPButton));
+        _opponentSPButton = opponent.GetNode<PhaseButton>(nameof(SPButton));
+        _opponentM1Button = opponent.GetNode<PhaseButton>(nameof(M1Button));
+        _opponentBPButton = opponent.GetNode<PhaseButton>(nameof(BPButton));
+        _opponentM2Button = opponent.GetNode<PhaseButton>(nameof(M2Button));
+        _opponentEPButton = opponent.GetNode<PhaseButton>(nameof(EPButton));
+
+        _popupPhase = main.GetNode<PopupPhase>(nameof(PopupPhase));
+
+        PlayerInfo.Init(DEFAULT_PLAYER);
+        OpponentInfo.Init(DEFAULT_OPPONENT);
 
         await Delay(STARTUP_DELAY);
 

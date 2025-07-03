@@ -6,13 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dw85pyqr2i5mu" path="res://Assets/board.png" id="3_wkp8b"]
 [ext_resource type="PackedScene" uid="uid://crqe8ju0cbbn1" path="res://Scenes/CardInfo.tscn" id="5_c2ibq"]
 [ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DpButton.cs" id="5_hhcpw"]
+[ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DPButton.cs" id="5_hhcpw"]
 [ext_resource type="Script" uid="uid://b36plooh1hgx7" path="res://Scripts/Controls/PhaseButton.cs" id="5_mxvw5"]
-[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BpButton.cs" id="5_sc1dx"]
+[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BPButton.cs" id="5_sc1dx"]
 [ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
-[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EpButton.cs" id="6_kjvhd"]
-[ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SpButton.cs" id="6_mxvw5"]
+[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EPButton.cs" id="6_kjvhd"]
+[ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SPButton.cs" id="6_mxvw5"]
 [ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandManager.cs" id="7_03owx"]
 [ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeck.cs" id="7_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://bbngw4ss27y8e" path="res://Scenes/PowerSlot.tscn" id="7_trn2v"]
@@ -582,32 +582,6 @@ Button/styles/normal = SubResource("StyleBoxFlat_c2s76")
 Button/styles/pressed = SubResource("StyleBoxFlat_yf3a2")
 
 [node name="Main" type="Node2D"]
-metadata/_edit_horizontal_guides_ = [965.0, 540.0, 115.0]
-
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerMainDeck", "OpponentMainDeck", "PlayerHand", "OpponentHand", "PlayerMainZone", "OpponentMainZone", "PlayerDP", "OpponentDP", "PlayerSP", "OpponentSP", "PlayerM1", "OpponentM1", "PlayerBP", "OpponentBP", "PlayerM2", "OpponentM2", "PlayerEP", "OpponentEP", "PlayerInfo", "OpponentInfo", "CardInfo")]
-script = ExtResource("8_wkp8b")
-PlayerMainDeck = NodePath("../Field/Player/MainDeck")
-OpponentMainDeck = NodePath("../Field/Opponent/MainDeck")
-PlayerHand = NodePath("../Field/Player/HandZone")
-OpponentHand = NodePath("../Field/Opponent/HandZone")
-PlayerMainZone = NodePath("../Field/Player/MainZone")
-OpponentMainZone = NodePath("../Field/Opponent/MainZone")
-PlayerDP = NodePath("../Control/Button/Player/DPButton")
-OpponentDP = NodePath("../Control/Button/Opponent/DPButton")
-PlayerSP = NodePath("../Control/Button/Player/SPButton")
-OpponentSP = NodePath("../Control/Button/Opponent/SPButton")
-PlayerM1 = NodePath("../Control/Button/Player/M1Button")
-OpponentM1 = NodePath("../Control/Button/Opponent/M1Button")
-PlayerBP = NodePath("../Control/Button/Player/BPButton")
-OpponentBP = NodePath("../Control/Button/Opponent/BPButton")
-PlayerM2 = NodePath("../Control/Button/Player/M2Button")
-OpponentM2 = NodePath("../Control/Button/Opponent/M2Button")
-PlayerEP = NodePath("../Control/Button/Player/EPButton")
-OpponentEP = NodePath("../Control/Button/Opponent/EPButton")
-PlayerInfo = NodePath("../Info/Player")
-OpponentInfo = NodePath("../Info/Opponent")
-CardInfo = NodePath("../CardInfo")
-CardScene = ExtResource("6_3dxm6")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -1383,12 +1357,12 @@ z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 1
 
-[node name="Info" type="Node2D" parent="."]
+[node name="Bar" type="Node2D" parent="."]
 
-[node name="Opponent" parent="Info" instance=ExtResource("13_c6i3y")]
+[node name="Opponent" parent="Bar" instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 226)
 
-[node name="Player" parent="Info" instance=ExtResource("13_c6i3y")]
+[node name="Player" parent="Bar" instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 854)
 
 [node name="PopupPhase" type="Sprite2D" parent="."]
@@ -1400,3 +1374,16 @@ script = ExtResource("20_2gh4u")
 
 [node name="AI" type="Node" parent="."]
 script = ExtResource("26_xrxkg")
+
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerMainDeck", "OpponentMainDeck", "PlayerHand", "OpponentHand", "PlayerMainZone", "OpponentMainZone", "PlayerInfo", "OpponentInfo", "CardInfo")]
+script = ExtResource("8_wkp8b")
+PlayerMainDeck = NodePath("../Field/Player/MainDeck")
+OpponentMainDeck = NodePath("../Field/Opponent/MainDeck")
+PlayerHand = NodePath("../Field/Player/HandZone")
+OpponentHand = NodePath("../Field/Opponent/HandZone")
+PlayerMainZone = NodePath("../Field/Player/MainZone")
+OpponentMainZone = NodePath("../Field/Opponent/MainZone")
+PlayerInfo = NodePath("../Bar/Player")
+OpponentInfo = NodePath("../Bar/Opponent")
+CardInfo = NodePath("../CardInfo")
+CardScene = ExtResource("6_3dxm6")

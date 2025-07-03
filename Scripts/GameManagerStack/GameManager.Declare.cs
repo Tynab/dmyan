@@ -9,21 +9,18 @@ internal partial class GameManager : Node2D
     private Infomation _playerInfo;
     private Infomation _opponentInfo;
     private PopupPhase _popupPhase;
-    private Control _control;
-    private Node _playerControl;
-    private Node _opponentControl;
 
     private DPButton _playerDPButton;
-    private DPButton _playerSPButton;
-    private DPButton _playerM1Button;
-    private DPButton _playerBPButton;
-    private DPButton _playerM2Button;
-    private DPButton _playerEPButton;
+    private SPButton _playerSPButton;
+    private M1Button _playerM1Button;
+    private BPButton _playerBPButton;
+    private M2Button _playerM2Button;
+    private EPButton _playerEPButton;
 
-    private DPButton _opponentDPButton;
-    private DPButton _opponentSPButton;
-    private DPButton _opponentM1Button;
-    private DPButton _opponentBPButton;
-    private DPButton _opponentM2Button;
-    private DPButton _opponentEPButton;
+    private PhaseButton _opponentDPButton;
+    private PhaseButton _opponentSPButton;
+    private PhaseButton _opponentM1Button;
+    private PhaseButton _opponentBPButton;
+    private PhaseButton _opponentM2Button;
+    private PhaseButton _opponentEPButton;
 }

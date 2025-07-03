@@ -1,6 +1,7 @@
 using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
 using Godot;
+using System.Linq;
 
 namespace DMYAN.Scripts.CardStack;
 
@@ -8,20 +9,17 @@ internal partial class Card : Node2D
 {
     private void OnAreaMouseEntered()
     {
-        CanSummon = false;
-        CanSet = false;
-
         if (DuelSide is DuelSide.Player)
         {
             if (Location is CardLocation.InBoard && Zone is CardZone.Field or CardZone.Main or CardZone.STP)
             {
                 _canView = true;
-                _cardInfo.BindingData(this);
+                _gameManager.CardInfo.BindingData(this);
             }
             else if (Location is CardLocation.InHand)
             {
                 _canView = true;
-                _cardInfo.BindingData(this);
+                _gameManager.CardInfo.BindingData(this);
 
                 HighlightOn();
 

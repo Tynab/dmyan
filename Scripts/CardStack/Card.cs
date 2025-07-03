@@ -65,6 +65,8 @@ internal partial class Card : Node2D
 
     internal void MainDeckEnter(int index)
     {
+        Scale = One;
+        Position = Zero;
         ZIndex = index;
         MainDeckIndex = index;
         Location = CardLocation.InDeck;
@@ -119,7 +121,7 @@ internal partial class Card : Node2D
 
     internal void CanSummonCheck()
     {
-        var isValid = (Level < 5 || _mainZone.CardsInZone > 1) && _mainZone.CardsInZone < 5 && !_gameManager.HasSummoned;
+        var isValid = (Level < 5 || _gameManager.PlayerMainZone.CardsInZone > 1) && _gameManager.PlayerMainZone.CardsInZone < 5 && !_gameManager.HasSummoned;
 
         CanSummon = isValid;
         CanSet = isValid;

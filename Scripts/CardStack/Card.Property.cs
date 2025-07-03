@@ -47,6 +47,8 @@ internal partial class Card : Node2D
 
     internal int? BanishedIndex { get; set; } = null;
 
+    internal int Id { get; set; }
+
     internal string Code { get; set; }
 
     internal string CardName { get; set; }
