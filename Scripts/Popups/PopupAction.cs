@@ -1,3 +1,4 @@
+using DMYAN.Scripts.Common.Enum;
 using Godot;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;

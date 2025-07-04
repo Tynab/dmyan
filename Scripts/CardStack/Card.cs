@@ -113,12 +113,18 @@ internal partial class Card : Node2D
         AnimationSummonSet(cardSlot.GlobalPosition, SCALE_MAX);
     }
 
-    internal void CanSummonCheck()
+    internal void CanSummonOrSet()
     {
         var isValid = (Level < 5 || _gameManager.PlayerMainZone.CardsInZone > 1) && _gameManager.PlayerMainZone.CardsInZone < 5 && !_gameManager.HasSummoned;
 
         CanSummon = isValid;
         CanSet = isValid;
+    }
+
+    internal void CannotSummonOrSet()
+    {
+        CanSummon = false;
+        CanSet = false;
     }
 
     internal async Task CanAttackCheck(DuelSide currentSide)

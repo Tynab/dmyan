@@ -34,11 +34,11 @@ internal partial class GameManager : Node2D
 
         if (CurrentTurnSide is DuelSide.Player)
         {
-            await DrawAndPlaceCardAsync(PlayerMainDeck, PlayerHand);
+            await DrawStepAsync(PlayerMainDeck, PlayerHand);
         }
         else
         {
-            await DrawAndPlaceCardAsync(OpponentMainDeck, OpponentHand);
+            await DrawStepAsync(OpponentMainDeck, OpponentHand);
         }
 
         await Delay(delay);
@@ -69,7 +69,7 @@ internal partial class GameManager : Node2D
 
         await Delay(delay);
 
-        Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CanSummonCheck());
+        CardInHandCanSummonOrSet();
     }
 
     internal async Task BattlePhaseAsync(int delay = PHASE_CHANGE_DELAY)

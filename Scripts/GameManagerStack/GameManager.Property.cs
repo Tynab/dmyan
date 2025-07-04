@@ -42,6 +42,8 @@ internal partial class GameManager : Node2D
 
     internal DuelPhase CurrentPhase { get; set; } = DuelPhase.None;
 
+    internal DuelStep CurrentStep { get; set; } = DuelStep.None;
+
     internal List<Card> Cards { get; set; } = [];
 
     internal bool HasSummoned { get; set; } = false;

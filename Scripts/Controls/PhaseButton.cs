@@ -10,7 +10,9 @@ internal partial class PhaseButton : Button
 
     public override void _Ready()
     {
-        _gameManager = GetParent().GetParent().GetParent().GetNode<GameManager>(nameof(GameManager));
+        var main = GetTree().Root.GetNode(MAIN_NODE);
+
+        _gameManager = main.GetNode<GameManager>(nameof(GameManager));
 
         ButtonDown += OnButtonDown;
     }
