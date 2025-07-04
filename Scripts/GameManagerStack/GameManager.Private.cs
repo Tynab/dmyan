@@ -1,18 +1,14 @@
 using DMYAN.Scripts.CardStack;
-using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.Controls;
 using Godot;
 using Godot.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static DMYAN.Scripts.Common.CardDatabase;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.FileAccess;
 using static Godot.FileAccess.ModeFlags;
-using static Godot.ResourceLoader;
-using static Godot.Vector2;
 using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.GameManagerStack;
@@ -182,35 +178,65 @@ internal partial class GameManager : Node2D
     {
         for (var i = 0; i < INITIAL_HAND_SIZE; i++)
         {
-            await DrawAndPlaceCardAsync(PlayerMainDeck, PlayerHand);
-            await DrawAndPlaceCardAsync(OpponentMainDeck, OpponentHand);
+            await DrawStepAsync(PlayerMainDeck, PlayerHand);
+            await DrawStepAsync(OpponentMainDeck, OpponentHand);
         }
     }
 
-    private static async Task DrawAndPlaceCardAsync(MainDeck deck, HandManager hand)
+    private async Task DrawStepAsync(MainDeck deck, HandManager hand)
     {
+        CurrentStep = DuelStep.Drawing;
+
         var card = deck.RemoveCard();
 
         if (card is not null)
         {
             await hand.AddCardAsync(card);
         }
+
+        CurrentStep = DuelStep.Drawn;
     }
 
-    private void SummonAndPlaceCard(Card card, HandManager hand, MainZone zone)
+    private void SummonStep(Card card, HandManager hand, MainZone zone)
     {
-        HasSummoned = true;
+        CurrentStep = DuelStep.Summoning;
 
         hand.RemoveCard(card);
         zone.SummonCard(card);
+
+        HasSummoned = true;
+        CurrentStep = DuelStep.Summoned;
+
+        CardInHandCannotSummonOrSet();
     }
 
-    private void SummonSetAndPlaceCard(Card card, HandManager hand, MainZone zone)
+    private void SetSummonStep(Card card, HandManager hand, MainZone zone)
     {
-        HasSummoned = true;
+        CurrentStep = DuelStep.SetSummoning;
 
         hand.RemoveCard(card);
         zone.SummonSetCard(card);
+
+        HasSummoned = true;
+        CurrentStep = DuelStep.SetSummoned;
+
+        CardInHandCannotSummonOrSet();
+    }
+
+    private void CardInHandCanSummonOrSet()
+    {
+        if (!HasSummoned)
+        {
+            Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CanSummonOrSet());
+        }
+    }
+
+    private void CardInHandCannotSummonOrSet()
+    {
+        if (HasSummoned)
+        {
+            Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CannotSummonOrSet());
+        }
     }
 
     private Card GetCardAtCursor()

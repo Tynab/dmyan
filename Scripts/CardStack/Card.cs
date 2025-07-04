@@ -1,19 +1,13 @@
 using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
 using Godot;
-using System.Drawing;
 using System.Threading.Tasks;
-using static DMYAN.Scripts.Common.CardDatabase;
-using static DMYAN.Scripts.Common.Constant;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.AnimationMixer.SignalName;
-using static Godot.FileAccess;
-using static Godot.FileAccess.ModeFlags;
 using static Godot.ResourceLoader;
 using static Godot.Tween.EaseType;
 using static Godot.Tween.TransitionType;
 using static Godot.Vector2;
-using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.CardStack;
 
@@ -119,12 +113,18 @@ internal partial class Card : Node2D
         AnimationSummonSet(cardSlot.GlobalPosition, SCALE_MAX);
     }
 
-    internal void CanSummonCheck()
+    internal void CanSummonOrSet()
     {
         var isValid = (Level < 5 || _gameManager.PlayerMainZone.CardsInZone > 1) && _gameManager.PlayerMainZone.CardsInZone < 5 && !_gameManager.HasSummoned;
 
         CanSummon = isValid;
         CanSet = isValid;
+    }
+
+    internal void CannotSummonOrSet()
+    {
+        CanSummon = false;
+        CanSet = false;
     }
 
     internal async Task CanAttackCheck(DuelSide currentSide)

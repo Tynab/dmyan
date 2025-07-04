@@ -2,7 +2,6 @@ using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.GameManagerStack;
 using Godot;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using static DMYAN.Scripts.Common.Constant;
 

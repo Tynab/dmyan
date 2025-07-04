@@ -5,12 +5,7 @@ using DMYAN.Scripts.GameManagerStack;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
-using static DMYAN.Scripts.Common.CardDatabase;
 using static DMYAN.Scripts.Common.Constant;
-using static Godot.FileAccess;
-using static Godot.FileAccess.ModeFlags;
-using static Godot.ResourceLoader;
-using static Godot.Vector2;
 
 namespace DMYAN.Scripts;
 
@@ -21,15 +16,13 @@ internal partial class MainDeck : CardSlot
 
     public override void _Ready()
     {
-        _gameManager = GetParent().GetParent().GetParent().GetNode<GameManager>(nameof(GameManager));
+        var main = GetTree().Root.GetNode(MAIN_NODE);
 
-        ShuffleAndArrange();
+        _gameManager = main.GetNode<GameManager>(nameof(GameManager));
 
         if (DuelSide is DuelSide.Player)
         {
             _count = GetNode<RichTextLabel>(SLOT_COUNT_NODE);
-
-            UpdateCountDisplay();
         }
     }
 
@@ -39,6 +32,8 @@ internal partial class MainDeck : CardSlot
         {
             AddCard(cards[i], i);
         }
+
+        ShuffleAndArrange();
     }
 
     internal void AddCard(Card card, int index)

@@ -1,9 +1,7 @@
-using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.Controls;
 using DMYAN.Scripts.Popups;
 using Godot;
-using static DMYAN.Scripts.Common.CardDatabase;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.MouseButton;
 using static System.Threading.Tasks.Task;
@@ -17,11 +15,13 @@ internal partial class GameManager : Node2D
         LoadData();
 
         var main = GetTree().Root.GetNode(MAIN_NODE);
-        var control = main.GetNode<Control>(nameof(Control));
-        var button = control.GetNode<Control>(nameof(Button));
+        var button = main.GetNode<Control>(nameof(Button));
         var player = button.GetNode<Node>(DuelSide.Player.ToString());
         var opponent = button.GetNode<Node>(DuelSide.Opponent.ToString());
 
+        _popupPhase = main.GetNode<PopupPhase>(nameof(PopupPhase));
+
+        var cc = player.GetChild(0);
         _playerDPButton = player.GetNode<DPButton>(nameof(DPButton));
         _playerSPButton = player.GetNode<SPButton>(nameof(SPButton));
         _playerM1Button = player.GetNode<M1Button>(nameof(M1Button));
@@ -35,8 +35,6 @@ internal partial class GameManager : Node2D
         _opponentBPButton = opponent.GetNode<PhaseButton>(nameof(BPButton));
         _opponentM2Button = opponent.GetNode<PhaseButton>(nameof(M2Button));
         _opponentEPButton = opponent.GetNode<PhaseButton>(nameof(EPButton));
-
-        _popupPhase = main.GetNode<PopupPhase>(nameof(PopupPhase));
 
         PlayerInfo.Init(DEFAULT_PLAYER);
         OpponentInfo.Init(DEFAULT_OPPONENT);
@@ -73,14 +71,14 @@ internal partial class GameManager : Node2D
                     {
                         if (card.CanSummon)
                         {
-                            SummonAndPlaceCard(card, PlayerHand, PlayerMainZone);
+                            SummonStep(card, PlayerHand, PlayerMainZone);
                         }
                     }
                     else if (card.ActionType is CardActionType.Set)
                     {
                         if (card.CanSet)
                         {
-                            SummonSetAndPlaceCard(card, PlayerHand, PlayerMainZone);
+                            SetSummonStep(card, PlayerHand, PlayerMainZone);
                         }
                     }
                 }

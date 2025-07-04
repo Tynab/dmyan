@@ -1,5 +1,6 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common;
+using DMYAN.Scripts.Common.Enum;
 using Godot;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;

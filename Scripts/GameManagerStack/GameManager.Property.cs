@@ -1,6 +1,5 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
-using DMYAN.Scripts.Controls;
 using Godot;
 using System.Collections.Generic;
 using static DMYAN.Scripts.Common.Constant;
@@ -42,6 +41,8 @@ internal partial class GameManager : Node2D
     internal DuelSide CurrentTurnSide { get; set; } = STARTING_DUEL_SIDE;
 
     internal DuelPhase CurrentPhase { get; set; } = DuelPhase.None;
+
+    internal DuelStep CurrentStep { get; set; } = DuelStep.None;
 
     internal List<Card> Cards { get; set; } = [];
 
