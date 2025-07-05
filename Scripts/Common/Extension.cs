@@ -24,12 +24,13 @@ internal static class Extension
 
     internal static string GetCardAssetPathByCode(this string code) => $"res://Assets/Cards/{code}.jpg";
 
-    internal static string ViewPower(this int value)
+    internal static string ViewPower(this int? value)
     {
         var power = value switch
         {
             < -1 => "?",
             -1 => "X000",
+            null => string.Empty,
             int.MaxValue => "∞",
             _ => value.ToString()
         };

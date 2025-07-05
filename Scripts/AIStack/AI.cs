@@ -1,10 +1,47 @@
-using Godot;
+using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.GameManagerStack;
+using System.Threading.Tasks;
+using YANLib;
 
-internal partial class AI : Node
+internal static partial class AI
 {
-    internal void EndTurn()
+    internal static async Task OpponentSummonOrSetCard(this GameManager gameManager)
     {
-        // AI logic to end the turn
-        GD.Print("AI's turn has ended.");
+        var higherAtkCardInHand = gameManager.GetHigherAtkCardInHand(DuelSide.Opponent);
+
+        if (higherAtkCardInHand.IsNull())
+        {
+            if (gameManager.IsFirstTurn)
+            {
+                var highestDefCardInHand = gameManager.GetHighestDefCardInHand(DuelSide.Opponent);
+
+                if (highestDefCardInHand.IsNotNull())
+                {
+                    if (highestDefCardInHand.DEF > highestDefCardInHand.ATK)
+                    {
+                        gameManager.OpponentMainZone.SummonSetCard(highestDefCardInHand);
+                    }
+                    else
+                    {
+                        await gameManager.OpponentMainZone.SummonCard(highestDefCardInHand);
+                    }
+                }
+            }
+            else
+            {
+                var highestAtkCardInHand = gameManager.GetHighestAtkCardInHand(DuelSide.Opponent);
+
+                if (highestAtkCardInHand.IsNotNull())
+                {
+                    await gameManager.OpponentMainZone.SummonCard(highestAtkCardInHand);
+                }
+            }
+        }
+        else
+        {
+            await gameManager.OpponentMainZone.SummonCard(higherAtkCardInHand);
+        }
+
+        await gameManager.EndPhaseAsync();
     }
 }

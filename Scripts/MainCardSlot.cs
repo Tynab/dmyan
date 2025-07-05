@@ -1,6 +1,7 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
 using Godot;
+using System.Threading.Tasks;
 
 namespace DMYAN.Scripts;
 
@@ -13,9 +14,9 @@ internal partial class MainCardSlot : CardSlot
 
     internal bool HasCardCanAttack { get; set; } = false;
 
-    internal void SummonCard(Card card)
+    internal async Task SummonCard(Card card)
     {
-        card.Summon(this);
+        await card.Summon(this);
 
         HasCardInSlot = true;
         CardsInSlot++;

@@ -41,7 +41,7 @@ internal static class Constant
     internal const int PHASE_CHANGE_DELAY = 500;
     internal const int STARTUP_DELAY = 100;
 
-    internal const int CARD_COLLISION_MASK = 1;
+    internal const int CARD_COLLISION_MASK = 2;
 
     internal const int BUTTON_UP_FONT_SIZE = 40;
     internal const int BUTTON_DOWN_FONT_SIZE = 35;
@@ -90,8 +90,8 @@ internal static class Constant
     internal const string COLLIDER_PROPERTY = "collider";
     internal const string FONT_SIZE_PROPERTY = "font_size";
 
+    internal const string CARD_FLIP_UP_ANIMATION = "card_flip_up";
     internal const string CARD_FLIP_DOWN_ANIMATION = "card_flip_down";
-    internal const string CARD_DRAW_FLIP_ANIMATION = "card_draw_flip";
     internal const string CARD_SWAP_1_ANIMATION = "card_swap_1";
     internal const string CARD_SWAP_2_ANIMATION = "card_swap_2";
     internal const string EYE_SHOW_ANIMATION = "show";
@@ -102,5 +102,5 @@ internal static class Constant
     internal const string DEFAULT_PLAYER = "Atem";
     internal const string DEFAULT_OPPONENT = "Seto";
 
-    internal const DuelSide STARTING_DUEL_SIDE = DuelSide.Player;
+    internal const DuelSide STARTING_DUEL_SIDE = DuelSide.Opponent;
 }

@@ -1,3 +1,5 @@
+using DMYAN.Scripts.Common.Enum;
+
 namespace DMYAN.Scripts.Controls;
 
 internal partial class EPButton : PhaseButton
@@ -11,11 +13,16 @@ internal partial class EPButton : PhaseButton
 
     private async void OnPressed()
     {
-        if (_gameManager.AttackMode)
+        if (!IsClicked && _gameManager.CurrentPhase is not DuelPhase.Draw and not DuelPhase.Standby)
         {
-            return;
-        }
+            IsClicked = true;
 
-        await _gameManager.EndPhaseAsync();
+            if (_gameManager.AttackMode)
+            {
+                return;
+            }
+
+            await _gameManager.EndPhaseAsync();
+        }
     }
 }

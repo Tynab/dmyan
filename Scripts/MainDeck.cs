@@ -5,6 +5,7 @@ using DMYAN.Scripts.GameManagerStack;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using YANLib;
 using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts;
@@ -39,7 +40,7 @@ internal partial class MainDeck : CardSlot
     internal void AddCard(Card card, int index)
     {
         card.Reparent(this);
-        card.MainDeckEnter(index);
+        card.MainDeckEntered(index);
 
         UpdateCountDisplay();
     }
@@ -53,11 +54,11 @@ internal partial class MainDeck : CardSlot
             return default;
         }
 
-        var card = cardsInMainDeck.OrderByDescending(x => x.MainDeckIndex).FirstOrDefault();
+        var card = cardsInMainDeck.OrderByDescending(static x => x.MainDeckIndex).FirstOrDefault();
 
         card.Location = CardLocation.None;
         card.Zone = CardZone.None;
-        card.MainDeckIndex = null;
+        card.MainDeckIndex = default;
 
         UpdateCountDisplay();
 
@@ -91,7 +92,7 @@ internal partial class MainDeck : CardSlot
 
     private void UpdateCountDisplay()
     {
-        if (_count is not null)
+        if (_count.IsNotNull())
         {
             var cardsInMainDeck = _gameManager.GetCardsInMainDeck(DuelSide);
 

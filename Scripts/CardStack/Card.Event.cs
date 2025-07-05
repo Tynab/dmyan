@@ -26,11 +26,13 @@ internal partial class Card : Node2D
                     if (CanActivate)
                     {
                         PopupAction.ShowAction(PopupActionType.Activate);
+
                         ActionType = CardActionType.Activate;
                     }
                     else if (CanSummon)
                     {
                         PopupAction.ShowAction(PopupActionType.Summon);
+
                         ActionType = CardActionType.Summon;
                     }
                 }
@@ -48,6 +50,8 @@ internal partial class Card : Node2D
             }
 
             PopupAction.Hide();
+
+            ActionType = CardActionType.None;
         }
     }
 }

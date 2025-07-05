@@ -1,4 +1,3 @@
-using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.GameManagerStack;
 using DMYAN.Scripts.Popups;
 using Godot;
@@ -11,9 +10,6 @@ internal partial class Card : Node2D
     public override void _Ready()
     {
         var main = GetTree().Root.GetNode(MAIN_NODE);
-        var field = main.GetNode<Node2D>(FIELD_NODE);
-        var player = field.GetNode<Node2D>(DuelSide.Player.ToString());
-        var opponent = field.GetNode<Node2D>(DuelSide.Opponent.ToString());
 
         _gameManager = main.GetNode<GameManager>(nameof(GameManager));
 
@@ -23,5 +19,10 @@ internal partial class Card : Node2D
 
         Sword = GetNode<Sword>(nameof(Sword));
         PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
+
+        var area = GetNode<Area2D>(DEFAULT_AREA2D_NODE);
+
+        area.MouseEntered += OnAreaMouseEntered;
+        area.MouseExited += OnAreaMouseExited;
     }
 }
