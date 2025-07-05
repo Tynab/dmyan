@@ -28,13 +28,13 @@ internal partial class HandManager : Node2D
 
         if (DuelSide is DuelSide.Player)
         {
-            await card.AnimationDrawFlipAsync();
+            await card.AnimationFlipUpAsync();
         }
     }
 
     internal void RemoveCard(Card card)
     {
-        card.HandLeave();
+        card.HandExited();
 
         ArrangeCardsAndResetIndex();
     }

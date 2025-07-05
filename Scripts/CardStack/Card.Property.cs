@@ -32,21 +32,19 @@ internal partial class Card : Node2D
 
     internal CardEffectType EffectType { get; set; } = CardEffectType.None;
 
-    internal int? MainDeckIndex { get; set; } = null;
+    internal int? MainDeckIndex { get; set; } = default;
 
-    internal int? ExtraDeckIndex { get; set; } = null;
+    internal int? ExtraDeckIndex { get; set; } = default;
 
-    internal int? HandIndex { get; set; } = null;
+    internal int? HandIndex { get; set; } = default;
 
-    internal int? MainIndex { get; set; } = null;
+    internal int? MainIndex { get; set; } = default;
 
-    internal int? STPIndex { get; set; } = null;
+    internal int? STPIndex { get; set; } = default;
 
-    internal int? GraveyardIndex { get; set; } = null;
+    internal int? GraveyardIndex { get; set; } = default;
 
-    internal int? BanishedIndex { get; set; } = null;
-
-    internal int Id { get; set; }
+    internal int? BanishedIndex { get; set; } = default;
 
     internal string Code { get; set; }
 
@@ -54,15 +52,15 @@ internal partial class Card : Node2D
 
     internal string Description { get; set; } = string.Empty;
 
-    internal int Level { get; set; } = 0;
+    internal int? Level { get; set; } = default;
 
-    internal int BaseATK { get; set; } = 0;
+    internal int? BaseATK { get; set; } = default;
 
-    internal int BaseDEF { get; set; } = 0;
+    internal int? BaseDEF { get; set; } = default;
 
-    internal int ATK { get; set; } = 0;
+    internal int? ATK { get; set; } = default;
 
-    internal int DEF { get; set; } = 0;
+    internal int? DEF { get; set; } = default;
 
     internal Vector2 BasePosition { get; set; }
 

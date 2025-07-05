@@ -2,6 +2,7 @@ using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
 using Godot;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using static Godot.GD;
 
 namespace DMYAN.Scripts;
@@ -15,9 +16,9 @@ internal partial class MainZone : Node2D
 
     internal bool HasCardCanAttack { get; set; } = false;
 
-    internal void SummonCard(Card card)
+    internal async Task SummonCard(Card card)
     {
-        GetMainSlot(true).SummonCard(card);
+        await GetMainSlot(true).SummonCard(card);
 
         CardsInZone++;
     }
@@ -33,23 +34,17 @@ internal partial class MainZone : Node2D
     {
         var emptySlots = new List<MainCardSlot>();
 
-        for (var i = 0; i < GetChildCount(); i++)
+        for (var i = 0; i < 5; i++)
         {
-            if (GetChild(i) is MainCardSlot currentSlot && !currentSlot.HasCardInSlot)
+            if (GetChild(i) is MainCardSlot vSlot && !vSlot.HasCardInSlot && GetChild(i + 5) is MainCardSlot hSlot && !hSlot.HasCardInSlot)
             {
                 if (isAtk)
                 {
-                    if (i < 5)
-                    {
-                        emptySlots.Add(currentSlot);
-                    }
+                    emptySlots.Add(vSlot);
                 }
                 else
                 {
-                    if (i is > 4 and < 10)
-                    {
-                        emptySlots.Add(currentSlot);
-                    }
+                    emptySlots.Add(hSlot);
                 }
             }
         }

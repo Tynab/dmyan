@@ -2,6 +2,7 @@ using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.Controls;
 using DMYAN.Scripts.Popups;
 using Godot;
+using YANLib;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.MouseButton;
 using static System.Threading.Tasks.Task;
@@ -21,7 +22,6 @@ internal partial class GameManager : Node2D
 
         _popupPhase = main.GetNode<PopupPhase>(nameof(PopupPhase));
 
-        var cc = player.GetChild(0);
         _playerDPButton = player.GetNode<DPButton>(nameof(DPButton));
         _playerSPButton = player.GetNode<SPButton>(nameof(SPButton));
         _playerM1Button = player.GetNode<M1Button>(nameof(M1Button));
@@ -36,8 +36,26 @@ internal partial class GameManager : Node2D
         _opponentM2Button = opponent.GetNode<PhaseButton>(nameof(M2Button));
         _opponentEPButton = opponent.GetNode<PhaseButton>(nameof(EPButton));
 
+        _phaseButtons =
+        [
+            _playerDPButton,
+            _opponentDPButton,
+            _playerSPButton,
+            _opponentSPButton,
+            _playerM1Button,
+            _opponentM1Button,
+            _playerBPButton,
+            _opponentBPButton,
+            _playerM2Button,
+            _opponentM2Button,
+            _playerEPButton,
+            _opponentEPButton
+        ];
+
         PlayerInfo.Init(DEFAULT_PLAYER);
         OpponentInfo.Init(DEFAULT_OPPONENT);
+
+        SetupVisibilityButtons();
 
         await Delay(STARTUP_DELAY);
 
@@ -45,7 +63,7 @@ internal partial class GameManager : Node2D
         await DrawPhaseAsync();
     }
 
-    public override void _Input(InputEvent @event)
+    public override async void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
         {
@@ -56,7 +74,7 @@ internal partial class GameManager : Node2D
 
             var card = GetCardAtCursor();
 
-            if (card is not null)
+            if (card.IsNotNull())
             {
                 if (mouseEvent.ButtonIndex is Left)
                 {
@@ -71,7 +89,7 @@ internal partial class GameManager : Node2D
                     {
                         if (card.CanSummon)
                         {
-                            SummonStep(card, PlayerHand, PlayerMainZone);
+                            await SummonStep(card, PlayerHand, PlayerMainZone);
                         }
                     }
                     else if (card.ActionType is CardActionType.Set)
@@ -89,11 +107,13 @@ internal partial class GameManager : Node2D
                         if (card.CanSet)
                         {
                             card.ActionType = CardActionType.Set;
+
                             card.PopupAction.ShowAction(PopupActionType.Set);
                         }
                         else if (card.CanActivate)
                         {
                             card.ActionType = CardActionType.Activate;
+
                             card.PopupAction.ShowAction(PopupActionType.Activate);
                         }
                     }
@@ -102,11 +122,13 @@ internal partial class GameManager : Node2D
                         if (card.CanActivate)
                         {
                             card.ActionType = CardActionType.Activate;
+
                             card.PopupAction.ShowAction(PopupActionType.Activate);
                         }
                         else if (card.CanSummon)
                         {
                             card.ActionType = CardActionType.Summon;
+
                             card.PopupAction.ShowAction(PopupActionType.Summon);
                         }
                     }
@@ -115,31 +137,17 @@ internal partial class GameManager : Node2D
                         if (card.CanSummon)
                         {
                             card.ActionType = CardActionType.Summon;
+
                             card.PopupAction.ShowAction(PopupActionType.Summon);
                         }
                         else if (card.CanSet)
                         {
                             card.ActionType = CardActionType.Set;
+
                             card.PopupAction.ShowAction(PopupActionType.Set);
                         }
                     }
                 }
-            }
-        }
-    }
-
-    public override async void _Process(double delta)
-    {
-        if (CurrentTurnSide is DuelSide.Opponent)
-        {
-            if (CurrentPhase is DuelPhase.Main1)
-            {
-                //Cards.Where(x=>x.DuelSide is DuelSide.Opponent&&x.Location is CardLocation.InHand)
-            }
-
-            if (CurrentPhase is DuelPhase.Battle)
-            {
-                await EndPhaseAsync();
             }
         }
     }

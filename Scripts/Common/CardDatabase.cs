@@ -1,9 +1,9 @@
 using DMYAN.Scripts.Common.Enum;
 using System.Collections.Generic;
+using YANLib;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.FileAccess;
 using static Godot.FileAccess.ModeFlags;
-using static System.Enum;
 
 namespace DMYAN.Scripts.Common;
 
@@ -30,7 +30,7 @@ internal static class CardDatabase
         {
             var line = file.GetLine();
 
-            if (string.IsNullOrWhiteSpace(line))
+            if (line.IsNullWhiteSpace())
             {
                 continue;
             }
@@ -39,23 +39,22 @@ internal static class CardDatabase
 
             var cardData = new CardData
             {
-                Id = int.TryParse(parts[0], out var idVal) ? idVal : 0,
                 Code = parts[1].Trim('"'),
                 Name = parts[2].Trim('"'),
                 Description = parts[3].Trim('"'),
-                Type = TryParse(parts[4], true, out CardType typeVal) ? typeVal : CardType.None,
-                Property = TryParse(parts[5], true, out CardProperty propVal) ? propVal : CardProperty.None,
-                Attribute = TryParse(parts[6], true, out MonsterAttribute attrVal) ? attrVal : MonsterAttribute.None,
-                Race = TryParse(parts[7], true, out MonsterRace raceVal) ? raceVal : MonsterRace.None,
-                SummonType = TryParse(parts[8], true, out MonsterSummonType summonVal) ? summonVal : MonsterSummonType.None,
-                Level = int.TryParse(parts[9], out var levelVal) ? levelVal : 0,
-                ATK = int.TryParse(parts[10], out var atkVal) ? atkVal : -1,
-                DEF = int.TryParse(parts[11], out var defVal) ? defVal : -1,
-                BanlistStatus = TryParse(parts[12], true, out CardBanlistStatus banVal) ? banVal : CardBanlistStatus.None,
-                EffectType = TryParse(parts[13], true, out CardEffectType effectVal) ? effectVal : CardEffectType.None
+                Type = parts[4].Parse<CardType>(CardType.None),
+                Property = parts[5].Parse<CardProperty>(CardProperty.None),
+                Attribute = parts[6].Parse<MonsterAttribute>(MonsterAttribute.None),
+                Race = parts[7].Parse<MonsterRace>(MonsterRace.None),
+                SummonType = parts[8].Parse<MonsterSummonType>(MonsterSummonType.None),
+                Level = parts[9].Parse<int?>(),
+                ATK = parts[10].Parse<int?>(),
+                DEF = parts[11].Parse<int?>(),
+                BanlistStatus = parts[12].Parse<CardBanlistStatus>(CardBanlistStatus.None),
+                EffectType = parts[13].Parse<CardEffectType>(CardEffectType.None)
             };
 
-            if (!string.IsNullOrWhiteSpace(cardData.Code) && !_cardData.TryAdd(cardData.Code, cardData))
+            if (cardData.Code.IsNotNullWhiteSpace() && !_cardData.TryAdd(cardData.Code, cardData))
             {
                 _cardData[cardData.Code] = cardData;
             }
@@ -77,7 +76,6 @@ internal static class CardDatabase
 
 internal struct CardData
 {
-    internal int Id;
     internal string Code;
     internal string Name;
     internal string Description;
@@ -86,9 +84,9 @@ internal struct CardData
     internal MonsterAttribute Attribute;
     internal MonsterRace Race;
     internal MonsterSummonType SummonType;
-    internal int Level;
-    internal int ATK;
-    internal int DEF;
+    internal int? Level;
+    internal int? ATK;
+    internal int? DEF;
     internal CardBanlistStatus BanlistStatus;
     internal CardEffectType EffectType;
 }

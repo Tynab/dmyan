@@ -1,3 +1,5 @@
+using DMYAN.Scripts.Common.Enum;
+
 namespace DMYAN.Scripts.Controls;
 
 internal partial class BPButton : PhaseButton
@@ -9,5 +11,13 @@ internal partial class BPButton : PhaseButton
         Pressed += OnPressed;
     }
 
-    private async void OnPressed() => await _gameManager.BattlePhaseAsync();
+    private async void OnPressed()
+    {
+        if (!IsClicked && _gameManager.CurrentPhase is not DuelPhase.Draw and not DuelPhase.Standby)
+        {
+            IsClicked = true;
+
+            await _gameManager.BattlePhaseAsync();
+        }
+    }
 }

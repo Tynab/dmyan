@@ -33,13 +33,13 @@ internal partial class Card : Node2D
         SummonType = data.SummonType;
         BanlistStatus = data.BanlistStatus;
         EffectType = data.EffectType;
-        MainDeckIndex = null;
-        ExtraDeckIndex = null;
-        HandIndex = null;
-        MainIndex = null;
-        STPIndex = null;
-        GraveyardIndex = null;
-        BanishedIndex = null;
+        MainDeckIndex = default;
+        ExtraDeckIndex = default;
+        HandIndex = default;
+        MainIndex = default;
+        STPIndex = default;
+        GraveyardIndex = default;
+        BanishedIndex = default;
         Code = data.Code;
         CardName = data.Name;
         Description = data.Description;
@@ -57,7 +57,7 @@ internal partial class Card : Node2D
         ActionType = CardActionType.None;
     }
 
-    internal void MainDeckEnter(int index)
+    internal void MainDeckEntered(int index)
     {
         Scale = One;
         Position = Zero;
@@ -67,37 +67,38 @@ internal partial class Card : Node2D
         Zone = CardZone.MainDeck;
     }
 
-    internal void MainDeckLeave()
+    internal void MainDeckExited()
     {
-        MainDeckIndex = null;
+        MainDeckIndex = default;
         Location = CardLocation.None;
         Zone = CardZone.None;
     }
 
-    internal void HandEnter(int index)
+    internal void HandEntered(int index)
     {
         ZIndex = index;
         HandIndex = index;
         Location = CardLocation.InHand;
     }
 
-    internal void HandLeave()
+    internal void HandExited()
     {
-        HandIndex = null;
+        HandIndex = default;
         Location = CardLocation.None;
     }
 
-    internal void Summon(MainCardSlot cardSlot)
+    internal async Task Summon(MainCardSlot cardSlot)
     {
         Reparent(cardSlot);
 
+        ZIndex = cardSlot.CardsInSlot + 1;
         BasePosition = CARD_IN_SLOT_POSITION;
         Location = CardLocation.InBoard;
         Zone = CardZone.Main;
         CardFace = CardFace.FaceUp;
         CardPosition = CardPosition.Attack;
 
-        AnimationSummon(cardSlot.GlobalPosition, SCALE_MAX);
+        await AnimationSummon(cardSlot.GlobalPosition, SCALE_MAX);
     }
 
     internal void SummonSet(MainCardSlot cardSlot)
@@ -113,7 +114,7 @@ internal partial class Card : Node2D
         AnimationSummonSet(cardSlot.GlobalPosition, SCALE_MAX);
     }
 
-    internal void CanSummonOrSet()
+    internal void CanSummonOrSetCheck()
     {
         var isValid = (Level < 5 || _gameManager.PlayerMainZone.CardsInZone > 1) && _gameManager.PlayerMainZone.CardsInZone < 5 && !_gameManager.HasSummoned;
 
@@ -121,7 +122,7 @@ internal partial class Card : Node2D
         CanSet = isValid;
     }
 
-    internal void CannotSummonOrSet()
+    internal void CannotSummonOrSetCheck()
     {
         CanSummon = false;
         CanSet = false;
@@ -137,21 +138,22 @@ internal partial class Card : Node2D
         }
     }
 
-    internal async Task AnimationDrawFlipAsync()
+    internal async Task AnimationFlipUpAsync()
     {
-        _animationPlayer.Play(CARD_DRAW_FLIP_ANIMATION);
+        _animationPlayer.Play(CARD_FLIP_UP_ANIMATION);
 
         _ = await ToSignal(_animationPlayer, AnimationFinished);
     }
 
-    internal void AnimationDraw(Vector2 position)
-    {
-        var cc = GetTree();
-        GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
-    }
+    internal void AnimationDraw(Vector2 position) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
 
-    internal void AnimationSummon(Vector2 globalPosition, Vector2 scale)
+    internal async Task AnimationSummon(Vector2 globalPosition, Vector2 scale)
     {
+        if (_gameManager.CurrentTurnSide is DuelSide.Opponent)
+        {
+            await AnimationFlipUpAsync();
+        }
+
         _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, GLOBAL_POSITION_NODE_PATH, globalPosition, DEFAULT_ANIMATION_SPEED);
         _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, DEFAULT_ANIMATION_SPEED);
     }

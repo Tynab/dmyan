@@ -1,6 +1,7 @@
 using DMYAN.Scripts.Controls;
 using DMYAN.Scripts.Popups;
 using Godot;
+using System.Collections.Generic;
 
 namespace DMYAN.Scripts.GameManagerStack;
 
@@ -21,4 +22,6 @@ internal partial class GameManager : Node2D
     private PhaseButton _opponentBPButton;
     private PhaseButton _opponentM2Button;
     private PhaseButton _opponentEPButton;
+
+    private List<PhaseButton> _phaseButtons;
 }
