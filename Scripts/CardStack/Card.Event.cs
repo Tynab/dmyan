@@ -7,18 +7,12 @@ internal partial class Card : Node2D
 {
     private void OnAreaMouseEntered()
     {
-        if (DuelSide is DuelSide.Player)
+        if (CanView)
         {
-            if (Location is CardLocation.InBoard && Zone is CardZone.Field or CardZone.Main or CardZone.STP)
-            {
-                _canView = true;
-                _gameManager.CardInfo.BindingData(this);
-            }
-            else if (Location is CardLocation.InHand)
-            {
-                _canView = true;
-                _gameManager.CardInfo.BindingData(this);
+            _gameManager.CardInfo.BindingData(this);
 
+            if (Location is CardLocation.InHand)
+            {
                 HighlightOn();
 
                 if (_gameManager.CurrentTurnSide is DuelSide.Player)
@@ -42,7 +36,7 @@ internal partial class Card : Node2D
 
     private void OnAreaMouseExited()
     {
-        if (_canView)
+        if (CanView)
         {
             if (Location is CardLocation.InHand)
             {

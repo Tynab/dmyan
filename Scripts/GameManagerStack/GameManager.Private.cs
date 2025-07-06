@@ -1,6 +1,9 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.Controls;
+using DMYAN.Scripts.HandZoneStack;
+using DMYAN.Scripts.MainDeckStack;
+using DMYAN.Scripts.MainZoneStack;
 using Godot;
 using Godot.Collections;
 using System.Linq;
@@ -165,7 +168,7 @@ internal partial class GameManager : Node2D
         }
     }
 
-    private async Task DrawStepAsync(MainDeck deck, HandManager hand)
+    private async Task DrawStepAsync(MainDeck deck, HandZone hand)
     {
         CurrentStep = DuelStep.Drawing;
 
@@ -179,7 +182,7 @@ internal partial class GameManager : Node2D
         CurrentStep = DuelStep.Drawn;
     }
 
-    private async Task SummonStep(Card card, HandManager hand, MainZone zone)
+    private async Task SummonStep(Card card, HandZone hand, MainZone zone)
     {
         CurrentStep = DuelStep.Summoning;
 
@@ -190,10 +193,10 @@ internal partial class GameManager : Node2D
         HasSummoned = true;
         CurrentStep = DuelStep.Summoned;
 
-        CardInHandCannotSummonOrSet();
+        CannotSummonOrSet();
     }
 
-    private void SetSummonStep(Card card, HandManager hand, MainZone zone)
+    private void SetSummonStep(Card card, HandZone hand, MainZone zone)
     {
         CurrentStep = DuelStep.SetSummoning;
 
@@ -203,10 +206,77 @@ internal partial class GameManager : Node2D
         HasSummoned = true;
         CurrentStep = DuelStep.SetSummoned;
 
-        CardInHandCannotSummonOrSet();
+        CannotSummonOrSet();
     }
 
-    private void CardInHandCanSummonOrSet()
+    private async Task AttackStep(Card card)
+    {
+        await CardAttacking.Sword.AnimationAttack(card.GlobalPosition);
+
+        if (card.CardFace is CardFace.FaceUp)
+        {
+            if (card.CardPosition is CardPosition.Attack)
+            {
+                await AtkVsAtk(card);
+            }
+            else if (card.CardPosition is CardPosition.Defense)
+            {
+                await AtkVsDef(card);
+            }
+        }
+        else if (card.CardFace is CardFace.FaceDown)
+        {
+            await card.FlipUp();
+
+            await AtkVsDef(card);
+        }
+
+        CardAttacking = default;
+        CurrentStep = DuelStep.Attacked;
+    }
+
+    private async Task DestroyStep(Card card)
+    {
+        CurrentStep = DuelStep.Destroying;
+
+        await card.Destroy();
+        await GetGraveyard(card.DuelSide).AddCard(card, Cards.Count(x => x.DuelSide == card.DuelSide && x.Location is CardLocation.InBoard && x.Zone is CardZone.Graveyard) + 1);
+    }
+
+    private async Task AtkVsAtk(Card card)
+    {
+        if (CardAttacking.ATK > card.ATK)
+        {
+            GetProfile(card.DuelSide).UpdateLifePoint(card.ATK.Value - CardAttacking.ATK.Value);
+            
+            await DestroyStep(card);
+        }
+        else if (CardAttacking.ATK < card.ATK)
+        {
+            GetProfile(CardAttacking.DuelSide).UpdateLifePoint(CardAttacking.ATK.Value - card.ATK.Value);
+            
+            await DestroyStep(CardAttacking);
+        }
+        else
+        {
+            await DestroyStep(card);
+            await DestroyStep(CardAttacking);
+        }
+    }
+
+    private async Task AtkVsDef(Card card)
+    {
+        if (CardAttacking.ATK > card.DEF)
+        {
+            await DestroyStep(card);
+        }
+        else if (CardAttacking.ATK < card.DEF)
+        {
+            GetProfile(CardAttacking.DuelSide).UpdateLifePoint(CardAttacking.ATK.Value - card.DEF.Value);
+        }
+    }
+
+    private void CanSummonOrSet()
     {
         if (!HasSummoned)
         {
@@ -214,7 +284,7 @@ internal partial class GameManager : Node2D
         }
     }
 
-    private void CardInHandCannotSummonOrSet()
+    private void CannotSummonOrSet()
     {
         if (HasSummoned)
         {

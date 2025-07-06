@@ -52,8 +52,8 @@ internal partial class GameManager : Node2D
             _opponentEPButton
         ];
 
-        PlayerInfo.Init(DEFAULT_PLAYER);
-        OpponentInfo.Init(DEFAULT_OPPONENT);
+        PlayerProfile.Init(DEFAULT_PLAYER);
+        OpponentProfile.Init(DEFAULT_OPPONENT);
 
         SetupVisibilityButtons();
 
@@ -67,18 +67,17 @@ internal partial class GameManager : Node2D
     {
         if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
         {
-            if (AttackMode)
-            {
-                return;
-            }
-
             var card = GetCardAtCursor();
 
             if (card.IsNotNull())
             {
                 if (mouseEvent.ButtonIndex is Left)
                 {
-                    if (card.ActionType is CardActionType.Activate)
+                    if (CardAttacking.IsNotNull() && CurrentStep is DuelStep.Attacking && card.DuelSide is DuelSide.Opponent && card.Zone is CardZone.Main)
+                    {
+                        await AttackStep(card);
+                    }
+                    else if(card.ActionType is CardActionType.Activate)
                     {
                         if (card.CanActivate)
                         {

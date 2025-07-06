@@ -1,5 +1,6 @@
 using DMYAN.Scripts.Common.Enum;
 using Godot;
+using YANLib;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;
 
@@ -19,7 +20,7 @@ internal partial class PopupAction : Sprite2D
             _ => string.Empty
         };
 
-        if (string.IsNullOrWhiteSpace(path))
+        if (path.IsNullWhiteSpace())
         {
             return;
         }

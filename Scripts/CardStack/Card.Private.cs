@@ -1,6 +1,8 @@
 using Godot;
 using static DMYAN.Scripts.Common.Constant;
+using static Godot.ResourceLoader;
 using static Godot.Tween.EaseType;
+using DMYAN.Scripts.Common.Enum;
 using static Godot.Tween.TransitionType;
 
 namespace DMYAN.Scripts.CardStack;
@@ -17,6 +19,20 @@ internal partial class Card : Node2D
     }
 
     private void HighlightOff() => GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, BasePosition, DEFAULT_ANIMATION_SPEED);
+
+    private void ResetDefault()
+    {
+        RotationDegrees = 0;
+        
+        ResetFace();
+        ResetPower();
+    }
+
+    private void ResetFace()
+    {
+        _cardFront.Hide();
+        _cardBack.Show();
+    }
 
     private void ResetPower()
     {

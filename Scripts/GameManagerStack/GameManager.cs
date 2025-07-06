@@ -1,5 +1,6 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.ProfileStack;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,21 +20,33 @@ internal partial class GameManager : Node2D
         _ => DuelSide.None
     };
 
-    internal List<Card> GetCardsInMainDeck(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InDeck && x.Zone == CardZone.MainDeck && x.MainDeckIndex.HasValue)];
+    internal Profile GetProfile(DuelSide side) => side switch
+    {
+        DuelSide.Player => PlayerProfile,
+        DuelSide.Opponent => OpponentProfile,
+        _ => null
+    };
 
-    internal List<int> GetMainDeckIndices(DuelSide side) => [.. GetCardsInMainDeck(side).Select(static x => x.MainDeckIndex.Value)];
+    internal Graveyard GetGraveyard(DuelSide side) => side switch
+    {
+        DuelSide.Player => PlayerGraveyard,
+        DuelSide.Opponent => OpponentGraveyard,
+        _ => null
+    };
+
+    internal List<Card> GetCardsInMainDeck(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InDeck && x.Zone == CardZone.MainDeck && x.MainDeckIndex.HasValue)];
 
     internal List<Card> GetCardsInExtraDeck(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InDeck && x.Zone == CardZone.ExtraDeck && x.ExtraDeckIndex.HasValue)];
 
-    internal List<int> GetExtraDeckIndices(DuelSide side) => [.. GetCardsInExtraDeck(side).Select(static x => x.ExtraDeckIndex.Value)];
-
     internal List<Card> GetCardsInHand(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InHand && x.HandIndex.HasValue)];
 
-    internal List<int> GetHandIndices(DuelSide side) => [.. GetCardsInHand(side).Select(static x => x.HandIndex.Value)];
+    internal List<Card> GetCardsInGraveyard(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InBoard && x.Zone == CardZone.Graveyard && x.GraveyardIndex.HasValue)];
+
+    internal List<Card> GetCardsInMainZone(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InBoard && x.Zone == CardZone.Main)];
 
     internal List<Card> GetCardInHandCanSummon(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InHand && x.HandIndex.HasValue && x.CanSummon)];
 
-    internal List<Card> GetCardsInMainZone(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InBoard && x.Zone == CardZone.Main)];
+    internal List<int> GetMainDeckIndices(DuelSide side) => [.. GetCardsInMainDeck(side).Select(static x => x.MainDeckIndex.Value)];
 
     internal Card GetHigherAtkCardInHand(DuelSide side)
     {
@@ -67,8 +80,8 @@ internal partial class GameManager : Node2D
 
     internal Vector2 GetAvatarPosition(DuelSide side) => side switch
     {
-        DuelSide.Player => PlayerInfo.GetAvatarPosition(),
-        DuelSide.Opponent => OpponentInfo.GetAvatarPosition(),
+        DuelSide.Player => PlayerProfile.GetAvatarPosition(),
+        DuelSide.Opponent => OpponentProfile.GetAvatarPosition(),
         _ => Vector2.Zero
     };
 
@@ -116,7 +129,7 @@ internal partial class GameManager : Node2D
 
         await _popupPhase.ShowPhase(CurrentTurnSide, CurrentPhase);
 
-        CardInHandCanSummonOrSet();
+        CanSummonOrSet();
 
         if (CurrentTurnSide is DuelSide.Opponent)
         {
@@ -148,7 +161,7 @@ internal partial class GameManager : Node2D
 
         Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InBoard && x.Zone is CardZone.Main && x.CardFace is CardFace.FaceUp && x.CardPosition is CardPosition.Attack)
             .ToList()
-            .ForEach(async x => await x.Sword.Hide(OPACITY_MIN));
+            .ForEach(async x => await x.Sword.FadeOut());
 
         GetPhaseButton(CurrentTurnSide, CurrentPhase).ChangeStatus(false);
 

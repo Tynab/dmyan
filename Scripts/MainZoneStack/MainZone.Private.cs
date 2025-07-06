@@ -1,35 +1,12 @@
-using DMYAN.Scripts.CardStack;
-using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.MainCardSlotStack;
 using Godot;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using static Godot.GD;
 
-namespace DMYAN.Scripts;
+namespace DMYAN.Scripts.MainZoneStack;
 
 internal partial class MainZone : Node2D
 {
-    [Export]
-    private DuelSide DuelSide { get; set; } = DuelSide.None;
-
-    internal int CardsInZone { get; set; } = 0;
-
-    internal bool HasCardCanAttack { get; set; } = false;
-
-    internal async Task SummonCard(Card card)
-    {
-        await GetMainSlot(true).SummonCard(card);
-
-        CardsInZone++;
-    }
-
-    internal void SummonSetCard(Card card)
-    {
-        GetMainSlot(false).SummonSetCard(card);
-
-        CardsInZone++;
-    }
-
     private MainCardSlot GetMainSlot(bool isAtk)
     {
         var emptySlots = new List<MainCardSlot>();

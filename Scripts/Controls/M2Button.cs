@@ -16,11 +16,6 @@ internal partial class M2Button : PhaseButton
         if (!IsClicked && _gameManager.CurrentPhase is not DuelPhase.Draw and not DuelPhase.Standby)
         {
             IsClicked = true;
-
-            if (_gameManager.AttackMode)
-            {
-                return;
-            }
         }
     }
 }

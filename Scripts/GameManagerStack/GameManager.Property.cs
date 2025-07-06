@@ -1,5 +1,10 @@
+using DMYAN.Scripts.CardInfoStack;
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.HandZoneStack;
+using DMYAN.Scripts.MainDeckStack;
+using DMYAN.Scripts.MainZoneStack;
+using DMYAN.Scripts.ProfileStack;
 using Godot;
 using System.Collections.Generic;
 using static DMYAN.Scripts.Common.Constant;
@@ -24,16 +29,22 @@ internal partial class GameManager : Node2D
     private MainDeck OpponentMainDeck { get; set; }
 
     [Export]
-    private HandManager PlayerHand { get; set; }
+    private HandZone PlayerHand { get; set; }
 
     [Export]
-    private HandManager OpponentHand { get; set; }
+    private HandZone OpponentHand { get; set; }
 
     [Export]
-    private Infomation PlayerInfo { get; set; }
+    private Graveyard PlayerGraveyard { get; set; }
 
     [Export]
-    private Infomation OpponentInfo { get; set; }
+    private Graveyard OpponentGraveyard { get; set; }
+
+    [Export]
+    private Profile PlayerProfile { get; set; }
+
+    [Export]
+    private Profile OpponentProfile { get; set; }
 
     [Export]
     private PackedScene CardScene { get; set; }
@@ -46,9 +57,9 @@ internal partial class GameManager : Node2D
 
     internal List<Card> Cards { get; set; } = [];
 
+    internal Card CardAttacking { get; set; } = default;
+
     internal bool HasSummoned { get; set; } = false;
 
     internal bool IsFirstTurn { get; set; } = true;
-
-    internal bool AttackMode { get; set; } = false;
 }

@@ -1,5 +1,6 @@
 using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.MainCardSlotStack;
 using Godot;
 using System.Threading.Tasks;
 using static DMYAN.Scripts.Common.Constant;
@@ -16,9 +17,8 @@ internal partial class Card : Node2D
     internal void Init(CardData data, DuelSide side)
     {
         _cardFront.Texture = Load<Texture2D>(data.Code.GetCardAssetPathByCode());
-        _cardFront.Hide();
 
-        _cardBack.Show();
+        ResetFace();
 
         BaseSide = side;
         DuelSide = side;
@@ -87,31 +87,85 @@ internal partial class Card : Node2D
         Location = CardLocation.None;
     }
 
+    internal async Task GraveyardEntered(int index)
+    {
+        Scale = One;
+        Position = Zero;
+        ZIndex = index;
+        GraveyardIndex = index;
+        Location = CardLocation.InBoard;
+        Zone = CardZone.Graveyard;
+
+        ResetDefault();
+
+        await FadeIn();
+    }
+
+    internal void GraveyardExited()
+    {
+        GraveyardIndex = default;
+        Location = CardLocation.None;
+        Zone = CardZone.None;
+    }
+
     internal async Task Summon(MainCardSlot cardSlot)
     {
         Reparent(cardSlot);
 
-        ZIndex = cardSlot.CardsInSlot + 1;
-        BasePosition = CARD_IN_SLOT_POSITION;
+        ZIndex = 1;
+        BasePosition = Zero;
         Location = CardLocation.InBoard;
         Zone = CardZone.Main;
         CardFace = CardFace.FaceUp;
         CardPosition = CardPosition.Attack;
+        CanView = true;
 
-        await AnimationSummon(cardSlot.GlobalPosition, SCALE_MAX);
+        await AnimationSummon(cardSlot.GlobalPosition, One);
     }
 
     internal void SummonSet(MainCardSlot cardSlot)
     {
         Reparent(cardSlot);
 
-        BasePosition = CARD_IN_SLOT_POSITION;
+        ZIndex = 1;
+        BasePosition = Zero;
         Location = CardLocation.InBoard;
         Zone = CardZone.Main;
         CardFace = CardFace.FaceDown;
         CardPosition = CardPosition.Defense;
 
-        AnimationSummonSet(cardSlot.GlobalPosition, SCALE_MAX);
+        AnimationSummonSet(cardSlot.GlobalPosition, One);
+    }
+
+    internal async Task Destroy()
+    {
+        GetParent<MainCardSlot>().DestroyCard();
+
+        ZIndex = default;
+        Location = CardLocation.None;
+        Zone = CardZone.None;
+        CardFace = CardFace.None;
+        CardPosition = CardPosition.None;
+        CanView = false;
+
+        await FadeOut();
+    }
+
+    internal async Task FlipUp()
+    {
+        CardFace = CardFace.FaceUp;
+        CanView = true;
+
+        if (DuelSide is DuelSide.Opponent)
+        {
+            _gameManager.CardInfo.BindingData(this);
+
+            var cardSlot = GetParent<MainCardSlot>();
+
+            cardSlot.PowerSlot.ShowPower(this, false);
+        }
+
+        await AnimationFlipUpAsync();
     }
 
     internal void CanSummonOrSetCheck()
@@ -134,8 +188,22 @@ internal partial class Card : Node2D
 
         if (CanAttack)
         {
-            await Sword.Show(OPACITY_MAX);
+            await Sword.FadeIn();
         }
+    }
+
+    internal async Task FadeIn()
+    {
+        Show();
+
+        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, OPACITY_MAX, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
+    }
+
+    internal async Task FadeOut()
+    {
+        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, OPACITY_MIN, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
+
+        Hide();
     }
 
     internal async Task AnimationFlipUpAsync()

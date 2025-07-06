@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://crqe8ju0cbbn1"]
 
 [ext_resource type="Texture2D" uid="uid://cyj4b0vfvhhuh" path="res://Assets/card_back.jpg" id="1_oo5xc"]
-[ext_resource type="Script" uid="uid://dsvwqn5k2miev" path="res://Scripts/CardInfo.cs" id="1_raek0"]
+[ext_resource type="Script" uid="uid://dsvwqn5k2miev" path="res://Scripts/CardInfoStack/CardInfo.cs" id="1_raek0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trn2v"]
 bg_color = Color(0, 0, 0, 0.784314)

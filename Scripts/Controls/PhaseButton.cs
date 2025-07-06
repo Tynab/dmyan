@@ -41,14 +41,14 @@ internal partial class PhaseButton : Button
 
     internal async Task In()
     {
-        ZIndex = 0;
-        Scale = new Vector2(.2f, 1);
+        ZIndex = default;
+        Scale = PHASE_BUTTON_SCALE_MIN;
         IsClicked = false;
 
         ChangeStatus(true);
         Show();
 
-        _ = await ToSignal(GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, SCALE_NODE_PATH, One, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
+        _ = await ToSignal(GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, SCALE_NODE_PATH, One, PHASE_BUTTON_ANIMATION_SPEED), FINISHED_SIGNAL);
     }
 
     internal async Task Out()
@@ -59,7 +59,7 @@ internal partial class PhaseButton : Button
 
         ChangeStatus(false);
 
-        _ = await ToSignal(GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, SCALE_NODE_PATH, new Vector2(.2f, 1), DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
+        _ = await ToSignal(GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, SCALE_NODE_PATH, PHASE_BUTTON_SCALE_MIN, PHASE_BUTTON_ANIMATION_SPEED), FINISHED_SIGNAL);
 
         Hide();
     }
