@@ -22,9 +22,11 @@ internal partial class MainDeck : CardSlot
 
     private void ArrangeCardsAndResetIndex(List<int> indices)
     {
+        var cards = _gameManager.GetCards(DuelSide);
+
         for (var i = 0; i < indices.Count; i++)
         {
-            var card = _gameManager.Cards[i];
+            var card = cards[i];
 
             card.ZIndex = indices[i];
             card.MainDeckIndex = indices[i];

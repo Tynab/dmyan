@@ -7,39 +7,39 @@ internal static partial class AI
 {
     internal static async Task OpponentSummonOrSetCard(this GameManager gameManager)
     {
-        var higherAtkCardInHand = gameManager.GetHigherAtkCardInHand(DuelSide.Opponent);
+        var higherAtkCard = gameManager.GetHigherAtkCardInHand(DuelSide.Opponent);
 
-        if (higherAtkCardInHand.IsNull())
+        if (higherAtkCard.IsNull())
         {
             if (gameManager.IsFirstTurn)
             {
-                var highestDefCardInHand = gameManager.GetHighestDefCardInHand(DuelSide.Opponent);
+                var highestDefCard = gameManager.GetHighestDefCardInHand(DuelSide.Opponent);
 
-                if (highestDefCardInHand.IsNotNull())
+                if (highestDefCard.IsNotNull())
                 {
-                    if (highestDefCardInHand.DEF > highestDefCardInHand.ATK)
+                    if (highestDefCard.DEF > highestDefCard.ATK)
                     {
-                        gameManager.OpponentMainZone.SummonSetCard(highestDefCardInHand);
+                        gameManager.OpponentMainZone.SummonSetCard(highestDefCard);
                     }
                     else
                     {
-                        await gameManager.OpponentMainZone.SummonCard(highestDefCardInHand);
+                        await gameManager.OpponentMainZone.SummonCard(highestDefCard);
                     }
                 }
             }
             else
             {
-                var highestDefCardInHand = gameManager.GetHighestDefCardInHand(DuelSide.Opponent);
+                var highestDefCard = gameManager.GetHighestDefCardInHand(DuelSide.Opponent);
 
-                if (highestDefCardInHand.IsNotNull())
+                if (highestDefCard.IsNotNull())
                 {
-                    gameManager.OpponentMainZone.SummonSetCard(highestDefCardInHand);
+                    gameManager.OpponentMainZone.SummonSetCard(highestDefCard);
                 }
             }
         }
         else
         {
-            await gameManager.OpponentMainZone.SummonCard(higherAtkCardInHand);
+            await gameManager.OpponentMainZone.SummonCard(higherAtkCard);
         }
 
         await gameManager.EndPhaseAsync();

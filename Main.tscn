@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=89 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
 [ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Shaders/Scroll.gdshader" id="1_wkp8b"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b3pth5pvbjjft" path="res://Scenes/Profile.tscn" id="13_c6i3y"]
 [ext_resource type="Script" uid="uid://fo1dtww3f0sr" path="res://Scripts/Graveyard.cs" id="13_xrxkg"]
 [ext_resource type="Script" uid="uid://mqv6i7ckx7d2" path="res://Scripts/MainZoneStack/MainZone.cs" id="14_sc1dx"]
+[ext_resource type="FontFile" uid="uid://bfjp26kfy22g6" path="res://Fonts/DS-DIGIB.TTF" id="14_sqvbp"]
 [ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlotStack/MainCardSlot.cs" id="15_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/Player/dp.png" id="19_5tuhn"]
 [ext_resource type="Script" uid="uid://cffof8cg6k2ol" path="res://Scripts/Popups/PopupPhase.cs" id="20_2gh4u"]
@@ -637,14 +638,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -87.0
+offset_left = -30.0
+offset_top = -43.5
+offset_right = 30.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+pivot_offset = Vector2(30, 43.5)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_fonts/normal_font = ExtResource("14_sqvbp")
+theme_override_font_sizes/normal_font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Graveyard" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(362, -184)
@@ -661,14 +669,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -87.0
+offset_left = -30.0
+offset_top = -43.5
+offset_right = 30.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+pivot_offset = Vector2(30, 43.5)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_fonts/normal_font = ExtResource("14_sqvbp")
+theme_override_font_sizes/normal_font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="FieldCard" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(-362, -184)
@@ -689,14 +704,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -87.0
+offset_left = -30.0
+offset_top = -43.5
+offset_right = 30.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+pivot_offset = Vector2(30, 43.5)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_fonts/normal_font = ExtResource("14_sqvbp")
+theme_override_font_sizes/normal_font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Banished" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(343, -68)
@@ -711,17 +733,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 60.0
-offset_top = -87.0
-offset_right = 147.0
-offset_bottom = -27.0
+offset_left = -30.0
+offset_top = -43.5
+offset_right = 30.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 1.5708
 scale = Vector2(2, 2)
-text = "1"
+pivot_offset = Vector2(30, 43.5)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_fonts/normal_font = ExtResource("14_sqvbp")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="MainZone" type="Node2D" parent="Field/Opponent"]
 script = ExtResource("14_sc1dx")
@@ -916,14 +942,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -87.0
+offset_left = -30.0
+offset_top = -43.5
+offset_right = 30.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+pivot_offset = Vector2(30, 43.5)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_fonts/normal_font = ExtResource("14_sqvbp")
+theme_override_font_sizes/normal_font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Graveyard" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(-362, 184)
@@ -939,14 +972,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -87.0
+offset_left = -30.0
+offset_top = -43.5
+offset_right = 30.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+pivot_offset = Vector2(30, 43.5)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_fonts/normal_font = ExtResource("14_sqvbp")
+theme_override_font_sizes/normal_font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="FieldCard" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(362, 184)
@@ -965,14 +1005,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -87.0
+offset_left = -30.0
+offset_top = -43.5
+offset_right = 30.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+pivot_offset = Vector2(30, 43.5)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_fonts/normal_font = ExtResource("14_sqvbp")
+theme_override_font_sizes/normal_font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Banished" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(-343, 68.0001)
@@ -987,17 +1034,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 60.0
-offset_top = -87.0
-offset_right = 147.0
-offset_bottom = -27.0
+offset_left = -30.0
+offset_top = -43.5
+offset_right = 30.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 1.5708
 scale = Vector2(2, 2)
-text = "1"
+pivot_offset = Vector2(30, 43.5)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_fonts/normal_font = ExtResource("14_sqvbp")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="MainZone" type="Node2D" parent="Field/Player"]
 script = ExtResource("14_sc1dx")

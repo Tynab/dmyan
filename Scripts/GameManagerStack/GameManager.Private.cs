@@ -248,13 +248,13 @@ internal partial class GameManager : Node2D
         if (CardAttacking.ATK > card.ATK)
         {
             GetProfile(card.DuelSide).UpdateLifePoint(card.ATK.Value - CardAttacking.ATK.Value);
-            
+
             await DestroyStep(card);
         }
         else if (CardAttacking.ATK < card.ATK)
         {
             GetProfile(CardAttacking.DuelSide).UpdateLifePoint(CardAttacking.ATK.Value - card.ATK.Value);
-            
+
             await DestroyStep(CardAttacking);
         }
         else

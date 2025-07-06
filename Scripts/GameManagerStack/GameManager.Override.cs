@@ -77,7 +77,7 @@ internal partial class GameManager : Node2D
                     {
                         await AttackStep(card);
                     }
-                    else if(card.ActionType is CardActionType.Activate)
+                    else if (card.ActionType is CardActionType.Activate)
                     {
                         if (card.CanActivate)
                         {
