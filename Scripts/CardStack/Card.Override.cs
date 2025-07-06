@@ -1,5 +1,6 @@
 using DMYAN.Scripts.GameManagerStack;
 using DMYAN.Scripts.Popups;
+using DMYAN.Scripts.SwordStack;
 using Godot;
 using static DMYAN.Scripts.Common.Constant;
 
@@ -15,12 +16,12 @@ internal partial class Card : Node2D
 
         _cardFront = GetNode<Sprite2D>(CARD_FRONT_NODE);
         _cardBack = GetNode<Sprite2D>(CARD_BACK_NODE);
-        _animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
+        _animationPlayer = GetNode<AnimationPlayer>(nameof(AnimationPlayer));
 
         Sword = GetNode<Sword>(nameof(Sword));
         PopupAction = GetNode<PopupAction>(nameof(Popups.PopupAction));
 
-        var area = GetNode<Area2D>(DEFAULT_AREA2D_NODE);
+        var area = GetNode<Area2D>(nameof(Area2D));
 
         area.MouseEntered += OnAreaMouseEntered;
         area.MouseExited += OnAreaMouseExited;

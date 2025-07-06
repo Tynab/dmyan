@@ -29,11 +29,11 @@ internal static partial class AI
             }
             else
             {
-                var highestAtkCardInHand = gameManager.GetHighestAtkCardInHand(DuelSide.Opponent);
+                var highestDefCardInHand = gameManager.GetHighestDefCardInHand(DuelSide.Opponent);
 
-                if (highestAtkCardInHand.IsNotNull())
+                if (highestDefCardInHand.IsNotNull())
                 {
-                    await gameManager.OpponentMainZone.SummonCard(highestAtkCardInHand);
+                    gameManager.OpponentMainZone.SummonSetCard(highestDefCardInHand);
                 }
             }
         }

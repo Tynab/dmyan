@@ -1,24 +1,12 @@
 using DMYAN.Scripts.CardStack;
-using DMYAN.Scripts.Common.Enum;
 using Godot;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.Colors;
 
-namespace DMYAN.Scripts;
+namespace DMYAN.Scripts.PowerSlotStack;
 
 internal partial class PowerSlot : Node2D
 {
-    [Export]
-    private DuelSide DuelSide { get; set; } = DuelSide.None;
-
-    internal bool HasCardInMainZone { get; set; } = false;
-
-    internal CardFace CardFaceInMainZone { get; set; } = CardFace.None;
-
-    private RichTextLabel _atk;
-    private RichTextLabel _def;
-    private RichTextLabel _slash;
-
     public override void _Ready()
     {
         _atk = GetNode<RichTextLabel>(POWER_ATK_NODE);
@@ -44,5 +32,14 @@ internal partial class PowerSlot : Node2D
         }
 
         Show();
+    }
+
+    internal void HidePower()
+    {
+        _atk.Text = string.Empty;
+        _def.Text = string.Empty;
+        _slash.Text = string.Empty;
+
+        Hide();
     }
 }

@@ -2,23 +2,14 @@ using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common;
 using DMYAN.Scripts.Common.Enum;
 using Godot;
+using YANLib;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;
 
-namespace DMYAN.Scripts;
+namespace DMYAN.Scripts.CardInfoStack;
 
 internal partial class CardInfo : Node2D
 {
-    internal int CurrentSwap { get; set; } = DEFAULT_CARD_INFO_SWAP;
-
-    internal string TexturePath1 { get; set; } = CARD_BACK_ASSET_PATH;
-
-    internal string TexturePath2 { get; set; } = CARD_BACK_ASSET_PATH;
-
-    private AnimationPlayer _animationPlayer;
-
-    public override void _Ready() => _animationPlayer = GetNode<AnimationPlayer>(DEFAULT_ANIMATION_PLAYER_NODE);
-
     internal void BindingData(Card card)
     {
         if (CurrentSwap is DEFAULT_CARD_INFO_SWAP)
@@ -53,7 +44,7 @@ internal partial class CardInfo : Node2D
 
             var strProperty = card.Property.VietTranslation();
 
-            if (!string.IsNullOrWhiteSpace(strProperty))
+            if (strProperty.IsNotNullWhiteSpace())
             {
                 description += $"/{strProperty}";
             }
@@ -67,7 +58,7 @@ internal partial class CardInfo : Node2D
 
             description += $"\nCông: {card.BaseATK.ViewPower()} / Thủ: {card.BaseDEF.ViewPower()}";
 
-            if (!string.IsNullOrWhiteSpace(card.Description))
+            if (card.Description.IsNotNullWhiteSpace())
             {
                 description += $"\nHiệu ứng:\n{card.Description}";
             }
@@ -76,7 +67,7 @@ internal partial class CardInfo : Node2D
         {
             var strProperty = card.Property.VietTranslation();
 
-            if (!string.IsNullOrWhiteSpace(strProperty))
+            if (strProperty.IsNotNullWhiteSpace())
             {
                 description += $"Đặc tính: {strProperty}\n";
             }

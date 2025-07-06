@@ -17,11 +17,6 @@ internal partial class EPButton : PhaseButton
         {
             IsClicked = true;
 
-            if (_gameManager.AttackMode)
-            {
-                return;
-            }
-
             await _gameManager.EndPhaseAsync();
         }
     }

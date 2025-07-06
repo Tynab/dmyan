@@ -1,5 +1,6 @@
 using DMYAN.Scripts.Common.Enum;
 using DMYAN.Scripts.Popups;
+using DMYAN.Scripts.SwordStack;
 using Godot;
 
 namespace DMYAN.Scripts.CardStack;
@@ -63,6 +64,8 @@ internal partial class Card : Node2D
     internal int? DEF { get; set; } = default;
 
     internal Vector2 BasePosition { get; set; }
+
+    internal bool CanView { get; set; } = false;
 
     internal bool CanActivate { get; set; } = false;
 

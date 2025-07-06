@@ -1,10 +1,12 @@
 using DMYAN.Scripts.Common.Enum;
 using Godot;
 using System.Threading.Tasks;
+using YANLib;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.ResourceLoader;
 using static Godot.Tween.EaseType;
 using static Godot.Tween.TransitionType;
+using static Godot.Vector2;
 using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.Popups;
@@ -38,7 +40,7 @@ internal partial class PopupPhase : Sprite2D
             _ => string.Empty
         };
 
-        if (string.IsNullOrWhiteSpace(path))
+        if (path.IsNullWhiteSpace())
         {
             return;
         }
@@ -47,11 +49,11 @@ internal partial class PopupPhase : Sprite2D
 
         Show();
 
-        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, SCALE_MAX, PHASE_ANIMATION_SPEED), FINISHED_SIGNAL);
+        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, One, PHASE_ANIMATION_SPEED), FINISHED_SIGNAL);
 
         await Delay(PHASE_CHANGE_DELAY);
 
-        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, SCALE_MIN, PHASE_ANIMATION_SPEED), FINISHED_SIGNAL);
+        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, PHASE_SCALE_MIN, PHASE_ANIMATION_SPEED), FINISHED_SIGNAL);
 
         Hide();
     }
