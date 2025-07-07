@@ -1,8 +1,6 @@
 using Godot;
 using static DMYAN.Scripts.Common.Constant;
-using static Godot.ResourceLoader;
 using static Godot.Tween.EaseType;
-using DMYAN.Scripts.Common.Enum;
 using static Godot.Tween.TransitionType;
 
 namespace DMYAN.Scripts.CardStack;
@@ -23,7 +21,7 @@ internal partial class Card : Node2D
     private void ResetDefault()
     {
         RotationDegrees = 0;
-        
+
         ResetFace();
         ResetPower();
     }

@@ -1,5 +1,6 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.MainZoneStack;
 using DMYAN.Scripts.ProfileStack;
 using Godot;
 using System.Collections.Generic;
@@ -27,12 +28,21 @@ internal partial class GameManager : Node2D
         _ => null
     };
 
+    internal MainZone GetMainZone(DuelSide side) => side switch
+    {
+        DuelSide.Player => PlayerMainZone,
+        DuelSide.Opponent => OpponentMainZone,
+        _ => null
+    };
+
     internal Graveyard GetGraveyard(DuelSide side) => side switch
     {
         DuelSide.Player => PlayerGraveyard,
         DuelSide.Opponent => OpponentGraveyard,
         _ => null
     };
+
+    internal List<Card> GetCards(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side)];
 
     internal List<Card> GetCardsInMainDeck(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InDeck && x.Zone == CardZone.MainDeck && x.MainDeckIndex.HasValue)];
 

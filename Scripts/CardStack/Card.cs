@@ -168,6 +168,8 @@ internal partial class Card : Node2D
         await AnimationFlipUpAsync();
     }
 
+    internal CardSlot GetSlot() => GetParent<CardSlot>();
+
     internal void CanSummonOrSetCheck()
     {
         var isValid = (Level < 5 || _gameManager.PlayerMainZone.CardsInZone > 1) && _gameManager.PlayerMainZone.CardsInZone < 5 && !_gameManager.HasSummoned;
@@ -204,6 +206,20 @@ internal partial class Card : Node2D
         _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, OPACITY_MIN, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
 
         Hide();
+    }
+
+    internal async Task AnimationAtkAttackedAsync()
+    {
+        _animationPlayer.Play(CARD_ATK_ATTACKED_ANIMATION);
+
+        _ = await ToSignal(_animationPlayer, AnimationFinished);
+    }
+
+    internal async Task AnimationDefAttackedAsync()
+    {
+        _animationPlayer.Play(CARD_DEF_ATTACKED_ANIMATION);
+
+        _ = await ToSignal(_animationPlayer, AnimationFinished);
     }
 
     internal async Task AnimationFlipUpAsync()

@@ -93,6 +93,9 @@ internal static class Constant
 
     internal const string CARD_FLIP_UP_ANIMATION = "card_flip_up";
     internal const string CARD_FLIP_DOWN_ANIMATION = "card_flip_down";
+    internal const string CARD_ATK_ATTACKED_ANIMATION = "card_atk_attacked";
+    internal const string CARD_DEF_ATTACKED_ANIMATION = "card_def_attacked";
+    internal const string SHOW_DAMAGE_ANIMATION = "show_damage";
 
     internal const string CARD_SWAP_1_ANIMATION = "card_swap_1";
     internal const string CARD_SWAP_2_ANIMATION = "card_swap_2";

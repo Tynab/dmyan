@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b6k0fan5c8yta"]
+[gd_scene load_steps=14 format=3 uid="uid://b6k0fan5c8yta"]
 
 [ext_resource type="Script" uid="uid://sf1gmd0nblsg" path="res://Scripts/CardStack/Card.cs" id="1_h8wm0"]
 [ext_resource type="Texture2D" uid="uid://dvkraho7dlkf2" path="res://Assets/Cards/02118022.jpg" id="1_pnb5n"]
@@ -95,6 +95,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CardFront:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_kphy1"]
@@ -271,42 +283,105 @@ tracks/6/keys = {
 "values": [Vector2(1, 1), Vector2(0.07, 1), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_c6tr3"]
+resource_name = "def_attacked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardFront:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-10, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardFront:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(0.29, 0.29), Vector2(0.3, 0.3)]
+}
+
+[sub_resource type="Animation" id="Animation_wejov"]
+resource_name = "atk_attacked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardFront:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardFront:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(0.29, 0.29), Vector2(0.3, 0.3)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h8wm0"]
 _data = {
 &"RESET": SubResource("Animation_h8wm0"),
+&"card_atk_attacked": SubResource("Animation_wejov"),
+&"card_def_attacked": SubResource("Animation_c6tr3"),
 &"card_flip_down": SubResource("Animation_kphy1"),
 &"card_flip_up": SubResource("Animation_3p273")
 }
 
 [node name="Card" type="Node2D"]
 script = ExtResource("1_h8wm0")
+metadata/_edit_lock_ = true
 
 [node name="CardBack" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_h8wm0")
+metadata/_edit_lock_ = true
 
 [node name="CardFront" type="Sprite2D" parent="."]
 visible = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_pnb5n")
+metadata/_edit_lock_ = true
 
 [node name="PopupAction" type="Sprite2D" parent="."]
 visible = false
 z_index = 999
 texture = ExtResource("4_kphy1")
 script = ExtResource("5_wejov")
+metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 1
 shape = SubResource("RectangleShape2D_r0du0")
+metadata/_edit_lock_ = true
 
 [node name="Sword" parent="." instance=ExtResource("6_wejov")]
 visible = false
 modulate = Color(1, 1, 1, 0)
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
