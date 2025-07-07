@@ -25,8 +25,8 @@
 [ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlotStack/MainCardSlot.cs" id="15_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/Player/dp.png" id="19_5tuhn"]
 [ext_resource type="Script" uid="uid://cffof8cg6k2ol" path="res://Scripts/Popups/PopupPhase.cs" id="20_2gh4u"]
-[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BccButton.cs" id="25_sqvbp"]
-[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EqqButton.cs" id="27_hri7i"]
+[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BPButton.cs" id="25_sqvbp"]
+[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EPButton.cs" id="27_hri7i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
 shader = ExtResource("1_wkp8b")
