@@ -42,6 +42,8 @@ internal partial class GameManager : Node2D
         _ => null
     };
 
+    internal int GraveyardCount(DuelSide side) => Cards.Count(x => x.DuelSide == side && x.Location == CardLocation.InBoard && x.Zone == CardZone.Graveyard && x.GraveyardIndex.HasValue);
+
     internal List<Card> GetCards(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side)];
 
     internal List<Card> GetCardsInMainDeck(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InDeck && x.Zone == CardZone.MainDeck && x.MainDeckIndex.HasValue)];

@@ -240,7 +240,7 @@ internal partial class GameManager : Node2D
         CurrentStep = DuelStep.Destroying;
 
         await card.Destroy();
-        await GetGraveyard(card.DuelSide).AddCard(card, Cards.Count(x => x.DuelSide == card.DuelSide && x.Location is CardLocation.InBoard && x.Zone is CardZone.Graveyard) + 1);
+        await GetGraveyard(card.DuelSide).AddCard(card, GraveyardCount(card.DuelSide) + 1);
     }
 
     private async Task AtkVsAtk(Card card)
@@ -271,11 +271,13 @@ internal partial class GameManager : Node2D
         }
         else
         {
-            await card.AnimationAtkAttackedAsync();
-            await DestroyStep(card);
+            await Task.WhenAll(
+            card.AnimationAtkAttackedAsync(),
+            DestroyStep(card),
 
-            await CardAttacking.AnimationAtkAttackedAsync();
-            await DestroyStep(CardAttacking);
+            CardAttacking.AnimationAtkAttackedAsync(),
+            DestroyStep(CardAttacking)
+            );
         }
     }
 
