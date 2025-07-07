@@ -8,10 +8,8 @@
 [ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
 [ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DPButton.cs" id="5_hhcpw"]
 [ext_resource type="Script" uid="uid://b36plooh1hgx7" path="res://Scripts/Controls/PhaseButton.cs" id="5_mxvw5"]
-[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BPButton.cs" id="5_sc1dx"]
 [ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
-[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EPButton.cs" id="6_kjvhd"]
 [ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SPButton.cs" id="6_mxvw5"]
 [ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandZoneStack/HandZone.cs" id="7_03owx"]
 [ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeckStack/MainDeck.cs" id="7_5vvyt"]
@@ -27,6 +25,8 @@
 [ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlotStack/MainCardSlot.cs" id="15_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/Player/dp.png" id="19_5tuhn"]
 [ext_resource type="Script" uid="uid://cffof8cg6k2ol" path="res://Scripts/Popups/PopupPhase.cs" id="20_2gh4u"]
+[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BPButton.cs" id="25_sqvbp"]
+[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EPButton.cs" id="27_hri7i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
 shader = ExtResource("1_wkp8b")
@@ -1420,7 +1420,7 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "B
 P"
-script = ExtResource("5_sc1dx")
+script = ExtResource("25_sqvbp")
 metadata/_edit_lock_ = true
 
 [node name="M2Button" type="Button" parent="Button/Player"]
@@ -1452,5 +1452,5 @@ theme_override_fonts/font = ExtResource("12_5vvyt")
 theme_override_font_sizes/font_size = 40
 text = "E
 P"
-script = ExtResource("6_kjvhd")
+script = ExtResource("27_hri7i")
 metadata/_edit_lock_ = true

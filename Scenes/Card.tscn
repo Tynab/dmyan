@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b6k0fan5c8yta"]
+[gd_scene load_steps=14 format=3 uid="uid://b6k0fan5c8yta"]
 
 [ext_resource type="Script" uid="uid://sf1gmd0nblsg" path="res://Scripts/CardStack/Card.cs" id="1_h8wm0"]
 [ext_resource type="Texture2D" uid="uid://dvkraho7dlkf2" path="res://Assets/Cards/02118022.jpg" id="1_pnb5n"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://0qf62igfr60" path="res://Assets/Popups/activate.png" id="4_kphy1"]
 [ext_resource type="Script" uid="uid://c5kiubm14sf1k" path="res://Scripts/Popups/PopupAction.cs" id="5_wejov"]
 [ext_resource type="PackedScene" uid="uid://cw0f1d6m3fs5v" path="res://Scenes/Sword.tscn" id="6_wejov"]
-[ext_resource type="FontFile" uid="uid://bfjp26kfy22g6" path="res://Fonts/DS-DIGIB.TTF" id="7_c6tr3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
 size = Vector2(120, 174)
@@ -96,6 +95,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CardFront:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_kphy1"]
@@ -272,66 +283,107 @@ tracks/6/keys = {
 "values": [Vector2(1, 1), Vector2(0.07, 1), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_c6tr3"]
+resource_name = "def_attacked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardFront:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-10, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardFront:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(0.29, 0.29), Vector2(0.3, 0.3)]
+}
+
+[sub_resource type="Animation" id="Animation_wejov"]
+resource_name = "atk_attacked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardFront:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardFront:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(0.29, 0.29), Vector2(0.3, 0.3)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h8wm0"]
 _data = {
 &"RESET": SubResource("Animation_h8wm0"),
+&"card_atk_attacked": SubResource("Animation_wejov"),
+&"card_def_attacked": SubResource("Animation_c6tr3"),
 &"card_flip_down": SubResource("Animation_kphy1"),
 &"card_flip_up": SubResource("Animation_3p273")
 }
 
 [node name="Card" type="Node2D"]
 script = ExtResource("1_h8wm0")
+metadata/_edit_lock_ = true
 
 [node name="CardBack" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_h8wm0")
+metadata/_edit_lock_ = true
 
 [node name="CardFront" type="Sprite2D" parent="."]
 visible = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_pnb5n")
+metadata/_edit_lock_ = true
 
 [node name="PopupAction" type="Sprite2D" parent="."]
 visible = false
 z_index = 999
 texture = ExtResource("4_kphy1")
 script = ExtResource("5_wejov")
+metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 1
 shape = SubResource("RectangleShape2D_r0du0")
+metadata/_edit_lock_ = true
 
 [node name="Sword" parent="." instance=ExtResource("6_wejov")]
 visible = false
 modulate = Color(1, 1, 1, 0)
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_h8wm0")
 }
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -87.0
-offset_right = 60.0
-offset_bottom = 87.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(60, 87)
-theme_override_colors/default_color = Color(0.847059, 0.192157, 0.2, 1)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.662745, 0.803922, 1)
-theme_override_fonts/normal_font = ExtResource("7_c6tr3")
-theme_override_font_sizes/normal_font_size = 40
-text = "-43210"
-horizontal_alignment = 1
-vertical_alignment = 1

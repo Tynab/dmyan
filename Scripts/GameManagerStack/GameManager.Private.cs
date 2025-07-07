@@ -247,19 +247,34 @@ internal partial class GameManager : Node2D
     {
         if (CardAttacking.ATK > card.ATK)
         {
-            GetProfile(card.DuelSide).UpdateLifePoint(card.ATK.Value - CardAttacking.ATK.Value);
+            var lp = card.ATK.Value - CardAttacking.ATK.Value;
+
+            card.GetSlot().AnimationShowDamageAsync(lp);
+
+            await card.AnimationAtkAttackedAsync();
+
+            GetProfile(card.DuelSide).UpdateLifePoint(lp);
 
             await DestroyStep(card);
         }
         else if (CardAttacking.ATK < card.ATK)
         {
-            GetProfile(CardAttacking.DuelSide).UpdateLifePoint(CardAttacking.ATK.Value - card.ATK.Value);
+            var lp = CardAttacking.ATK.Value - card.ATK.Value;
+
+            CardAttacking.GetSlot().AnimationShowDamageAsync(lp);
+
+            await CardAttacking.AnimationAtkAttackedAsync();
+
+            GetProfile(CardAttacking.DuelSide).UpdateLifePoint(lp);
 
             await DestroyStep(CardAttacking);
         }
         else
         {
+            await card.AnimationAtkAttackedAsync();
             await DestroyStep(card);
+
+            await CardAttacking.AnimationAtkAttackedAsync();
             await DestroyStep(CardAttacking);
         }
     }
@@ -268,11 +283,19 @@ internal partial class GameManager : Node2D
     {
         if (CardAttacking.ATK > card.DEF)
         {
+            await card.AnimationDefAttackedAsync();
+
             await DestroyStep(card);
         }
         else if (CardAttacking.ATK < card.DEF)
         {
-            GetProfile(CardAttacking.DuelSide).UpdateLifePoint(CardAttacking.ATK.Value - card.DEF.Value);
+            var lp = CardAttacking.ATK.Value - card.DEF.Value;
+
+            CardAttacking.GetSlot().AnimationShowDamageAsync(lp);
+
+            await CardAttacking.AnimationAtkAttackedAsync();
+
+            GetProfile(CardAttacking.DuelSide).UpdateLifePoint(lp);
         }
     }
 
