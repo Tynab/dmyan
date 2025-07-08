@@ -7,7 +7,7 @@ namespace DMYAN.Scripts.HandZoneStack;
 
 internal partial class HandZone : DMYANNode2D
 {
-    internal async Task AddCardAsync(Card card)
+    internal async Task AddCard(Card card)
     {
         card.Reparent(this);
 
@@ -19,7 +19,7 @@ internal partial class HandZone : DMYANNode2D
 
         if (DuelSide is DuelSide.Player)
         {
-            await card.AnimationFlipUpAsync();
+            await card.AnimationFlipUp();
 
             card.CanView = true;
         }

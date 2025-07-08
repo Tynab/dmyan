@@ -16,13 +16,13 @@ internal partial class CardSlot : DMYANNode2D
 
     public override void _Ready()
     {
-        _richTextLabel = GetNode<RichTextLabel>(nameof(RichTextLabel));
+        _richTextLabel = GetNode<RichTextLabel>(DAMAGE_NODE);
         _animationPlayer = GetNode<AnimationPlayer>(nameof(AnimationPlayer));
     }
 
-    internal void AnimationShowDamageAsync(int lp)
+    internal void AnimationShowDamage(int lpUpdate)
     {
-        _richTextLabel.Text = lp.ToString();
+        _richTextLabel.Text = lpUpdate.ToString();
 
         _animationPlayer.Play(SHOW_DAMAGE_ANIMATION);
     }

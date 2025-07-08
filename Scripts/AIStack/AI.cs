@@ -42,6 +42,6 @@ internal static partial class AI
             await gameManager.OpponentMainZone.SummonCard(higherAtkCard);
         }
 
-        await gameManager.EndPhaseAsync();
+        await gameManager.EndPhase();
     }
 }

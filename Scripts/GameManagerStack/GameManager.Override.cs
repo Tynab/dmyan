@@ -59,8 +59,8 @@ internal partial class GameManager : DMYANNode2D
 
         await Delay(STARTUP_DELAY);
 
-        await StartInitialDrawAsync();
-        await DrawPhaseAsync();
+        await StartInitialDraw();
+        await DrawPhase();
     }
 
     public override async void _Input(InputEvent @event)

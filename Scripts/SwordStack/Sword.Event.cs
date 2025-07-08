@@ -24,8 +24,7 @@ internal partial class Sword : DMYANNode2D
             else
             {
                 await AnimationAttack(_gameManager.GetAvatarPosition(opposite));
-
-                _gameManager.GetProfile(opposite).UpdateLifePoint(-_gameManager.CardAttacking.ATK.Value);
+                await _gameManager.GetProfile(opposite).UpdateLifePoint(-_gameManager.CardAttacking.ATK.Value);
 
                 _gameManager.CurrentStep = DuelStep.Attacked;
             }

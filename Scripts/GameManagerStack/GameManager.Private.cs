@@ -160,16 +160,16 @@ internal partial class GameManager : DMYANNode2D
         }
     }
 
-    private async Task StartInitialDrawAsync()
+    private async Task StartInitialDraw()
     {
         for (var i = 0; i < INITIAL_HAND_SIZE; i++)
         {
-            await DrawStepAsync(PlayerMainDeck, PlayerHand);
-            await DrawStepAsync(OpponentMainDeck, OpponentHand);
+            await DrawStep(PlayerMainDeck, PlayerHand);
+            await DrawStep(OpponentMainDeck, OpponentHand);
         }
     }
 
-    private async Task DrawStepAsync(MainDeck deck, HandZone hand)
+    private async Task DrawStep(MainDeck deck, HandZone hand)
     {
         CurrentStep = DuelStep.Drawing;
 
@@ -177,7 +177,7 @@ internal partial class GameManager : DMYANNode2D
 
         if (card.IsNotNull())
         {
-            await hand.AddCardAsync(card);
+            await hand.AddCard(card);
         }
 
         CurrentStep = DuelStep.Drawn;
@@ -242,11 +242,11 @@ internal partial class GameManager : DMYANNode2D
 
         if (isDef)
         {
-            await card.AnimationDefAttackedAsync();
+            await card.AnimationDefAttacked();
         }
         else
         {
-            await card.AnimationAtkAttackedAsync();
+            await card.AnimationAtkAttacked();
         }
 
         await card.Destroy();
@@ -257,23 +257,21 @@ internal partial class GameManager : DMYANNode2D
     {
         if (CardAttacking.ATK > card.ATK)
         {
-            var lp = card.ATK.Value - CardAttacking.ATK.Value;
+            var lpUpdate = card.ATK.Value - CardAttacking.ATK.Value;
 
-            card.GetSlot().AnimationShowDamageAsync(lp);
-
-            GetProfile(card.DuelSide).UpdateLifePoint(lp);
+            card.GetSlot().AnimationShowDamage(lpUpdate);
 
             await DestroyStep(card);
+            await GetProfile(card.DuelSide).UpdateLifePoint(lpUpdate);
         }
         else if (CardAttacking.ATK < card.ATK)
         {
-            var lp = CardAttacking.ATK.Value - card.ATK.Value;
+            var lpUpdate = CardAttacking.ATK.Value - card.ATK.Value;
 
-            CardAttacking.GetSlot().AnimationShowDamageAsync(lp);
-
-            GetProfile(CardAttacking.DuelSide).UpdateLifePoint(lp);
+            CardAttacking.GetSlot().AnimationShowDamage(lpUpdate);
 
             await DestroyStep(CardAttacking);
+            await GetProfile(CardAttacking.DuelSide).UpdateLifePoint(lpUpdate);
         }
         else
         {
@@ -289,13 +287,12 @@ internal partial class GameManager : DMYANNode2D
         }
         else if (CardAttacking.ATK < card.DEF)
         {
-            var lp = CardAttacking.ATK.Value - card.DEF.Value;
+            var lpUpdate = CardAttacking.ATK.Value - card.DEF.Value;
 
-            CardAttacking.GetSlot().AnimationShowDamageAsync(lp);
+            CardAttacking.GetSlot().AnimationShowDamage(lpUpdate);
 
-            await CardAttacking.AnimationAtkAttackedAsync();
-
-            GetProfile(CardAttacking.DuelSide).UpdateLifePoint(lp);
+            await CardAttacking.AnimationAtkAttacked();
+            await GetProfile(CardAttacking.DuelSide).UpdateLifePoint(lpUpdate);
         }
     }
 
@@ -329,7 +326,7 @@ internal partial class GameManager : DMYANNode2D
 
     private static Card GetTopmostCard(Array<Dictionary> cards) => cards.Select(static c => c[COLLIDER_PROPERTY].As<Area2D>().GetParent<Card>()).OrderByDescending(static c => c.ZIndex).FirstOrDefault();
 
-    private async Task ChangeTurnAsync()
+    private async Task ChangeTurn()
     {
         CurrentTurnSide = CurrentTurnSide is DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;
         IsFirstTurn = false;

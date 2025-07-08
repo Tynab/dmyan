@@ -11,6 +11,6 @@ internal partial class Profile : DMYANNode2D
         _lifePoint = GetNode<RichTextLabel>(INFO_LIFE_POINT_NODE);
         _health = GetNode<TextureProgressBar>(INFO_HEALTH_NODE);
         _timer = GetNode<TextureProgressBar>(INFO_TIMER_NODE);
-        _avatar = GetNode<TextureRect>(nameof(TextureRect));
+        _avatar = GetNode<TextureRect>(AVATAR_NODE);
     }
 }

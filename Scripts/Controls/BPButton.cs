@@ -17,7 +17,7 @@ internal partial class BPButton : PhaseButton
         {
             IsClicked = true;
 
-            await _gameManager.BattlePhaseAsync();
+            await _gameManager.BattlePhase();
         }
     }
 }
