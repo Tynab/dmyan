@@ -1,12 +1,11 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
-using Godot;
 using System.Threading.Tasks;
 using static Godot.Vector2;
 
 namespace DMYAN.Scripts.HandZoneStack;
 
-internal partial class HandZone : Node2D
+internal partial class HandZone : DMYANNode2D
 {
     internal async Task AddCardAsync(Card card)
     {

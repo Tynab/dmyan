@@ -1,15 +1,10 @@
 using DMYAN.Scripts.Common.Enum;
-using DMYAN.Scripts.GameManagerStack;
-using DMYAN.Scripts.Popups;
-using DMYAN.Scripts.SwordStack;
 using Godot;
-using System.Threading.Tasks;
 using static DMYAN.Scripts.Common.Constant;
-using static Godot.AnimationMixer.SignalName;
 
 namespace DMYAN.Scripts;
 
-internal partial class CardSlot : Node2D
+internal partial class CardSlot : DMYANNode2D
 {
     [Export]
     internal protected DuelSide DuelSide { get; set; } = DuelSide.None;

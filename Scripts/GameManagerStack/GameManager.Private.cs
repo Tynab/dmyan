@@ -13,10 +13,11 @@ using static DMYAN.Scripts.Common.CardDatabase;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.FileAccess;
 using static Godot.FileAccess.ModeFlags;
+using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.GameManagerStack;
 
-internal partial class GameManager : Node2D
+internal partial class GameManager : DMYANNode2D
 {
     private void LoadData()
     {
@@ -235,9 +236,18 @@ internal partial class GameManager : Node2D
         CurrentStep = DuelStep.Attacked;
     }
 
-    private async Task DestroyStep(Card card)
+    private async Task DestroyStep(Card card, bool isDef = false)
     {
         CurrentStep = DuelStep.Destroying;
+
+        if (isDef)
+        {
+            await card.AnimationDefAttackedAsync();
+        }
+        else
+        {
+            await card.AnimationAtkAttackedAsync();
+        }
 
         await card.Destroy();
         await GetGraveyard(card.DuelSide).AddCard(card, GraveyardCount(card.DuelSide) + 1);
@@ -251,8 +261,6 @@ internal partial class GameManager : Node2D
 
             card.GetSlot().AnimationShowDamageAsync(lp);
 
-            await card.AnimationAtkAttackedAsync();
-
             GetProfile(card.DuelSide).UpdateLifePoint(lp);
 
             await DestroyStep(card);
@@ -263,21 +271,13 @@ internal partial class GameManager : Node2D
 
             CardAttacking.GetSlot().AnimationShowDamageAsync(lp);
 
-            await CardAttacking.AnimationAtkAttackedAsync();
-
             GetProfile(CardAttacking.DuelSide).UpdateLifePoint(lp);
 
             await DestroyStep(CardAttacking);
         }
         else
         {
-            await Task.WhenAll(
-            card.AnimationAtkAttackedAsync(),
-            DestroyStep(card),
-
-            CardAttacking.AnimationAtkAttackedAsync(),
-            DestroyStep(CardAttacking)
-            );
+            await WhenAll(DestroyStep(card), DestroyStep(CardAttacking));
         }
     }
 
@@ -285,9 +285,7 @@ internal partial class GameManager : Node2D
     {
         if (CardAttacking.ATK > card.DEF)
         {
-            await card.AnimationDefAttackedAsync();
-
-            await DestroyStep(card);
+            await DestroyStep(card, true);
         }
         else if (CardAttacking.ATK < card.DEF)
         {

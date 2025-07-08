@@ -13,10 +13,10 @@ internal partial class MainCardSlot : CardSlot
 
         HasCardInSlot = true;
 
-        PowerSlot.ShowPower(card, true);
+        await PowerSlot.ShowPower(card, true);
     }
 
-    internal void SummonSetCard(Card card)
+    internal async Task SummonSetCard(Card card)
     {
         card.SummonSet(this);
 
@@ -24,16 +24,16 @@ internal partial class MainCardSlot : CardSlot
 
         if (DuelSide is DuelSide.Player)
         {
-            PowerSlot.ShowPower(card, false);
+            await PowerSlot.ShowPower(card, false);
         }
     }
 
-    internal void DestroyCard()
+    internal async Task DestroyCard()
     {
         GetParent<MainZone>().DestroyCard();
 
         HasCardInSlot = false;
 
-        PowerSlot.HidePower();
+        await PowerSlot.HidePower();
     }
 }

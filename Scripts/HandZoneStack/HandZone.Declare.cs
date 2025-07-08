@@ -1,9 +1,8 @@
 using DMYAN.Scripts.GameManagerStack;
-using Godot;
 
 namespace DMYAN.Scripts.HandZoneStack;
 
-internal partial class HandZone : Node2D
+internal partial class HandZone : DMYANNode2D
 {
     private GameManager _gameManager;
 }

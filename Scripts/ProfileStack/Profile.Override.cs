@@ -3,7 +3,7 @@ using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts.ProfileStack;
 
-internal partial class Profile : Node2D
+internal partial class Profile : DMYANNode2D
 {
     public override void _Ready()
     {

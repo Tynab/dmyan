@@ -1,11 +1,10 @@
 using DMYAN.Scripts.Controls;
 using DMYAN.Scripts.Popups;
-using Godot;
 using System.Collections.Generic;
 
 namespace DMYAN.Scripts.GameManagerStack;
 
-internal partial class GameManager : Node2D
+internal partial class GameManager : DMYANNode2D
 {
     private PopupPhase _popupPhase;
 

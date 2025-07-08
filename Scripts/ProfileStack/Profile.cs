@@ -4,7 +4,7 @@ using static Godot.ResourceLoader;
 
 namespace DMYAN.Scripts.ProfileStack;
 
-internal partial class Profile : Node2D
+internal partial class Profile : DMYANNode2D
 {
     internal void Init(string name, float lp = 2_000)
     {

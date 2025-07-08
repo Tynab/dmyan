@@ -3,7 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://0qf62igfr60" path="res://Assets/Popups/activate.png" id="1_637tg"]
 
 [node name="CardAction" type="Node2D"]
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_637tg")
+metadata/_edit_lock_ = true

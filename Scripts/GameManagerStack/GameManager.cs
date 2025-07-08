@@ -12,7 +12,7 @@ using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.GameManagerStack;
 
-internal partial class GameManager : Node2D
+internal partial class GameManager : DMYANNode2D
 {
     internal static DuelSide GetOpposite(DuelSide side) => side switch
     {

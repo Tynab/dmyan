@@ -1,11 +1,12 @@
 using DMYAN.Scripts.CardStack;
 using Godot;
+using System.Threading.Tasks;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.Colors;
 
 namespace DMYAN.Scripts.PowerSlotStack;
 
-internal partial class PowerSlot : Node2D
+internal partial class PowerSlot : DMYANNode2D
 {
     public override void _Ready()
     {
@@ -15,7 +16,7 @@ internal partial class PowerSlot : Node2D
         _slash.Modulate = Gray;
     }
 
-    internal void ShowPower(Card card, bool isAtk)
+    internal async Task ShowPower(Card card, bool isAtk)
     {
         _atk.Text = card.BaseATK.ToString();
         _def.Text = card.BaseDEF.ToString();
@@ -31,15 +32,15 @@ internal partial class PowerSlot : Node2D
             _def.Modulate = White;
         }
 
-        Show();
+        await FadeIn();
     }
 
-    internal void HidePower()
+    internal async Task HidePower()
     {
+        await FadeOut();
+
         _atk.Text = string.Empty;
         _def.Text = string.Empty;
         _slash.Text = string.Empty;
-
-        Hide();
     }
 }

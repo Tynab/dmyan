@@ -1,11 +1,10 @@
-using Godot;
 using static DMYAN.Scripts.Common.Constant;
 using static Godot.Tween.EaseType;
 using static Godot.Tween.TransitionType;
 
 namespace DMYAN.Scripts.CardStack;
 
-internal partial class Card : Node2D
+internal partial class Card : DMYANNode2D
 {
     private void HighlightOn()
     {

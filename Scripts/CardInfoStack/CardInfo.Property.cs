@@ -1,9 +1,8 @@
-using Godot;
 using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts.CardInfoStack;
 
-internal partial class CardInfo : Node2D
+internal partial class CardInfo : DMYANNode2D
 {
     internal int CurrentSwap { get; set; } = DEFAULT_CARD_INFO_SWAP;
 

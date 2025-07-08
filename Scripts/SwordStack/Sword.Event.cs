@@ -6,7 +6,7 @@ using static Godot.MouseButton;
 
 namespace DMYAN.Scripts.SwordStack;
 
-internal partial class Sword : Node2D
+internal partial class Sword : DMYANNode2D
 {
     private async void OnAreaInputEvent(Node viewport, InputEvent @event, long shapeIdx)
     {

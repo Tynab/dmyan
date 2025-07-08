@@ -65,6 +65,7 @@ internal static class Constant
     internal const float CARD_HAND_RAISE_Y = 20;
 
     internal const float DEFAULT_ANIMATION_SPEED = .1f;
+    internal const float FADE_ANIMATION_SPEED = .2f;
     internal const float PHASE_BUTTON_ANIMATION_SPEED = .05f;
     internal const float PHASE_ANIMATION_SPEED = .2f;
 

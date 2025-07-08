@@ -12,7 +12,7 @@ using static Godot.Vector2;
 
 namespace DMYAN.Scripts.CardStack;
 
-internal partial class Card : Node2D
+internal partial class Card : DMYANNode2D
 {
     internal void Init(CardData data, DuelSide side)
     {
@@ -139,7 +139,7 @@ internal partial class Card : Node2D
 
     internal async Task Destroy()
     {
-        GetParent<MainCardSlot>().DestroyCard();
+        await GetParent<MainCardSlot>().DestroyCard();
 
         ZIndex = default;
         Location = CardLocation.None;
@@ -162,7 +162,7 @@ internal partial class Card : Node2D
 
             var cardSlot = GetParent<MainCardSlot>();
 
-            cardSlot.PowerSlot.ShowPower(this, false);
+            await cardSlot.PowerSlot.ShowPower(this, false);
         }
 
         await AnimationFlipUpAsync();
@@ -192,20 +192,6 @@ internal partial class Card : Node2D
         {
             await Sword.FadeIn();
         }
-    }
-
-    internal async Task FadeIn()
-    {
-        Show();
-
-        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, OPACITY_MAX, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
-    }
-
-    internal async Task FadeOut()
-    {
-        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, OPACITY_MIN, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
-
-        Hide();
     }
 
     internal async Task AnimationAtkAttackedAsync()

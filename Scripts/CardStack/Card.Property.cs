@@ -5,7 +5,7 @@ using Godot;
 
 namespace DMYAN.Scripts.CardStack;
 
-internal partial class Card : Node2D
+internal partial class Card : DMYANNode2D
 {
     internal DuelSide BaseSide { get; set; } = DuelSide.None;
 

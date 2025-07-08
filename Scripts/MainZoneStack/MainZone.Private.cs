@@ -1,11 +1,10 @@
 using DMYAN.Scripts.MainCardSlotStack;
-using Godot;
 using System.Collections.Generic;
 using static Godot.GD;
 
 namespace DMYAN.Scripts.MainZoneStack;
 
-internal partial class MainZone : Node2D
+internal partial class MainZone : DMYANNode2D
 {
     private MainCardSlot GetMainSlot(bool isAtk)
     {
