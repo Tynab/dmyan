@@ -9,22 +9,8 @@ using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.SwordStack;
 
-internal partial class Sword : Node2D
+internal partial class Sword : DMYANNode2D
 {
-    internal async Task FadeIn()
-    {
-        Show();
-
-        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, OPACITY_MAX, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
-    }
-
-    internal async Task FadeOut()
-    {
-        _ = await ToSignal(GetTree().CreateTween().SetTrans(Sine).SetEase(InOut).TweenProperty(this, OPACITY_NODE_PATH, OPACITY_MIN, DEFAULT_ANIMATION_SPEED), FINISHED_SIGNAL);
-
-        Hide();
-    }
-
     internal async Task AnimationAttack(Vector2 globalPosition)
     {
         _isSwordFollowingMouse = false;
@@ -32,7 +18,7 @@ internal partial class Sword : Node2D
         _sprite.LookAt(globalPosition);
         _sprite.Rotation += Pi / 2;
 
-        var parent = GetParent().GetParent<Node2D>();
+        var parent = GetParent().GetParent<DMYANNode2D>();
         var h = _sprite.Texture.GetHeight() * parent.Scale.Y / 2;
         var angleRadians = DegToRad(90 - _sprite.RotationDegrees);
 

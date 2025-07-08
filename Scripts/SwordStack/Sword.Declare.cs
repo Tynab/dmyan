@@ -3,7 +3,7 @@ using Godot;
 
 namespace DMYAN.Scripts.SwordStack;
 
-internal partial class Sword : Node2D
+internal partial class Sword : DMYANNode2D
 {
     private GameManager _gameManager;
 

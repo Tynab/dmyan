@@ -12,7 +12,7 @@ using static System.Threading.Tasks.Task;
 
 namespace DMYAN.Scripts.GameManagerStack;
 
-internal partial class GameManager : Node2D
+internal partial class GameManager : DMYANNode2D
 {
     internal static DuelSide GetOpposite(DuelSide side) => side switch
     {
@@ -41,6 +41,8 @@ internal partial class GameManager : Node2D
         DuelSide.Opponent => OpponentGraveyard,
         _ => null
     };
+
+    internal int GraveyardCount(DuelSide side) => Cards.Count(x => x.DuelSide == side && x.Location == CardLocation.InBoard && x.Zone == CardZone.Graveyard && x.GraveyardIndex.HasValue);
 
     internal List<Card> GetCards(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side)];
 
@@ -95,7 +97,7 @@ internal partial class GameManager : Node2D
         _ => Vector2.Zero
     };
 
-    internal async Task DrawPhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    internal async Task DrawPhase(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Draw;
         HasSummoned = false;
@@ -106,19 +108,19 @@ internal partial class GameManager : Node2D
 
         if (CurrentTurnSide is DuelSide.Player)
         {
-            await DrawStepAsync(PlayerMainDeck, PlayerHand);
+            await DrawStep(PlayerMainDeck, PlayerHand);
         }
         else
         {
-            await DrawStepAsync(OpponentMainDeck, OpponentHand);
+            await DrawStep(OpponentMainDeck, OpponentHand);
         }
 
         await Delay(delay);
 
-        await StandbyPhaseAsync();
+        await StandbyPhase();
     }
 
-    internal async Task StandbyPhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    internal async Task StandbyPhase(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Standby;
 
@@ -128,10 +130,10 @@ internal partial class GameManager : Node2D
 
         await Delay(delay);
 
-        await Main1PhaseAsync();
+        await Main1Phase();
     }
 
-    internal async Task Main1PhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    internal async Task Main1Phase(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Main1;
 
@@ -149,7 +151,7 @@ internal partial class GameManager : Node2D
         await Delay(delay);
     }
 
-    internal async Task BattlePhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    internal async Task BattlePhase(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Battle;
 
@@ -165,7 +167,7 @@ internal partial class GameManager : Node2D
         await Delay(delay);
     }
 
-    internal async Task Main2PhaseAsync(int delay = PHASE_CHANGE_DELAY)
+    internal async Task Main2Phase(int delay = PHASE_CHANGE_DELAY)
     {
         CurrentPhase = DuelPhase.Main2;
 
@@ -180,16 +182,16 @@ internal partial class GameManager : Node2D
         await Delay(delay);
     }
 
-    internal async Task EndPhaseAsync(int delay = STARTUP_DELAY)
+    internal async Task EndPhase(int delay = STARTUP_DELAY)
     {
         if (CurrentPhase is DuelPhase.Main1)
         {
-            await BattlePhaseAsync(STARTUP_DELAY);
+            await BattlePhase(STARTUP_DELAY);
         }
 
         if (CurrentPhase is DuelPhase.Battle)
         {
-            await Main2PhaseAsync(STARTUP_DELAY);
+            await Main2Phase(STARTUP_DELAY);
         }
 
         CurrentPhase = DuelPhase.End;
@@ -200,7 +202,7 @@ internal partial class GameManager : Node2D
 
         await Delay(delay);
 
-        await ChangeTurnAsync();
-        await DrawPhaseAsync();
+        await ChangeTurn();
+        await DrawPhase();
     }
 }

@@ -583,12 +583,14 @@ Button/styles/normal = SubResource("StyleBoxFlat_c2s76")
 Button/styles/pressed = SubResource("StyleBoxFlat_yf3a2")
 
 [node name="Main" type="Node2D"]
+metadata/_edit_lock_ = true
 
 [node name="Texture" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_lock_ = true
 
 [node name="Background" type="TextureRect" parent="Texture"]
 layout_mode = 0
@@ -620,8 +622,10 @@ metadata/_edit_lock_ = true
 
 [node name="Field" type="Node2D" parent="."]
 position = Vector2(960, 540)
+metadata/_edit_lock_ = true
 
 [node name="Opponent" type="Node2D" parent="Field"]
+metadata/_edit_lock_ = true
 
 [node name="MainDeck" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(362, -321)
@@ -629,30 +633,6 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("7_5vvyt")
 DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="Count" type="RichTextLabel" parent="Field/Opponent/MainDeck"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -43.5
-offset_right = 30.0
-offset_bottom = 43.5
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(30, 43.5)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
-theme_override_fonts/normal_font = ExtResource("14_sqvbp")
-theme_override_font_sizes/normal_font_size = 30
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="Graveyard" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(362, -184)
@@ -660,98 +640,26 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("13_xrxkg")
 DuelSide = 2
-metadata/_edit_lock_ = true
-
-[node name="Count" type="RichTextLabel" parent="Field/Opponent/Graveyard"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -43.5
-offset_right = 30.0
-offset_bottom = 43.5
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(30, 43.5)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
-theme_override_fonts/normal_font = ExtResource("14_sqvbp")
-theme_override_font_sizes/normal_font_size = 30
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="FieldCard" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(-362, -184)
 rotation = 3.14159
 scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
 
 [node name="ExtraDeck" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(-362, -321)
 rotation = 3.14159
 scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
-
-[node name="Count" type="RichTextLabel" parent="Field/Opponent/ExtraDeck"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -43.5
-offset_right = 30.0
-offset_bottom = 43.5
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(30, 43.5)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
-theme_override_fonts/normal_font = ExtResource("14_sqvbp")
-theme_override_font_sizes/normal_font_size = 30
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="Banished" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(343, -68)
 rotation = 1.5708
 scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
-
-[node name="Count" type="RichTextLabel" parent="Field/Opponent/Banished"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -43.5
-offset_right = 30.0
-offset_bottom = 43.5
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(30, 43.5)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
-theme_override_fonts/normal_font = ExtResource("14_sqvbp")
-theme_override_font_sizes/normal_font_size = 30
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="MainZone" type="Node2D" parent="Field/Opponent"]
 script = ExtResource("14_sc1dx")
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="CardSlot1" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(248, -212)
@@ -760,7 +668,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot1")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(124, -212)
@@ -769,7 +676,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot2")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(0, -212)
@@ -778,7 +684,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot3")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-124, -212)
@@ -787,7 +692,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot4")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-248, -212)
@@ -796,7 +700,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot5")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot6" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(248, -212)
@@ -805,7 +708,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot1")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot7" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(124, -212)
@@ -814,7 +716,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot2")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot8" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(0, -212)
@@ -823,7 +724,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot3")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot9" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-124, -212)
@@ -832,7 +732,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot4")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot10" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-248, -212)
@@ -841,44 +740,39 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot5")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot1" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(248, -140)
 rotation = 3.14159
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot2" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(124, -140)
 rotation = 3.14159
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot3" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(0, -140)
 rotation = 3.14159
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot4" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(-124, -140)
 rotation = 3.14159
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot5" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(-248, -140)
 rotation = 3.14159
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="STPZone" type="Node2D" parent="Field/Opponent"]
+metadata/_edit_lock_ = true
 
 [node name="CardSlot1" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(248, -338)
@@ -886,7 +780,6 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(124, -338)
@@ -894,7 +787,6 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(0, -338)
@@ -902,7 +794,6 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124, -338)
@@ -910,7 +801,6 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248, -338)
@@ -918,22 +808,22 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
-metadata/_edit_lock_ = true
 
 [node name="HandZone" type="Node2D" parent="Field/Opponent"]
 z_index = 99
 rotation = 3.14159
 script = ExtResource("7_03owx")
 DuelSide = 2
+metadata/_edit_lock_ = true
 
 [node name="Player" type="Node2D" parent="Field"]
+metadata/_edit_lock_ = true
 
 [node name="MainDeck" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(-362, 321)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("7_5vvyt")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="Count" type="RichTextLabel" parent="Field/Player/MainDeck"]
 visible = false
@@ -950,7 +840,11 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset = Vector2(30, 43.5)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0666667, 0.372549, 0.52549, 1)
+theme_override_colors/font_shadow_color = Color(0.364706, 0.74902, 0.929412, 1)
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/normal_font = ExtResource("14_sqvbp")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
@@ -963,7 +857,6 @@ position = Vector2(-362, 184)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("13_xrxkg")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="Count" type="RichTextLabel" parent="Field/Player/Graveyard"]
 visible = false
@@ -980,7 +873,11 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset = Vector2(30, 43.5)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0666667, 0.372549, 0.52549, 1)
+theme_override_colors/font_shadow_color = Color(0.364706, 0.74902, 0.929412, 1)
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/normal_font = ExtResource("14_sqvbp")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
@@ -991,12 +888,10 @@ metadata/_edit_lock_ = true
 [node name="FieldCard" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(362, 184)
 scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
 
 [node name="ExtraDeck" parent="Field/Player" instance=ExtResource("6_20pc6")]
 position = Vector2(362, 321)
 scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
 
 [node name="Count" type="RichTextLabel" parent="Field/Player/ExtraDeck"]
 visible = false
@@ -1013,7 +908,11 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset = Vector2(30, 43.5)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0666667, 0.372549, 0.52549, 1)
+theme_override_colors/font_shadow_color = Color(0.364706, 0.74902, 0.929412, 1)
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/normal_font = ExtResource("14_sqvbp")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
@@ -1025,7 +924,6 @@ metadata/_edit_lock_ = true
 position = Vector2(-343, 68.0001)
 rotation = -1.5708
 scale = Vector2(0.7, 0.7)
-metadata/_edit_lock_ = true
 
 [node name="Count" type="RichTextLabel" parent="Field/Player/Banished"]
 visible = false
@@ -1042,7 +940,11 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset = Vector2(30, 43.5)
-theme_override_colors/font_shadow_color = Color(0.101961, 0.992157, 0.239216, 1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0666667, 0.372549, 0.52549, 1)
+theme_override_colors/font_shadow_color = Color(0.364706, 0.74902, 0.929412, 1)
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/normal_font = ExtResource("14_sqvbp")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
@@ -1053,6 +955,7 @@ metadata/_edit_lock_ = true
 [node name="MainZone" type="Node2D" parent="Field/Player"]
 script = ExtResource("14_sc1dx")
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="CardSlot1" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 212)
@@ -1060,7 +963,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot1")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 212)
@@ -1068,7 +970,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot2")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(0, 212)
@@ -1076,7 +977,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot3")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(124, 212)
@@ -1084,7 +984,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot4")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(248, 212)
@@ -1092,7 +991,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot5")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot6" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 212)
@@ -1101,7 +999,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot1")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot7" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 212)
@@ -1110,7 +1007,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot2")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot8" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(0, 212)
@@ -1119,7 +1015,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot3")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot9" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(124, 212)
@@ -1128,7 +1023,6 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot4")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot10" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
 position = Vector2(248, 212)
@@ -1137,81 +1031,73 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot5")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot1" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(-248, 140)
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot2" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(-124, 140)
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot3" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(0, 140)
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot4" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(124, 140)
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="PowerSlot5" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(248, 140)
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="STPZone" type="Node2D" parent="Field/Player"]
+metadata/_edit_lock_ = true
 
 [node name="CardSlot1" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot2" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot3" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(0, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot4" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(124, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="CardSlot5" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
 position = Vector2(248, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
-metadata/_edit_lock_ = true
 
 [node name="HandZone" type="Node2D" parent="Field/Player"]
 z_index = 99
 script = ExtResource("7_03owx")
 DuelSide = 1
+metadata/_edit_lock_ = true
 
 [node name="Profile" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Opponent" parent="Profile" instance=ExtResource("13_c6i3y")]
 position = Vector2(1653, 226)
@@ -1225,6 +1111,7 @@ position = Vector2(960, 540)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("19_5tuhn")
 script = ExtResource("20_2gh4u")
+metadata/_edit_lock_ = true
 
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerMainZone", "OpponentMainZone", "CardInfo", "PlayerMainDeck", "OpponentMainDeck", "PlayerHand", "OpponentHand", "PlayerGraveyard", "OpponentGraveyard", "PlayerProfile", "OpponentProfile")]
 script = ExtResource("8_wkp8b")
@@ -1240,17 +1127,20 @@ OpponentGraveyard = NodePath("../Field/Opponent/Graveyard")
 PlayerProfile = NodePath("../Profile/Player")
 OpponentProfile = NodePath("../Profile/Opponent")
 CardScene = ExtResource("6_3dxm6")
+metadata/_edit_lock_ = true
 
 [node name="Button" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_lock_ = true
 
 [node name="Opponent" type="Control" parent="Button"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_lock_ = true
 
 [node name="DPButton" type="Button" parent="Button/Opponent"]
 visible = false
@@ -1358,6 +1248,7 @@ metadata/_edit_lock_ = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_lock_ = true
 
 [node name="DPButton" type="Button" parent="Button/Player"]
 layout_mode = 0

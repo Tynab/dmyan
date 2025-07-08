@@ -1,10 +1,13 @@
 using Godot;
+using System.Threading.Tasks;
 using YANLib;
 using static Godot.ResourceLoader;
+using static System.Threading.Tasks.Task;
+using static YANLib.YANMath;
 
 namespace DMYAN.Scripts.ProfileStack;
 
-internal partial class Profile : Node2D
+internal partial class Profile : DMYANNode2D
 {
     internal void Init(string name, float lp = 2_000)
     {
@@ -21,11 +24,54 @@ internal partial class Profile : Node2D
         return new Vector2(position.X + _avatar.Size.X / 2, position.Y + _avatar.Size.Y / 2);
     }
 
-    internal void UpdateLifePoint(int lpUpdate)
+    internal async Task UpdateLifePoint(int lpUpdate)
     {
-        var lp = _lifePoint.Text.Parse<int>() + lpUpdate;
+        if (lpUpdate < 0)
+        {
+            while (lpUpdate <= -10)
+            {
+                lpUpdate += 10;
 
-        _lifePoint.Text = lp.ToString();
-        _health.Value = lp;
+                var lp = Max(_lifePoint.Text.Parse<int>() - 10, 0);
+
+                _lifePoint.Text = lp.ToString();
+                _health.Value = lp;
+
+                if (lp is 0)
+                {
+                    break;
+                }
+
+                await Delay(1);
+            }
+
+            if (lpUpdate < 0)
+            {
+                var lp = Max(_lifePoint.Text.Parse<int>() + lpUpdate, 0);
+
+                _lifePoint.Text = lp.ToString();
+                _health.Value = lp;
+            }
+        }
+        else
+        {
+            while (lpUpdate >= 10)
+            {
+                lpUpdate -= 10;
+
+                var lp = _lifePoint.Text.Parse<int>() + 10;
+
+                _lifePoint.Text = lp.ToString();
+                _health.Value = lp;
+            }
+
+            if (lpUpdate > 0)
+            {
+                var lp = _lifePoint.Text.Parse<int>() + lpUpdate;
+
+                _lifePoint.Text = lp.ToString();
+                _health.Value = lp;
+            }
+        }
     }
 }

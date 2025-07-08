@@ -1,10 +1,9 @@
 using DMYAN.Scripts.GameManagerStack;
-using Godot;
 using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts.HandZoneStack;
 
-internal partial class HandZone : Node2D
+internal partial class HandZone : DMYANNode2D
 {
     public override void _Ready()
     {

@@ -6,7 +6,7 @@ using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts.CardStack;
 
-internal partial class Card : Node2D
+internal partial class Card : DMYANNode2D
 {
     public override void _Ready()
     {

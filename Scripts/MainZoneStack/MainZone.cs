@@ -1,10 +1,9 @@
 using DMYAN.Scripts.CardStack;
-using Godot;
 using System.Threading.Tasks;
 
 namespace DMYAN.Scripts.MainZoneStack;
 
-internal partial class MainZone : Node2D
+internal partial class MainZone : DMYANNode2D
 {
     internal async Task SummonCard(Card card)
     {

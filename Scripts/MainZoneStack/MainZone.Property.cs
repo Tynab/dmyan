@@ -3,7 +3,7 @@ using Godot;
 
 namespace DMYAN.Scripts.MainZoneStack;
 
-internal partial class MainZone : Node2D
+internal partial class MainZone : DMYANNode2D
 {
     [Export]
     private DuelSide DuelSide { get; set; } = DuelSide.None;

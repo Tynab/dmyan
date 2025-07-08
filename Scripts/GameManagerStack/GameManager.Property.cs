@@ -11,7 +11,7 @@ using static DMYAN.Scripts.Common.Constant;
 
 namespace DMYAN.Scripts.GameManagerStack;
 
-internal partial class GameManager : Node2D
+internal partial class GameManager : DMYANNode2D
 {
     [Export]
     internal MainZone PlayerMainZone { get; set; }

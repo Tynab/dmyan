@@ -6,7 +6,7 @@ using static Godot.MouseButton;
 
 namespace DMYAN.Scripts.SwordStack;
 
-internal partial class Sword : Node2D
+internal partial class Sword : DMYANNode2D
 {
     private async void OnAreaInputEvent(Node viewport, InputEvent @event, long shapeIdx)
     {
@@ -24,8 +24,7 @@ internal partial class Sword : Node2D
             else
             {
                 await AnimationAttack(_gameManager.GetAvatarPosition(opposite));
-
-                _gameManager.GetProfile(opposite).UpdateLifePoint(-_gameManager.CardAttacking.ATK.Value);
+                await _gameManager.GetProfile(opposite).UpdateLifePoint(-_gameManager.CardAttacking.ATK.Value);
 
                 _gameManager.CurrentStep = DuelStep.Attacked;
             }

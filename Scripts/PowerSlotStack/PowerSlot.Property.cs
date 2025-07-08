@@ -3,7 +3,7 @@ using Godot;
 
 namespace DMYAN.Scripts.PowerSlotStack;
 
-internal partial class PowerSlot : Node2D
+internal partial class PowerSlot : DMYANNode2D
 {
     [Export]
     private DuelSide DuelSide { get; set; } = DuelSide.None;

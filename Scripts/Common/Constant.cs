@@ -65,6 +65,7 @@ internal static class Constant
     internal const float CARD_HAND_RAISE_Y = 20;
 
     internal const float DEFAULT_ANIMATION_SPEED = .1f;
+    internal const float FADE_ANIMATION_SPEED = .2f;
     internal const float PHASE_BUTTON_ANIMATION_SPEED = .05f;
     internal const float PHASE_ANIMATION_SPEED = .2f;
 
@@ -86,6 +87,8 @@ internal static class Constant
     internal const string INFO_TIMER_NODE = "Timer";
 
     internal const string MAIN_NODE = "Main";
+    internal const string DAMAGE_NODE = "Damage";
+    internal const string AVATAR_NODE = "Avatar";
     internal const string SLOT_COUNT_NODE = "Count";
 
     internal const string COLLIDER_PROPERTY = "collider";
