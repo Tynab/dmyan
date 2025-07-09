@@ -12,9 +12,9 @@ internal partial class MainZone : DMYANNode2D
         CardsInZone++;
     }
 
-    internal void SummonSetCard(Card card)
+    internal async Task SummonSetCard(Card card)
     {
-        GetMainSlot(false).SummonSetCard(card);
+        await GetMainSlot(false).SummonSetCard(card);
 
         CardsInZone++;
     }

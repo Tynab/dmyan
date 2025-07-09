@@ -23,10 +23,7 @@ internal partial class Sword : DMYANNode2D
             }
             else
             {
-                await AnimationAttack(_gameManager.GetAvatarPosition(opposite));
-                await _gameManager.GetProfile(opposite).UpdateLifePoint(-_gameManager.CardAttacking.ATK.Value);
-
-                _gameManager.CurrentStep = DuelStep.Attacked;
+                await DirectAttack(opposite);
             }
         }
     }

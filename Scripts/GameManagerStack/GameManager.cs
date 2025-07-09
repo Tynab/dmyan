@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using YANLib;
 using static DMYAN.Scripts.Common.Constant;
 using static System.Threading.Tasks.Task;
+using static YANLib.YANRandom;
 
 namespace DMYAN.Scripts.GameManagerStack;
 
@@ -71,8 +72,6 @@ internal partial class GameManager : DMYANNode2D
 
     internal List<Card> GetCardsInGraveyard(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InBoard && x.Zone == CardZone.Graveyard && x.GraveyardIndex.HasValue)];
 
-    internal List<Card> GetCardsInMainZone(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InBoard && x.Zone == CardZone.Main)];
-
     internal List<Card> GetCardInHandCanSummon(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InHand && x.HandIndex.HasValue && x.CanSummon)];
 
     internal Card GetHigherAtkCardInHand(DuelSide side)
@@ -102,6 +101,27 @@ internal partial class GameManager : DMYANNode2D
     internal Card GetHighestAtkCardInHand(DuelSide side) => Cards.Where(x => x.DuelSide == side && x.Location is CardLocation.InHand && x.CanSummon).OrderByDescending(x => x.ATK).FirstOrDefault();
 
     internal Card GetHighestDefCardInHand(DuelSide side) => Cards.Where(x => x.DuelSide == side && x.Location is CardLocation.InHand && x.CanSet).OrderByDescending(x => x.DEF).FirstOrDefault();
+
+    internal List<Card> GetCardsInMainZone(DuelSide side) => [.. Cards.Where(x => x.DuelSide == side && x.Location == CardLocation.InBoard && x.Zone == CardZone.Main)];
+
+    internal List<Card> GetFaceUpCardsInMainZone(DuelSide side) => [.. GetCardsInMainZone(side).Where(x => x.CardFace is CardFace.FaceUp)];
+
+    internal List<Card> GetFaceDownCardsInMainZone(DuelSide side) => [.. GetCardsInMainZone(side).Where(x => x.CardFace is CardFace.FaceDown)];
+
+    internal List<Card> GetDescendingAtkCardsInMainZone(DuelSide side) => [.. GetFaceUpCardsInMainZone(side).Where(x => x.CardPosition is CardPosition.Attack).OrderByDescending(x => x.ATK)];
+
+    internal List<Card> GetDescendingDefCardsInMainZone(DuelSide side) => [.. GetFaceUpCardsInMainZone(side).Where(x => x.CardPosition is CardPosition.Defense).OrderByDescending(x => x.DEF)];
+
+    internal Card GetHighestAtkCardInMainZone(DuelSide side) => GetDescendingAtkCardsInMainZone(side).FirstOrDefault();
+
+    internal Card GetHighestDefCardInMainZone(DuelSide side) => GetDescendingDefCardsInMainZone(side).FirstOrDefault();
+
+    internal Card GetRandomFaceDownCardInMainZone(DuelSide side)
+    {
+        var cards = GetFaceDownCardsInMainZone(side);
+
+        return cards.IsNullEmpty() ? default : cards[GenerateRandom<int>(min: 0, max: cards.Count)];
+    }
 
     #endregion
 
@@ -155,7 +175,7 @@ internal partial class GameManager : DMYANNode2D
 
         if (CurrentTurnSide is DuelSide.Opponent)
         {
-            await this.AiSummonOrSetCard();
+            await this.AiMainPhase();
         }
 
         await Delay(delay);
@@ -172,6 +192,11 @@ internal partial class GameManager : DMYANNode2D
         if (!IsFirstTurn)
         {
             Cards.ForEach(async x => await x.CanAttackCheck(CurrentTurnSide));
+        }
+
+        if (CurrentTurnSide is DuelSide.Opponent)
+        {
+            await this.AiBattlePhase();
         }
 
         await Delay(delay);
