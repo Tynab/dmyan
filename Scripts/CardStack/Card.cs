@@ -14,6 +14,8 @@ namespace DMYAN.Scripts.CardStack;
 
 internal partial class Card : DMYANNode2D
 {
+    #region CRUD
+
     internal void Init(CardData data, DuelSide side)
     {
         _cardFront.Texture = Load<Texture2D>(data.Code.GetCardAssetPathByCode());
@@ -56,6 +58,12 @@ internal partial class Card : DMYANNode2D
         CanDirectAttack = false;
         ActionType = CardActionType.None;
     }
+
+    internal CardSlot GetSlot() => GetParent<CardSlot>();
+
+    #endregion
+
+    #region Relocation
 
     internal void MainDeckEntered(int index)
     {
@@ -151,24 +159,9 @@ internal partial class Card : DMYANNode2D
         await FadeOut();
     }
 
-    internal async Task FlipUp()
-    {
-        CardFace = CardFace.FaceUp;
-        CanView = true;
+    #endregion
 
-        if (DuelSide is DuelSide.Opponent)
-        {
-            _gameManager.CardInfo.BindingData(this);
-
-            var cardSlot = GetParent<MainCardSlot>();
-
-            await cardSlot.PowerSlot.ShowPower(this, false);
-        }
-
-        await AnimationFlipUp();
-    }
-
-    internal CardSlot GetSlot() => GetParent<CardSlot>();
+    #region Validation
 
     internal void CanSummonOrSetCheck()
     {
@@ -194,6 +187,59 @@ internal partial class Card : DMYANNode2D
         }
     }
 
+    #endregion
+
+    #region Actions
+
+    internal async Task FlipUp()
+    {
+        CardFace = CardFace.FaceUp;
+        CanView = true;
+
+        if (DuelSide is DuelSide.Opponent)
+        {
+            _gameManager.CardInfo.BindingData(this);
+
+            var cardSlot = GetParent<MainCardSlot>();
+
+            await cardSlot.PowerSlot.ShowPower(this, false);
+        }
+
+        await AnimationFlipUp();
+    }
+
+    #endregion
+
+    #region Animation
+
+    internal void AnimationDraw(Vector2 position) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
+
+    internal void AnimationSet(Vector2 globalPosition, Vector2 scale)
+    {
+        _animationPlayer.Play(CARD_FLIP_DOWN_ANIMATION);
+
+        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, GLOBAL_POSITION_NODE_PATH, globalPosition, DEFAULT_ANIMATION_SPEED);
+        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, DEFAULT_ANIMATION_SPEED);
+    }
+
+    internal async Task AnimationSummon(Vector2 globalPosition, Vector2 scale)
+    {
+        if (_gameManager.CurrentTurnSide is DuelSide.Opponent)
+        {
+            await AnimationFlipUp();
+        }
+
+        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, GLOBAL_POSITION_NODE_PATH, globalPosition, DEFAULT_ANIMATION_SPEED);
+        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, DEFAULT_ANIMATION_SPEED);
+    }
+
+    internal void AnimationSummonSet(Vector2 globalPosition, Vector2 scale)
+    {
+        AnimationSet(globalPosition, scale);
+
+        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, ROTATION_NODE_PATH, RotationDegrees - 90, DEFAULT_ANIMATION_SPEED);
+    }
+
     internal async Task AnimationAtkAttacked()
     {
         _animationPlayer.Play(CARD_ATK_ATTACKED_ANIMATION);
@@ -215,31 +261,5 @@ internal partial class Card : DMYANNode2D
         _ = await ToSignal(_animationPlayer, AnimationFinished);
     }
 
-    internal void AnimationDraw(Vector2 position) => GetTree().CreateTween().SetTrans(Circ).SetEase(Out).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
-
-    internal async Task AnimationSummon(Vector2 globalPosition, Vector2 scale)
-    {
-        if (_gameManager.CurrentTurnSide is DuelSide.Opponent)
-        {
-            await AnimationFlipUp();
-        }
-
-        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, GLOBAL_POSITION_NODE_PATH, globalPosition, DEFAULT_ANIMATION_SPEED);
-        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, DEFAULT_ANIMATION_SPEED);
-    }
-
-    internal void AnimationSet(Vector2 globalPosition, Vector2 scale)
-    {
-        _animationPlayer.Play(CARD_FLIP_DOWN_ANIMATION);
-
-        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, GLOBAL_POSITION_NODE_PATH, globalPosition, DEFAULT_ANIMATION_SPEED);
-        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, SCALE_NODE_PATH, scale, DEFAULT_ANIMATION_SPEED);
-    }
-
-    internal void AnimationSummonSet(Vector2 globalPosition, Vector2 scale)
-    {
-        AnimationSet(globalPosition, scale);
-
-        _ = GetTree().CreateTween().SetTrans(Sine).SetEase(Out).TweenProperty(this, ROTATION_NODE_PATH, RotationDegrees - 90, DEFAULT_ANIMATION_SPEED);
-    }
+    #endregion
 }

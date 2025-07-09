@@ -5,7 +5,7 @@ using YANLib;
 
 internal static partial class AI
 {
-    internal static async Task OpponentSummonOrSetCard(this GameManager gameManager)
+    internal static async Task AiSummonOrSetCard(this GameManager gameManager)
     {
         var higherAtkCard = gameManager.GetHigherAtkCardInHand(DuelSide.Opponent);
 

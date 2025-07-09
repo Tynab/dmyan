@@ -39,7 +39,7 @@ internal partial class PhaseButton : Button
         }
     }
 
-    internal async Task In()
+    internal async Task ZoomIn()
     {
         ZIndex = default;
         Scale = PHASE_BUTTON_SCALE_MIN;
@@ -51,7 +51,7 @@ internal partial class PhaseButton : Button
         _ = await ToSignal(GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, SCALE_NODE_PATH, One, PHASE_BUTTON_ANIMATION_SPEED), FINISHED_SIGNAL);
     }
 
-    internal async Task Out()
+    internal async Task ZoomOut()
     {
         ZIndex = 1;
         Scale = One;

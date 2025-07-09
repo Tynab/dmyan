@@ -136,11 +136,11 @@ internal partial class GameManager : DMYANNode2D
             {
                 if (i % 2 is 0)
                 {
-                    await _phaseButtons[i + 1].Out();
+                    await _phaseButtons[i + 1].ZoomOut();
                 }
                 else
                 {
-                    await _phaseButtons[i - 1].In();
+                    await _phaseButtons[i - 1].ZoomIn();
                 }
             }
         }
@@ -150,11 +150,11 @@ internal partial class GameManager : DMYANNode2D
             {
                 if (i % 2 is 0)
                 {
-                    await _phaseButtons[i].Out();
+                    await _phaseButtons[i].ZoomOut();
                 }
                 else
                 {
-                    await _phaseButtons[i].In();
+                    await _phaseButtons[i].ZoomIn();
                 }
             }
         }
