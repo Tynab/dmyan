@@ -59,7 +59,7 @@ internal partial class GameManager : DMYANNode2D
 
         await Delay(STARTUP_DELAY);
 
-        await StartInitialDraw();
+        await InitDraw();
         await DrawPhase();
     }
 
@@ -95,7 +95,7 @@ internal partial class GameManager : DMYANNode2D
                     {
                         if (card.CanSet)
                         {
-                            SetSummonStep(card, PlayerHand, PlayerMainZone);
+                            await SetSummonStep(card, PlayerHand, PlayerMainZone);
                         }
                     }
                 }

@@ -12,7 +12,7 @@ internal partial class Card : DMYANNode2D
 
             if (Location is CardLocation.InHand)
             {
-                HighlightOn();
+                AnimationHighlightOn();
 
                 if (_gameManager.CurrentTurnSide is DuelSide.Player)
                 {
@@ -39,7 +39,7 @@ internal partial class Card : DMYANNode2D
         {
             if (Location is CardLocation.InHand)
             {
-                HighlightOff();
+                AnimationHighlightOff();
             }
 
             PopupAction.Hide();

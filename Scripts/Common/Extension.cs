@@ -38,6 +38,8 @@ internal static class Extension
         return power.PadLeft(5, ' ');
     }
 
+    #region Translation
+
     internal static string VietTranslation(this CardType cardType) => cardType switch
     {
         CardType.Monster => "Quái",
@@ -109,4 +111,6 @@ internal static class Extension
         MonsterRace.Zombie => "Thây Ma",
         _ => string.Empty
     };
+
+    #endregion
 }

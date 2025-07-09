@@ -6,24 +6,31 @@ namespace DMYAN.Scripts.CardStack;
 
 internal partial class Card : DMYANNode2D
 {
-    private void HighlightOn()
+    #region Animation
+
+    private void AnimationHighlightOn()
     {
-        var newPosition = BasePosition;
+        var position = BasePosition;
 
-        newPosition.Y -= CARD_HAND_RAISE_Y;
+        position.Y -= CARD_HAND_RAISE_Y;
 
-        _ = GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, newPosition, DEFAULT_ANIMATION_SPEED);
+        _ = GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, position, DEFAULT_ANIMATION_SPEED);
     }
 
-    private void HighlightOff() => GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, BasePosition, DEFAULT_ANIMATION_SPEED);
+    private void AnimationHighlightOff() => GetTree().CreateTween().SetTrans(Linear).SetEase(InOut).TweenProperty(this, POSITION_NODE_PATH, BasePosition, DEFAULT_ANIMATION_SPEED);
+
+    #endregion
+
+    #region Reset State
 
     private void ResetDefault()
     {
-        RotationDegrees = 0;
-
+        ResetRotation();
         ResetFace();
         ResetPower();
     }
+
+    private void ResetRotation() => RotationDegrees = 0;
 
     private void ResetFace()
     {
@@ -36,4 +43,6 @@ internal partial class Card : DMYANNode2D
         ATK = BaseATK;
         DEF = BaseDEF;
     }
+
+    #endregion
 }

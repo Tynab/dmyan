@@ -19,6 +19,8 @@ namespace DMYAN.Scripts.GameManagerStack;
 
 internal partial class GameManager : DMYANNode2D
 {
+    #region Prepared
+
     private void LoadData()
     {
         Cards.Clear();
@@ -66,6 +68,27 @@ internal partial class GameManager : DMYANNode2D
             Cards.Add(card);
         }
     }
+
+    private async Task InitDraw()
+    {
+        for (var i = 0; i < INITIAL_HAND_SIZE; i++)
+        {
+            await DrawStep(PlayerMainDeck, PlayerHand);
+            await DrawStep(OpponentMainDeck, OpponentHand);
+        }
+    }
+
+    private async Task ChangeTurn()
+    {
+        CurrentTurnSide = CurrentTurnSide is DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;
+        IsFirstTurn = false;
+
+        await ChangeVisibilityButtons();
+    }
+
+    #endregion
+
+    #region Controls
 
     private PhaseButton GetPhaseButton(DuelSide side, DuelPhase phase) => side switch
     {
@@ -136,11 +159,11 @@ internal partial class GameManager : DMYANNode2D
             {
                 if (i % 2 is 0)
                 {
-                    await _phaseButtons[i + 1].Out();
+                    await _phaseButtons[i + 1].ZoomOut();
                 }
                 else
                 {
-                    await _phaseButtons[i - 1].In();
+                    await _phaseButtons[i - 1].ZoomIn();
                 }
             }
         }
@@ -150,24 +173,53 @@ internal partial class GameManager : DMYANNode2D
             {
                 if (i % 2 is 0)
                 {
-                    await _phaseButtons[i].Out();
+                    await _phaseButtons[i].ZoomOut();
                 }
                 else
                 {
-                    await _phaseButtons[i].In();
+                    await _phaseButtons[i].ZoomIn();
                 }
             }
         }
     }
 
-    private async Task StartInitialDraw()
+    private Card GetCardAtCursor()
     {
-        for (var i = 0; i < INITIAL_HAND_SIZE; i++)
+        var results = GetWorld2D().DirectSpaceState.IntersectPoint(new PhysicsPointQueryParameters2D
         {
-            await DrawStep(PlayerMainDeck, PlayerHand);
-            await DrawStep(OpponentMainDeck, OpponentHand);
+            Position = GetGlobalMousePosition(),
+            CollideWithAreas = true,
+            CollisionMask = CARD_COLLISION_MASK
+        });
+
+        return results.IsNullEmpty() ? default : GetTopmostCard(results);
+    }
+
+    private static Card GetTopmostCard(Array<Dictionary> cards) => cards.Select(static c => c[COLLIDER_PROPERTY].As<Area2D>().GetParent<Card>()).OrderByDescending(static c => c.ZIndex).FirstOrDefault();
+
+    #endregion
+
+    #region Validations
+
+    private void CanSummonOrSet()
+    {
+        if (!HasSummoned)
+        {
+            Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CanSummonOrSetCheck());
         }
     }
+
+    private void CannotSummonOrSet()
+    {
+        if (HasSummoned)
+        {
+            Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CannotSummonOrSetCheck());
+        }
+    }
+
+    #endregion
+
+    #region Steps
 
     private async Task DrawStep(MainDeck deck, HandZone hand)
     {
@@ -197,12 +249,13 @@ internal partial class GameManager : DMYANNode2D
         CannotSummonOrSet();
     }
 
-    private void SetSummonStep(Card card, HandZone hand, MainZone zone)
+    private async Task SetSummonStep(Card card, HandZone hand, MainZone zone)
     {
         CurrentStep = DuelStep.SetSummoning;
 
         hand.RemoveCard(card);
-        zone.SummonSetCard(card);
+
+        await zone.SummonSetCard(card);
 
         HasSummoned = true;
         CurrentStep = DuelStep.SetSummoned;
@@ -210,7 +263,7 @@ internal partial class GameManager : DMYANNode2D
         CannotSummonOrSet();
     }
 
-    private async Task AttackStep(Card card)
+    internal async Task AttackStep(Card card)
     {
         await CardAttacking.Sword.AnimationAttack(card.GlobalPosition);
 
@@ -251,6 +304,24 @@ internal partial class GameManager : DMYANNode2D
 
         await card.Destroy();
         await GetGraveyard(card.DuelSide).AddCard(card, GraveyardCount(card.DuelSide) + 1);
+    }
+
+    #endregion
+
+    #region Calculations
+
+    private int? GetMinAtkInMainBySide(DuelSide side)
+    {
+        var cards = GetCardsInMainZone(side);
+
+        return cards.IsNullEmpty() ? default : cards.Min(static x => x.ATK);
+    }
+
+    private int? GetMaxAtkInMainBySide(DuelSide side)
+    {
+        var cards = GetCardsInMainZone(side);
+
+        return cards.IsNullEmpty() ? default : cards.Max(static x => x.ATK);
     }
 
     private async Task AtkVsAtk(Card card)
@@ -296,55 +367,5 @@ internal partial class GameManager : DMYANNode2D
         }
     }
 
-    private void CanSummonOrSet()
-    {
-        if (!HasSummoned)
-        {
-            Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CanSummonOrSetCheck());
-        }
-    }
-
-    private void CannotSummonOrSet()
-    {
-        if (HasSummoned)
-        {
-            Cards.Where(x => x.DuelSide == CurrentTurnSide && x.Location is CardLocation.InHand).ToList().ForEach(x => x.CannotSummonOrSetCheck());
-        }
-    }
-
-    private Card GetCardAtCursor()
-    {
-        var results = GetWorld2D().DirectSpaceState.IntersectPoint(new PhysicsPointQueryParameters2D
-        {
-            Position = GetGlobalMousePosition(),
-            CollideWithAreas = true,
-            CollisionMask = CARD_COLLISION_MASK
-        });
-
-        return results.IsNullEmpty() ? default : GetTopmostCard(results);
-    }
-
-    private static Card GetTopmostCard(Array<Dictionary> cards) => cards.Select(static c => c[COLLIDER_PROPERTY].As<Area2D>().GetParent<Card>()).OrderByDescending(static c => c.ZIndex).FirstOrDefault();
-
-    private async Task ChangeTurn()
-    {
-        CurrentTurnSide = CurrentTurnSide is DuelSide.Player ? DuelSide.Opponent : DuelSide.Player;
-        IsFirstTurn = false;
-
-        await ChangeVisibilityButtons();
-    }
-
-    private int? GetMinAtkInMainBySide(DuelSide side)
-    {
-        var cards = GetCardsInMainZone(side);
-
-        return cards.IsNullEmpty() ? default : cards.Min(static x => x.ATK);
-    }
-
-    private int? GetMaxAtkInMainBySide(DuelSide side)
-    {
-        var cards = GetCardsInMainZone(side);
-
-        return cards.IsNullEmpty() ? default : cards.Max(static x => x.ATK);
-    }
+    #endregion
 }
