@@ -1,5 +1,7 @@
 using DMYAN.Scripts.CardStack;
 using DMYAN.Scripts.Common.Enum;
+using DMYAN.Scripts.HandZoneStack;
+using DMYAN.Scripts.MainDeckStack;
 using DMYAN.Scripts.MainZoneStack;
 using DMYAN.Scripts.ProfileStack;
 using Godot;
@@ -239,6 +241,95 @@ internal partial class GameManager : DMYANNode2D
 
         await ChangeTurn();
         await DrawPhase();
+    }
+
+    #endregion
+
+    #region Steps
+
+    internal async Task DrawStep(MainDeck deck, HandZone hand)
+    {
+        CurrentStep = DuelStep.Drawing;
+
+        var card = deck.RemoveCard();
+
+        if (card.IsNotNull())
+        {
+            await hand.AddCard(card);
+        }
+
+        CurrentStep = DuelStep.Drawn;
+    }
+
+    internal async Task SummonStep(Card card, HandZone hand, MainZone zone)
+    {
+        CurrentStep = DuelStep.Summoning;
+
+        hand.RemoveCard(card);
+
+        await zone.SummonCard(card);
+
+        HasSummoned = true;
+        CurrentStep = DuelStep.Summoned;
+
+        CannotSummonOrSet();
+    }
+
+    internal async Task SetSummonStep(Card card, HandZone hand, MainZone zone)
+    {
+        CurrentStep = DuelStep.SetSummoning;
+
+        hand.RemoveCard(card);
+
+        await zone.SummonSetCard(card);
+
+        HasSummoned = true;
+        CurrentStep = DuelStep.SetSummoned;
+
+        CannotSummonOrSet();
+    }
+
+    internal async Task AttackStep(Card card)
+    {
+        await CardAttacking.Sword.AnimationAttack(card.GlobalPosition);
+
+        if (card.CardFace is CardFace.FaceUp)
+        {
+            if (card.CardPosition is CardPosition.Attack)
+            {
+                await AtkVsAtk(card);
+            }
+            else if (card.CardPosition is CardPosition.Defense)
+            {
+                await AtkVsDef(card);
+            }
+        }
+        else if (card.CardFace is CardFace.FaceDown)
+        {
+            await card.FlipUp();
+
+            await AtkVsDef(card);
+        }
+
+        CardAttacking = default;
+        CurrentStep = DuelStep.Attacked;
+    }
+
+    internal async Task DestroyStep(Card card, bool isDef = false)
+    {
+        CurrentStep = DuelStep.Destroying;
+
+        if (isDef)
+        {
+            await card.AnimationDefAttacked();
+        }
+        else
+        {
+            await card.AnimationAtkAttacked();
+        }
+
+        await card.Destroy();
+        await GetGraveyard(card.DuelSide).AddCard(card, GraveyardCount(card.DuelSide) + 1);
     }
 
     #endregion
