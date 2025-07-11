@@ -1,586 +1,29 @@
-[gd_scene load_steps=89 format=3 uid="uid://csnqqsbyxsnpl"]
+[gd_scene load_steps=21 format=3 uid="uid://csnqqsbyxsnpl"]
 
 [ext_resource type="Texture2D" uid="uid://cl0je41f8kgq6" path="res://Assets/background.jpg" id="1_20pc6"]
 [ext_resource type="Shader" uid="uid://b0ss7yh6u7ido" path="res://Shaders/Scroll.gdshader" id="1_wkp8b"]
 [ext_resource type="Texture2D" uid="uid://dplradda0ipqm" path="res://Assets/scroll.png" id="2_wkp8b"]
-[ext_resource type="Texture2D" uid="uid://dw85pyqr2i5mu" path="res://Assets/board.png" id="3_wkp8b"]
 [ext_resource type="PackedScene" uid="uid://crqe8ju0cbbn1" path="res://Scenes/CardInfo.tscn" id="5_c2ibq"]
 [ext_resource type="Script" uid="uid://b4ka5olok4163" path="res://Scripts/STPCardSlot.cs" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://nk6cd16ke0oc" path="res://Scripts/Controls/DPButton.cs" id="5_hhcpw"]
-[ext_resource type="Script" uid="uid://b36plooh1hgx7" path="res://Scripts/Controls/PhaseButton.cs" id="5_mxvw5"]
+[ext_resource type="Texture2D" uid="uid://5oh0ek8gt18f" path="res://Assets/board.jpg" id="5_sqvbp"]
 [ext_resource type="PackedScene" uid="uid://b6k0fan5c8yta" path="res://Scenes/Card.tscn" id="6_3dxm6"]
 [ext_resource type="PackedScene" uid="uid://bppgbgvu4jxx7" path="res://Scenes/CardSlot.tscn" id="6_20pc6"]
-[ext_resource type="Script" uid="uid://bfgda5v3sfhh" path="res://Scripts/Controls/SPButton.cs" id="6_mxvw5"]
 [ext_resource type="Script" uid="uid://cytabl0w4ebi8" path="res://Scripts/HandZoneStack/HandZone.cs" id="7_03owx"]
 [ext_resource type="Script" uid="uid://cht16kq7xk1l0" path="res://Scripts/MainDeckStack/MainDeck.cs" id="7_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://bbngw4ss27y8e" path="res://Scenes/PowerSlot.tscn" id="7_trn2v"]
-[ext_resource type="Script" uid="uid://cqk6qfm7u7fme" path="res://Scripts/Controls/M1Button.cs" id="7_xrxkg"]
 [ext_resource type="Script" uid="uid://dxs6f6esfhe0o" path="res://Scripts/GameManagerStack/GameManager.cs" id="8_wkp8b"]
-[ext_resource type="Script" uid="uid://8ai4hfycrcfs" path="res://Scripts/Controls/M2Button.cs" id="9_sqvbp"]
-[ext_resource type="FontFile" uid="uid://cwyl68a5jsi7j" path="res://Fonts/Khamenet-8OLn0.ttf" id="12_5vvyt"]
 [ext_resource type="PackedScene" uid="uid://b3pth5pvbjjft" path="res://Scenes/Profile.tscn" id="13_c6i3y"]
 [ext_resource type="Script" uid="uid://fo1dtww3f0sr" path="res://Scripts/Graveyard.cs" id="13_xrxkg"]
 [ext_resource type="Script" uid="uid://mqv6i7ckx7d2" path="res://Scripts/MainZoneStack/MainZone.cs" id="14_sc1dx"]
 [ext_resource type="FontFile" uid="uid://bfjp26kfy22g6" path="res://Fonts/DS-DIGIB.TTF" id="14_sqvbp"]
 [ext_resource type="Script" uid="uid://b7a4ut1tbykvt" path="res://Scripts/MainCardSlotStack/MainCardSlot.cs" id="15_sc1dx"]
-[ext_resource type="Texture2D" uid="uid://bnug4uusvij3y" path="res://Assets/Popups/Player/dp.png" id="19_5tuhn"]
 [ext_resource type="Script" uid="uid://cffof8cg6k2ol" path="res://Scripts/Popups/PopupPhase.cs" id="20_2gh4u"]
-[ext_resource type="Script" uid="uid://coup5rb51sg4u" path="res://Scripts/Controls/BPButton.cs" id="25_sqvbp"]
-[ext_resource type="Script" uid="uid://cs4o00s25ly53" path="res://Scripts/Controls/EPButton.cs" id="27_hri7i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5vvyt"]
 shader = ExtResource("1_wkp8b")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpfj3"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sc1dx"]
-bg_color = Color(0.466667, 0.835294, 1, 1)
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.415686, 0.745098, 0.898039, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjvhd"]
-bg_color = Color(0.00392157, 0.592157, 0.996078, 1)
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.00784314, 0.52549, 0.894118, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tuhn"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_2gh4u"]
-Button/styles/disabled = SubResource("StyleBoxFlat_fpfj3")
-Button/styles/hover = SubResource("StyleBoxFlat_sc1dx")
-Button/styles/normal = SubResource("StyleBoxFlat_kjvhd")
-Button/styles/pressed = SubResource("StyleBoxFlat_5tuhn")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_devvj"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_top = 3
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3b0ty"]
-bg_color = Color(0.466667, 0.835294, 1, 1)
-border_width_right = 5
-border_width_bottom = 3
-border_color = Color(0.415686, 0.745098, 0.898039, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg4s2"]
-bg_color = Color(0.00392157, 0.592157, 0.996078, 1)
-border_width_right = 5
-border_width_bottom = 3
-border_color = Color(0.00784314, 0.52549, 0.894118, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhcpw"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_top = 3
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_mxvw5"]
-Button/styles/disabled = SubResource("StyleBoxFlat_devvj")
-Button/styles/hover = SubResource("StyleBoxFlat_3b0ty")
-Button/styles/normal = SubResource("StyleBoxFlat_bg4s2")
-Button/styles/pressed = SubResource("StyleBoxFlat_hhcpw")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrxkg"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_top = 1
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sqvbp"]
-bg_color = Color(0.466667, 0.835294, 1, 1)
-border_width_right = 5
-border_width_bottom = 1
-border_color = Color(0.415686, 0.745098, 0.898039, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hri7i"]
-bg_color = Color(0.00392157, 0.592157, 0.996078, 1)
-border_width_right = 5
-border_width_bottom = 1
-border_color = Color(0.00784314, 0.52549, 0.894118, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3rk5"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_top = 1
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_5mvff"]
-Button/styles/disabled = SubResource("StyleBoxFlat_xrxkg")
-Button/styles/hover = SubResource("StyleBoxFlat_sqvbp")
-Button/styles/normal = SubResource("StyleBoxFlat_hri7i")
-Button/styles/pressed = SubResource("StyleBoxFlat_w3rk5")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oye8v"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_bottom = 1
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_40n85"]
-bg_color = Color(0.466667, 0.835294, 1, 1)
-border_width_top = 1
-border_width_right = 5
-border_color = Color(0.415686, 0.745098, 0.898039, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gb15f"]
-bg_color = Color(0.00392157, 0.592157, 0.996078, 1)
-border_width_top = 1
-border_width_right = 5
-border_color = Color(0.00784314, 0.52549, 0.894118, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sph85"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_bottom = 1
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_o7g6l"]
-Button/styles/disabled = SubResource("StyleBoxFlat_oye8v")
-Button/styles/hover = SubResource("StyleBoxFlat_40n85")
-Button/styles/normal = SubResource("StyleBoxFlat_gb15f")
-Button/styles/pressed = SubResource("StyleBoxFlat_sph85")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vi5kq"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_bottom = 3
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mkgo"]
-bg_color = Color(0.466667, 0.835294, 1, 1)
-border_width_top = 3
-border_width_right = 5
-border_color = Color(0.415686, 0.745098, 0.898039, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ccbu"]
-bg_color = Color(0.00392157, 0.592157, 0.996078, 1)
-border_width_top = 3
-border_width_right = 5
-border_color = Color(0.00784314, 0.52549, 0.894118, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ny7u2"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_bottom = 3
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_x3yn0"]
-Button/styles/disabled = SubResource("StyleBoxFlat_vi5kq")
-Button/styles/hover = SubResource("StyleBoxFlat_5mkgo")
-Button/styles/normal = SubResource("StyleBoxFlat_3ccbu")
-Button/styles/pressed = SubResource("StyleBoxFlat_ny7u2")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1w2xm"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_bottom = 5
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gngx1"]
-bg_color = Color(0.466667, 0.835294, 1, 1)
-border_width_top = 5
-border_width_right = 5
-border_color = Color(0.415686, 0.745098, 0.898039, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jt61w"]
-bg_color = Color(0.00392157, 0.592157, 0.996078, 1)
-border_width_top = 5
-border_width_right = 5
-border_color = Color(0.00784314, 0.52549, 0.894118, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8qla"]
-bg_color = Color(0.0156863, 0.2, 1, 1)
-border_width_left = 5
-border_width_bottom = 5
-border_color = Color(0.0156863, 0.176471, 0.901961, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_y1tbi"]
-Button/styles/disabled = SubResource("StyleBoxFlat_1w2xm")
-Button/styles/hover = SubResource("StyleBoxFlat_gngx1")
-Button/styles/normal = SubResource("StyleBoxFlat_jt61w")
-Button/styles/pressed = SubResource("StyleBoxFlat_v8qla")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khphd"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_top = 5
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4ese"]
-bg_color = Color(0.533333, 0.976471, 0.313726, 1)
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.478431, 0.878431, 0.27451, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxvw5"]
-bg_color = Color(0, 0.560784, 0, 1)
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0.501961, 0.00392157, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4yo4"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_top = 5
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_xrxkg"]
-Button/styles/disabled = SubResource("StyleBoxFlat_khphd")
-Button/styles/hover = SubResource("StyleBoxFlat_f4ese")
-Button/styles/normal = SubResource("StyleBoxFlat_mxvw5")
-Button/styles/pressed = SubResource("StyleBoxFlat_g4yo4")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_im7ls"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_top = 3
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rchyr"]
-bg_color = Color(0.533333, 0.976471, 0.313726, 1)
-border_width_right = 5
-border_width_bottom = 3
-border_color = Color(0.478431, 0.878431, 0.27451, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mvff"]
-bg_color = Color(0, 0.560784, 0, 1)
-border_width_right = 5
-border_width_bottom = 3
-border_color = Color(0, 0.501961, 0.00392157, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a34eg"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_top = 3
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_oye8v"]
-Button/styles/disabled = SubResource("StyleBoxFlat_im7ls")
-Button/styles/hover = SubResource("StyleBoxFlat_rchyr")
-Button/styles/normal = SubResource("StyleBoxFlat_5mvff")
-Button/styles/pressed = SubResource("StyleBoxFlat_a34eg")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_via5u"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_top = 1
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pljue"]
-bg_color = Color(0.533333, 0.976471, 0.313726, 1)
-border_width_right = 5
-border_width_bottom = 1
-border_color = Color(0.478431, 0.878431, 0.27451, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7g6l"]
-bg_color = Color(0, 0.560784, 0, 1)
-border_width_right = 5
-border_width_bottom = 1
-border_color = Color(0, 0.501961, 0.00392157, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ac6pf"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_top = 1
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_vi5kq"]
-Button/styles/disabled = SubResource("StyleBoxFlat_via5u")
-Button/styles/hover = SubResource("StyleBoxFlat_pljue")
-Button/styles/normal = SubResource("StyleBoxFlat_o7g6l")
-Button/styles/pressed = SubResource("StyleBoxFlat_ac6pf")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oaklg"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_bottom = 1
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nx4yo"]
-bg_color = Color(0.533333, 0.976471, 0.313726, 1)
-border_width_top = 1
-border_width_right = 5
-border_color = Color(0.478431, 0.878431, 0.27451, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3yn0"]
-bg_color = Color(0, 0.560784, 0, 1)
-border_width_top = 1
-border_width_right = 5
-border_color = Color(0, 0.501961, 0.00392157, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek63v"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_bottom = 1
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_1w2xm"]
-Button/styles/disabled = SubResource("StyleBoxFlat_oaklg")
-Button/styles/hover = SubResource("StyleBoxFlat_nx4yo")
-Button/styles/normal = SubResource("StyleBoxFlat_x3yn0")
-Button/styles/pressed = SubResource("StyleBoxFlat_ek63v")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4bst2"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_bottom = 3
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tfui"]
-bg_color = Color(0.533333, 0.976471, 0.313726, 1)
-border_width_top = 3
-border_width_right = 5
-border_color = Color(0.478431, 0.878431, 0.27451, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1tbi"]
-bg_color = Color(0, 0.560784, 0, 1)
-border_width_top = 3
-border_width_right = 5
-border_color = Color(0, 0.501961, 0.00392157, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uy3go"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_bottom = 3
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_c2s76"]
-Button/styles/disabled = SubResource("StyleBoxFlat_4bst2")
-Button/styles/hover = SubResource("StyleBoxFlat_5tfui")
-Button/styles/normal = SubResource("StyleBoxFlat_y1tbi")
-Button/styles/pressed = SubResource("StyleBoxFlat_uy3go")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdb40"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_bottom = 5
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38apo"]
-bg_color = Color(0.533333, 0.976471, 0.313726, 1)
-border_width_top = 5
-border_width_right = 5
-border_color = Color(0.478431, 0.878431, 0.27451, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2s76"]
-bg_color = Color(0, 0.560784, 0, 1)
-border_width_top = 5
-border_width_right = 5
-border_color = Color(0, 0.501961, 0.00392157, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf3a2"]
-bg_color = Color(0, 0.568627, 0.576471, 1)
-border_width_left = 5
-border_width_bottom = 5
-border_color = Color(0.00784314, 0.509804, 0.513726, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_f4ese"]
-Button/styles/disabled = SubResource("StyleBoxFlat_gdb40")
-Button/styles/hover = SubResource("StyleBoxFlat_38apo")
-Button/styles/normal = SubResource("StyleBoxFlat_c2s76")
-Button/styles/pressed = SubResource("StyleBoxFlat_yf3a2")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kjvhd"]
+load_path = "res://.godot/imported/dp.png-f26465a0c76dc315e906e2976ba29541.ctex"
 
 [node name="Main" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -612,12 +55,12 @@ texture = ExtResource("2_wkp8b")
 metadata/_edit_lock_ = true
 
 [node name="CardInfo" parent="." instance=ExtResource("5_c2ibq")]
-position = Vector2(220, 376)
+position = Vector2(267.5, 376)
 
 [node name="Board" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_wkp8b")
+texture = ExtResource("5_sqvbp")
 metadata/_edit_lock_ = true
 
 [node name="Field" type="Node2D" parent="."]
@@ -649,11 +92,6 @@ scale = Vector2(0.7, 0.7)
 [node name="ExtraDeck" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
 position = Vector2(-362, -321)
 rotation = 3.14159
-scale = Vector2(0.7, 0.7)
-
-[node name="Banished" parent="Field/Opponent" instance=ExtResource("6_20pc6")]
-position = Vector2(343, -68)
-rotation = 1.5708
 scale = Vector2(0.7, 0.7)
 
 [node name="MainZone" type="Node2D" parent="Field/Opponent"]
@@ -701,46 +139,6 @@ script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot5")
 DuelSide = 2
 
-[node name="CardSlot6" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(248, -212)
-rotation = 1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot1")
-DuelSide = 2
-
-[node name="CardSlot7" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(124, -212)
-rotation = 1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot2")
-DuelSide = 2
-
-[node name="CardSlot8" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(0, -212)
-rotation = 1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot3")
-DuelSide = 2
-
-[node name="CardSlot9" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-124, -212)
-rotation = 1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot4")
-DuelSide = 2
-
-[node name="CardSlot10" parent="Field/Opponent/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-248, -212)
-rotation = 1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot5")
-DuelSide = 2
-
 [node name="PowerSlot1" parent="Field/Opponent/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(248, -140)
@@ -771,38 +169,38 @@ position = Vector2(-248, -140)
 rotation = 3.14159
 DuelSide = 2
 
-[node name="STPZone" type="Node2D" parent="Field/Opponent"]
+[node name="SpellZone" type="Node2D" parent="Field/Opponent"]
 metadata/_edit_lock_ = true
 
-[node name="CardSlot1" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot1" parent="Field/Opponent/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(248, -338)
 rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
 
-[node name="CardSlot2" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot2" parent="Field/Opponent/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(124, -338)
 rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
 
-[node name="CardSlot3" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot3" parent="Field/Opponent/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(0, -338)
 rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
 
-[node name="CardSlot4" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot4" parent="Field/Opponent/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124, -338)
 rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 2
 
-[node name="CardSlot5" parent="Field/Opponent/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot5" parent="Field/Opponent/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248, -338)
 rotation = 3.14159
 scale = Vector2(0.7, 0.7)
@@ -920,38 +318,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="Banished" parent="Field/Player" instance=ExtResource("6_20pc6")]
-position = Vector2(-343, 68.0001)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-
-[node name="Count" type="RichTextLabel" parent="Field/Player/Banished"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -43.5
-offset_right = 30.0
-offset_bottom = 43.5
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(30, 43.5)
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.0666667, 0.372549, 0.52549, 1)
-theme_override_colors/font_shadow_color = Color(0.364706, 0.74902, 0.929412, 1)
-theme_override_constants/outline_size = 3
-theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/normal_font = ExtResource("14_sqvbp")
-theme_override_font_sizes/normal_font_size = 30
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
 [node name="MainZone" type="Node2D" parent="Field/Player"]
 script = ExtResource("14_sc1dx")
 DuelSide = 1
@@ -992,46 +358,6 @@ script = ExtResource("15_sc1dx")
 PowerSlot = NodePath("../PowerSlot5")
 DuelSide = 1
 
-[node name="CardSlot6" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-248, 212)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot1")
-DuelSide = 1
-
-[node name="CardSlot7" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(-124, 212)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot2")
-DuelSide = 1
-
-[node name="CardSlot8" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(0, 212)
-rotation = -1.57079
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot3")
-DuelSide = 1
-
-[node name="CardSlot9" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(124, 212)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot4")
-DuelSide = 1
-
-[node name="CardSlot10" parent="Field/Player/MainZone" node_paths=PackedStringArray("PowerSlot") instance=ExtResource("6_20pc6")]
-position = Vector2(248, 212)
-rotation = -1.5708
-scale = Vector2(0.7, 0.7)
-script = ExtResource("15_sc1dx")
-PowerSlot = NodePath("../PowerSlot5")
-DuelSide = 1
-
 [node name="PowerSlot1" parent="Field/Player/MainZone" instance=ExtResource("7_trn2v")]
 visible = false
 position = Vector2(-248, 140)
@@ -1057,34 +383,34 @@ visible = false
 position = Vector2(248, 140)
 DuelSide = 1
 
-[node name="STPZone" type="Node2D" parent="Field/Player"]
+[node name="SpellZone" type="Node2D" parent="Field/Player"]
 metadata/_edit_lock_ = true
 
-[node name="CardSlot1" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot1" parent="Field/Player/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-248, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 
-[node name="CardSlot2" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot2" parent="Field/Player/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(-124, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 
-[node name="CardSlot3" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot3" parent="Field/Player/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(0, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 
-[node name="CardSlot4" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot4" parent="Field/Player/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(124, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
 DuelSide = 1
 
-[node name="CardSlot5" parent="Field/Player/STPZone" instance=ExtResource("6_20pc6")]
+[node name="CardSlot5" parent="Field/Player/SpellZone" instance=ExtResource("6_20pc6")]
 position = Vector2(248, 338)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("5_fos0i")
@@ -1109,7 +435,7 @@ position = Vector2(1653, 854)
 visible = false
 position = Vector2(960, 540)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("19_5tuhn")
+texture = SubResource("CompressedTexture2D_kjvhd")
 script = ExtResource("20_2gh4u")
 metadata/_edit_lock_ = true
 
@@ -1127,221 +453,4 @@ OpponentGraveyard = NodePath("../Field/Opponent/Graveyard")
 PlayerProfile = NodePath("../Profile/Player")
 OpponentProfile = NodePath("../Profile/Opponent")
 CardScene = ExtResource("6_3dxm6")
-metadata/_edit_lock_ = true
-
-[node name="Button" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_lock_ = true
-
-[node name="Opponent" type="Control" parent="Button"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_lock_ = true
-
-[node name="DPButton" type="Button" parent="Button/Opponent"]
-visible = false
-layout_mode = 0
-offset_left = 440.0
-offset_top = 155.0
-offset_right = 495.0
-offset_bottom = 251.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha rút bài"
-theme = SubResource("Theme_2gh4u")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "D
-P"
-script = ExtResource("5_mxvw5")
-metadata/_edit_lock_ = true
-
-[node name="SPButton" type="Button" parent="Button/Opponent"]
-visible = false
-layout_mode = 0
-offset_left = 440.0
-offset_top = 291.0
-offset_right = 495.0
-offset_bottom = 387.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha chuẩn bị"
-theme = SubResource("Theme_mxvw5")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "S
-P"
-script = ExtResource("5_mxvw5")
-metadata/_edit_lock_ = true
-
-[node name="M1Button" type="Button" parent="Button/Opponent"]
-visible = false
-layout_mode = 0
-offset_left = 440.0
-offset_top = 427.0
-offset_right = 495.0
-offset_bottom = 523.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha chính"
-theme = SubResource("Theme_5mvff")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "M
-I"
-script = ExtResource("5_mxvw5")
-metadata/_edit_lock_ = true
-
-[node name="BPButton" type="Button" parent="Button/Opponent"]
-visible = false
-layout_mode = 0
-offset_left = 440.0
-offset_top = 563.0
-offset_right = 495.0
-offset_bottom = 659.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha giao tranh"
-theme = SubResource("Theme_o7g6l")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "B
-P"
-script = ExtResource("5_mxvw5")
-metadata/_edit_lock_ = true
-
-[node name="M2Button" type="Button" parent="Button/Opponent"]
-visible = false
-layout_mode = 0
-offset_left = 440.0
-offset_top = 699.0
-offset_right = 495.0
-offset_bottom = 795.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha phụ"
-theme = SubResource("Theme_x3yn0")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "M
-II"
-script = ExtResource("5_mxvw5")
-metadata/_edit_lock_ = true
-
-[node name="EPButton" type="Button" parent="Button/Opponent"]
-visible = false
-layout_mode = 0
-offset_left = 440.0
-offset_top = 835.0
-offset_right = 495.0
-offset_bottom = 931.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha kết thúc"
-theme = SubResource("Theme_y1tbi")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "E
-P"
-script = ExtResource("5_mxvw5")
-metadata/_edit_lock_ = true
-
-[node name="Player" type="Control" parent="Button"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_lock_ = true
-
-[node name="DPButton" type="Button" parent="Button/Player"]
-layout_mode = 0
-offset_left = 440.0
-offset_top = 155.0
-offset_right = 495.0
-offset_bottom = 251.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha rút bài"
-theme = SubResource("Theme_xrxkg")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "D
-P"
-script = ExtResource("5_hhcpw")
-metadata/_edit_lock_ = true
-
-[node name="SPButton" type="Button" parent="Button/Player"]
-layout_mode = 0
-offset_left = 440.0
-offset_top = 291.0
-offset_right = 495.0
-offset_bottom = 387.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha chuẩn bị"
-theme = SubResource("Theme_oye8v")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "S
-P"
-script = ExtResource("6_mxvw5")
-metadata/_edit_lock_ = true
-
-[node name="M1Button" type="Button" parent="Button/Player"]
-layout_mode = 0
-offset_left = 440.0
-offset_top = 427.0
-offset_right = 495.0
-offset_bottom = 523.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha chính"
-theme = SubResource("Theme_vi5kq")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "M
-I"
-script = ExtResource("7_xrxkg")
-metadata/_edit_lock_ = true
-
-[node name="BPButton" type="Button" parent="Button/Player"]
-layout_mode = 0
-offset_left = 440.0
-offset_top = 563.0
-offset_right = 495.0
-offset_bottom = 659.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha giao tranh"
-theme = SubResource("Theme_1w2xm")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "B
-P"
-script = ExtResource("25_sqvbp")
-metadata/_edit_lock_ = true
-
-[node name="M2Button" type="Button" parent="Button/Player"]
-layout_mode = 0
-offset_left = 440.0
-offset_top = 699.0
-offset_right = 495.0
-offset_bottom = 795.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha phụ"
-theme = SubResource("Theme_c2s76")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "M
-II"
-script = ExtResource("9_sqvbp")
-metadata/_edit_lock_ = true
-
-[node name="EPButton" type="Button" parent="Button/Player"]
-layout_mode = 0
-offset_left = 440.0
-offset_top = 835.0
-offset_right = 495.0
-offset_bottom = 931.0
-pivot_offset = Vector2(27.5, 48)
-tooltip_text = "Pha kết thúc"
-theme = SubResource("Theme_f4ese")
-theme_override_fonts/font = ExtResource("12_5vvyt")
-theme_override_font_sizes/font_size = 40
-text = "E
-P"
-script = ExtResource("27_hri7i")
 metadata/_edit_lock_ = true
